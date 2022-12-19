@@ -1,10 +1,52 @@
 // 'use strict';
 
+// for (let i = 0; i < 10; i += 1) {
+//   if (i === 3) {
+//     continue; //пририває поточеу ітерацію
+//   } else if (i === 5) {
+//     // break; //припиняє виконання циклу взагалі.
+//   }
+
+//   console.log(i);
+// }
+
+// for (let i = 0; i < 10; i += 1) {
+//   if (i !== 3 && i !== 5) {
+//     console.log(i);
+//   }
+// }
+
+// for (let i = 0; i < 10; i += 1) {
+//   if (i === 5) {
+//     break; //припиняє виконання циклу взагалі.
+//   }
+
+//   if (i !== 3) {
+//     console.log(i);
+//   }
+// }
+
+//=========================================
+
+// const max = 50;
+// const min = 10;
+
+// console.group(Math.round(Math.random() * (max - min) + min));
+// console.log("random: ", Math.random());
+// console.log("random + (max - min): ", Math.random() * (max - min) + min);
+// console.groupEnd();
+
 /*
  * Массиви: літерал масива, елементы, індексація, довжина
  * Посилання на статтю, як працює памєять в V8:  https://deepu.tech/memory-management-in-v8/
  * Arra.prototype: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
  */
+
+// масиви
+// const array = [1, "some", true, null, undefined];
+// console.log(array[0]);
+// console.log(array[3]);
+// console.log(array[array.length - 1]);
 
 /*
  * TASK 1
@@ -16,16 +58,31 @@
  * Додайте «Country» та «Reggy» на початок масива.
  */
 
-// const genres = ['Jazz', 'Blues'];
+// const genres = ["Jazz", "Blues"];
+// genres.push("Rock&roll");
 
-// // const genres2 = genres; // copy link to genres
-// // const genres2 = [...genres]; // copy array from genres
+// console.log(genres[0]);
+// console.log(genres[1]);
 
-// genres.push('Rock&Roll');
-// const elem = genres.shift();
-// console.log(elem);
-// genres.unshift('Country', 'Reggy');
+// const index = Math.trunc(genres.length / 2);
+
+// console.log(genres[genres.length - 1]);
+// console.log(genres[genres.length - 2]);
+
+// console.log(genres.length / 2);
+// console.log(genres[Math.trunc(genres.length / 2)]);
+
+// console.log(genres[index]);
+
+// const currentElement = genres.shift();
+// console.log(currentElement);
 // console.log(genres);
+
+// genres.unshift("Country", "Reggy");
+// console.log(genres);
+
+// console.log([].concat([1, 2, 3], [2, 3, 4], [1, 23, 4]));
+// console.log(["Country", "Reggy", ...genres]);
 
 /*
  * Передача по посиланню та по значенню
@@ -40,15 +97,15 @@
  */
 
 // let a = 10;
-// const b = a;
+// let b = a;
 
-// // console.log('a: ', a); // 10
-// // console.log('b: ', b); // 10
+// // console.log("a: ", a); // 10
+// // console.log("b: ", b); // 10
 
 // a = 20;
 
-// console.log('a: ', a); // 20
-// console.log('b: ', b); // 10
+// console.log("a: ", a); // 20
+// console.log("b: ", b); // 10
 
 // ПРОСТІ ТИПИ ПЕРЕДАЮТЬ ЗНАЧЕННЯ.
 
@@ -60,16 +117,21 @@
  * Добавте елемент в масив arr1 та ще раз виведіть обидва масива в консоль
  */
 
-// const arr1 = посілання: [1, 2, 3];
-// const arr2 = arr1 посілання;
+// const arr1 = [1, 2, 3];
+// const arr2 = arr1;
 
-// console.log('arr1: ', arr1); // [1, 2, 3]
-// console.log('arr2: ', arr2); // [1, 2, 3]
+// // console.log("arr1: ", arr1); // [1, 2, 3]
+// // console.log("arr2: ", arr2); // [1, 2, 3]
 
 // arr1.push(10);
 
-// console.log('arr1: ', arr1); // [1, 2, 3, 10]
-// console.log('arr2: ', arr2); // [1, 2, 3, 10]
+// // console.log("arr1: ", arr1); // [1, 2, 3, 10]
+// // console.log("arr2: ", arr2); // [1, 2, 3, 10]
+
+// arr2.push(11);
+
+// console.log("arr1: ", arr1); // [1, 2, 3, 10]
+// console.log("arr2: ", arr2); // [1, 2, 3, 10]
 
 /*
  * Перебір масива циклами for та for...of
@@ -79,17 +141,31 @@
  * TASK 3
  * Напишіть скрипт для перебору масива fruits циклом for.
  * Для кажного елемента массива виведи в консоль строку в форматі номер_елемента: значення_елемента.
- * Нумерация элементов должна начинаться с 1.
+ * Нумерация элементов повинна начинаться с 1.
  */
 
-// const fruits = ['🍎', '🍇', '🍑', '🍌', '🍋'];
+// const fruits = ["🍎", "🍇", "🍑", "🍌", "🍋"];
+
+// for (let i = 0; i < fruits.length; i += 1) {
+//   console.log("index: ", i, "element: ", fruits[i]);
+// }
 
 // for (let index = 0; index < fruits.length; index += 1) {
 //   console.log(`${index + 1}: ${fruits[index]}`);
 // }
 
-// for (const fruit of fruits) {
-//   console.log(fruit);
+// for (const currentElement of fruits) {
+//   console.log(currentElement);
+// }
+// const array = [1, 2, 3, 4, 5];
+
+// for (const currentElement of array) {
+//   if (currentElement === 3) {
+//     break;
+//   }
+//   if (currentElement !== 2) {
+//     console.log(currentElement);
+//   }
 // }
 
 /*
@@ -101,10 +177,17 @@
  *  Використовувати методи keys та entries
  */
 
-// const fruits = ['🍎', '🍇', '🍑', '🍌', '🍋'];
+const fruits = ["🍎", "🍇", "🍑", "🍌", "🍋"];
+
+// console.log(fruits.keys());
+// console.log(fruits.entries());
 
 // for (const index of fruits.keys()) {
 //   console.log(index);
+// }
+
+// for (const some of fruits.entries()) {
+//   console.log(some);
 // }
 
 // for (const [index, value] of fruits.entries()) {
@@ -123,6 +206,15 @@
  */
 
 // const numbers = [2, 17, 94, 1, -20, -1, 23, 37];
+
+// let min = numbers[0];
+// for (const item of numbers) {
+//   if (item < min) {
+//     min = item;
+//   }
+// }
+// console.log(min);
+
 // let min = numbers[0];
 
 // 1 Варіант рішення
@@ -153,7 +245,14 @@
  */
 
 // const salaries = [200, 450, 600, 150, 300];
+
 // let total = 0;
+
+// for (let i = 0; i < salaries.length; i += 1) {
+//   total = total + salaries[i];
+// }
+
+// console.log(total);
 
 // 1 Варіант рішення
 // for (let i = 0; i < salaries.length; i += 1) {
@@ -164,6 +263,10 @@
 // 2 Варіант рішення
 // for (const salary of salaries) {
 //   total += salary;
+// }
+
+// for (const val of []) {
+//   console.log("tick");
 // }
 
 // console.log(total);
@@ -178,15 +281,15 @@
 // const developersSalaries = [800, 1500, 4000];
 // let total = 0;
 
-// 1 Варіант рішення
+// // 1 Варіант рішення
 // for (const managerSalary of managerSalaries) {
 //   total += managerSalary;
-//   console.log('managerSalaries: ', total);
+//   console.log("managerSalaries: ", total);
 // }
 
 // for (const developerSalary of developersSalaries) {
 //   total += developerSalary;
-//   console.log('developersSalaries: ', total);
+//   console.log("developersSalaries: ", total);
 // }
 
 // console.log(total);
@@ -202,6 +305,7 @@
 //   salaries.push(developerSalary);
 // }
 
+// // console.log(salaries);
 // for (const salary of salaries) {
 //   total += salary;
 // }
@@ -209,8 +313,8 @@
 // console.log(total);
 
 // 3 Варіант рішення
-// const allSalaries = [].concat(managerSalaries, developersSalaries);
-// const allSalaries = managerSalaries.concat(developersSalaries);
+// const allSalaries = [].concat(managerSalaries, developersSalaries); // OK
+// const allSalaries = managerSalaries.concat(developersSalaries); // not OK
 // const allSalaries = [...managerSalaries, ...developersSalaries];
 
 // for (const salary of allSalaries) {
@@ -233,12 +337,16 @@
 //   [1040, 1200, 1100, 900, 800],
 // ];
 
+// // console.log(salaries[3][3]);
 // let total = 0;
 
 // for (const department of salaries) {
+//   console.group(department);
 //   for (const salary of department) {
+//     console.log(salary);
 //     total += salary;
 //   }
+//   console.groupEnd();
 // }
 
 // console.log(total);
@@ -266,16 +374,28 @@
  * We found 180 categories and 124302 products by your request.
  */
 
-// const string = 'We found 1243 products in 18 categories by your request.';
-// const string = 'We found 180 categories and 124302 products by your request.';
-// const array = string.split(' ');
+// const string = "We found 1243 products in 18 categories by your request.";
+// const string = "We found 180 categories and 124302 products by your request.";
+
+// const array = string.split(" ");
+// let productsCount;
+// for (const val of array) {
+//   if (Number(val)) {
+//     productsCount = val;
+//     break;
+//   }
+// }
+
+// console.log("Product: ", productsCount);
+
+// const array = string.split(" ");
 // // console.log(array);
 // for (let i = 0; i < array.length; i += 1) {
 //   let current = Number(array[i]);
 //   //   console.log(current);
 //   if (current) {
 //     // console.log(true);
-//     if (array[i + 1] === 'products') {
+//     if (array[i + 1] === "products") {
 //       console.log(current);
 //     }
 //   }
