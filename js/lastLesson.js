@@ -50,8 +50,8 @@
  * В нас є масив співробітників, відсортируйте його так, щоб співробітники не повторювались
  */
 
-// const employees = ['Dennis', 'Shaw', 'Watkins', 'Ray', 'Shaw', 'Watkins'];
-// const filteredEmployees = [];
+const employees = ["Dennis", "Shaw", "Watkins", "Ray", "Shaw", "Watkins"];
+const filteredEmployees = []; // ["Dennis", "Shaw", "Watkins", "Ray"]
 
 // 0 === 0
 // 1 === 1
@@ -60,34 +60,37 @@
 // 1 === 4
 // 3 === 5
 
-// for (let i = 0; i < employees.length; i += 1) {
-//   //   console.log('index current elem: ', employees.indexOf(employees[i]));
-//   //   console.log('current index:', i);
-//   if (employees.indexOf(employees[i]) === i) {
-//     filteredEmployees.push(employees[i]);
-//   }
-// }
+for (let i = 0; i < employees.length; i += 1) {
+  //   console.log("index current elem: ", employees.indexOf(employees[i]));
+  //   console.log("current index:", i);
+  //   console.log("i: ", i, "value: ", employees.indexOf(employees[i]));
+  if (employees.indexOf(employees[i]) === i) {
+    filteredEmployees.push(employees[i]);
+  }
+}
 
 // console.log(filteredEmployees);
 
 // // //* Array.prototype.splice: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
 // // //* Cпівробітник Shaw звільнився, видалити його з масива
-// const indexOfRemovedElement = filteredEmployees.indexOf('Shaw');
+// const indexOfRemovedElement = filteredEmployees.indexOf("Shaw");
 // filteredEmployees.splice(indexOfRemovedElement, 1);
 
 // console.log(filteredEmployees);
 
-// // //? Додайте нового Cпівробітника Jhonson, перед Watkins;
-// const indexOfWatkins = filteredEmployees.indexOf('Watkins');
-// filteredEmployees.splice(indexOfWatkins, 1, 'Thornton');//замінить
-// filteredEmployees.splice(indexOfWatkins, 0, 'Thornton');//добаве
+// // // //? Додайте нового Cпівробітника Jhonson, перед Watkins;
+// const indexOfWatkins = filteredEmployees.indexOf("Watkins");
+// // filteredEmployees.splice(indexOfWatkins, 1, 'Thornton');//замінить
+// filteredEmployees.splice(indexOfWatkins, 0, "Jhonson"); //добаве
 
 // console.log(filteredEmployees);
 
+// const string = "some body was told me";
+// console.log(string.replaceAll(" ", "-"));
 // аналогія replace
-// const title = 'Title 1'.split(' ').join('-'); // Title-1
+// const title = "Title 1".split(" ").join("-"); // Title-1
 // console.log(title);
 
-// аналогія concat
+//аналогія concat
 // console.log([2, 4, 6].concat([1, 3], [5], [1, 2, 3, 4]));
 // console.log([...[2, 4, 6], ...[1, 3], ...[5], ...[1, 2, 3, 4]]);

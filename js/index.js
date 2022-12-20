@@ -1,16 +1,19 @@
+// "use strict";
+
 /**
  * Example 1
  * Функціональний фираз та оголошення функції
  */
+// some();
 
 //function declaration
-// function Some() {
-
+// function some() {
+//   console.log("here");
 // }
 
 //function expression
 // const some = function () {
-
+//   console.log("here");
 // };
 
 // some();
@@ -20,50 +23,59 @@
  * Аргументи та параметри, дефолтні значення параметрів
  */
 
-// const users = ['Jhon', 'Bob', 'James'];
+// const users = ["Jhon", "Bob", "James"];
 
-// const getUserName = function (index = 0) {
+// const getUserName = function (index = 0, value = 10, some = "some") {
+//   console.log("getUserName", "index: ", index);
+//   //   console.log("getUserName", "value: ", value);
+//   //   console.log("getUserName", "some: ", some);
+//   //function (index) параметри
+
 //   console.log(users[index]); // виконує дію, повртає undefined
 // };
 
+// // getUserName(23, 1, "word"); // аргументи
+// // getUserName();
 // getUserName(1);
+// console.log(users[1]);
 
 /**
  * Example 3
  * Повернення значення (return)
  */
 
-// const users = ['Jhon', 'Bob', 'James'];
+// const users = ["Jhon", "Bob", "James"];
+
 // const getUserName = function (index) {
+//   // return undefined
 //   return users[index];
 // };
 
 // const name = getUserName(1);
+// console.log(name);
 // console.log(getUserName(1));
+
 /**
  * Example 4
  * Порядок виконування коду та стек викликів функцій
  */
 
 // function fn1() {
-//   console.log('fn1 work');
-//   console.log('next work fn2');
+//   console.log("fn1 work");
+//   console.log("next work fn2");
 //   fn2();
-//   console.log('finish fn1');
+//   console.log("finish fn1");
 // }
 // function fn2() {
-//   console.log('fn2 work');
-//   console.log('next work fn3');
+//   console.log("fn2 work");
+//   console.log("next work fn3");
 //   fn3();
-//   console.log('finish fn1');
+//   console.log("finish fn2");
 // }
 // function fn3() {
-//   console.log('fn3 work');
-
-//   console.log('next work code');
-//   const some = 10;
-//   //   some = 20;
-//   console.log('finish fn3');
+//   console.log("fn3 work");
+//   console.log("next work NULL");
+//   console.log("finish fn3");
 // }
 
 // fn1();
@@ -73,45 +85,53 @@
  * Область бачення функції
  */
 
-// const users = ['Jhon', 'Bob', 'James'];
+// const users = ["Jhon", "Bob", "James"];
 
 // const getUserName = function (index) {
-//   //   const users = ['Vova', 'Vasil', 'Egor'];
+//   const users = ["Vova", "Vaesil", "Egor"];
 
 //   const some = function (i) {
-//     // const users = ['Jhon', 'Bob', 'James'];
+//     const users = ["Jhon", "Bob", "James"];
 
-//     return users[index];
+//     return users[i];
 //   };
-
-//   return some(index);
+//   const name = some(index);
+//   return name;
 // };
 
-// console.log(getUserName(2));
+// // const fn = function () {
 
+// //   console.log(customers);
+// // };
+
+// console.log(getUserName(2));
+// fn();
 /**
  * Example 6
  * Псевдомасив arguments
  */
 // console.log(Array());
-// function summ(index, name, status) {
-//   // arguments спеціальне зарезервоване слово яке дає можловіть
-//   // отримувати список всіх аргументів у вигляді масиву
-//   // доступне тільки в середині функції. Для arguments не існують методи масивів.
-//   // return arguments.map(item => item); // не працює
-//   // перетворити масив можна Array.from(arguments)
-//   console.log(arguments);
+// const array = [1, 2, 5, 6, 7];
+// console.log("ARRAY: ", array);
 
-//   let total = 0;
-//   for (const argument of arguments) {
-//     total += argument;
-//   }
+function summ() {
+  // arguments спеціальне зарезервоване слово яке дає можловіть
+  // отримувати список всіх аргументів у вигляді масиву
+  // доступне тільки в середині функції. Для arguments не існують методи масивів.
+  // return arguments.map(item => item); // не працює
+  // перетворити масив можна Array.from(arguments)
+  // console.log("ARGS: ", Array.from(arguments));
 
-//   return total;
-// }
-// summ(1, 'Vova', true);
+  let total = 0;
+  for (const argument of arguments) {
+    total += argument;
+  }
 
-// console.log(Summ(1, 2, 3, 4, 5));
+  return total;
+}
+// summ(1, "Vova", true);
+
+console.log(summ(1, 2, 3, 4, 5));
 
 // function summ(name, ...args) {
 //   // Актуальний синтаксис використання аргументів.
@@ -150,24 +170,26 @@
  */
 
 // const someInformation = {
-//   cat: 'Catty',
-//   dog: 'Doggy',
+//   cat: "Catty",
+//   dog: "Doggy",
 // };
 
 // function getInformation(currentKey, info) {
 //   if (!currentKey) {
-//     throw new Error('Key was not hand over');
+//     throw new Error("Key was not hand over");
 //   }
 
 //   if (!info[currentKey]) {
-//     throw new Error('Can not fount current key in info');
+//     throw new Error("Can not fount current key in info");
 //   }
 
 //   return info[currentKey];
 // }
-// // console.log(getInformation());
-// // console.log(getInformation('slon', someInformation));
-// console.log(getInformation('cat', someInformation));
+
+// console.log(someInformation["cat"]);
+// console.log(getInformation());
+// console.log(getInformation("slon", someInformation));
+// console.log(getInformation("cat", someInformation));
 
 // Additional example
 // function concat(...args) {
