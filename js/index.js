@@ -2,215 +2,306 @@
 
 /**
  * Example 1
- * Функціональний фираз та оголошення функції
+ * Літерал об'екта, Синтаксис, Звернення до властивостей (через . через ['key']),
+ * Перезапис значення. Додавання нових властивостей. Видалення об'ектів, видалення властивостей.
+ * Копіювання Object.assign({}, object), {...object}.
  */
-// some();
 
-//function declaration
-// function some() {
-//   console.log("here");
-// }
+// const user = {
+//   name: "John",
+//   age: 25,
+//   married: true,
+//   contacts: {
+//     phone: "88005040044",
+//     email: "example@domin.com",
+//     a: {
+//       b: "some",
+//       c: "asdasda",
+//     },
+//   },
+//   payHistory: [1000, 2222, 3333, 333],
 
-//function expression
-// const some = function () {
-//   console.log("here");
+//   // sayHello: function () {
+//   //   console.log("Hello");
+//   // },
+//   sayHello() {
+//     console.log("Hello");
+//   },
 // };
+// user.sayHello();
+// console.log(user["contacts"]["a"]["b"], user["contacts"]["a"]["c"]);
 
-// some();
+//user["contacts"]; на це місце повернеться {
+//   phone: "88005040044",
+//   email: "example@domin.com",
+//   a: {
+//     b: "some",
+//   },
+// },
+
+//obj["a"]  === на це місце повернеться   //   a: {
+//     b: "some",
+//   }
+
+//obj["b"] === some
+
+// console.log(user["contacts"]["a"]["b"]);'
+
+// Перезапис властивостей
+
+// user.name = "Eric";
+// user["name"] = "James";
+// user.contacts = "jjj"; // не треба так робити.
+
+// user.payHistory.push(666, 7777); // [1000, 2222, 3333, 333, 666, 7777]
+// console.log(user);
+
+// user.friend = ["Mikel"];
+// user["friend"] = ["Mikel", "John", "Bob"];
+
+// // delete user.friend;
+// user.mainFriend = user.friend[0];
+
+// console.log(user);
+
+// const newUser = Object.assign({}, user);
+// const newUser = { ...user };
+
+// user.name = "111";
+// newUser.name = "222";
+
+// user.payHistory.push(10);
+// newUser.payHistory.push(20);
+
+// user.contacts.index = 99999;
+
+// console.log(user);
+// console.log(newUser);
+
+//  ====== DEEP COPY ======
+// const newUser = JSON.parse(JSON.stringify(user));
+
+// user.name = "111";
+// newUser.name = "222";
+
+// user.payHistory.push(10);
+// newUser.payHistory.push(20);
+
+// user.contacts.index = 99999;
+// // newUser.sayHello();
+// console.log(user);
+// console.log(newUser);
 
 /**
  * Example 2
- * Аргументи та параметри, дефолтні значення параметрів
+ * Властивості та методи об'екта.
  */
 
-// const users = ["Jhon", "Bob", "James"];
-
-// const getUserName = function (index = 0, value = 10, some = "some") {
-//   console.log("getUserName", "index: ", index);
-//   //   console.log("getUserName", "value: ", value);
-//   //   console.log("getUserName", "some: ", some);
-//   //function (index) параметри
-
-//   console.log(users[index]); // виконує дію, повртає undefined
-// };
-
-// // getUserName(23, 1, "word"); // аргументи
-// // getUserName();
-// getUserName(1);
-// console.log(users[1]);
+// {
+//   key: "значення" // властивість
+//   someFn() {
+//     //метод
+//   }
+// }
 
 /**
  * Example 3
- * Повернення значення (return)
+ * this в методах об'екта при звертанні до властивостей.
  */
 
-// const users = ["Jhon", "Bob", "James"];
+//close - це одне й те саме
+//window. - це одне й те саме
+//this. - це одне й те саме
 
-// const getUserName = function (index) {
-//   // return undefined
-//   return users[index];
+// function some() {
+//   console.log(this);
+// }
+
+// some();
+
+// const obj = {
+//   name: "Bob",
+//   age: 25,
+//   contacts: {
+//     email: "example@gmail.com",
+//   },
+//   getThis: function () {
+//     console.log(this);
+//   },
+//   getName() {
+//     // console.log(this.name);
+//     // console.log(this.contacts.email);
+//     this.getThis();
+//   },
+//   setAge: function (value) {
+//     this.age = value;
+//   },
 // };
 
-// const name = getUserName(1);
-// console.log(name);
-// console.log(getUserName(1));
+// obj.getName();
+
+// const func = obj.getThis;
+// func();
+
+// // console.log(this);
+// obj.getThis();
+// obj.age = 26;
+// obj.setAge(27);
+// obj.getName();
 
 /**
  * Example 4
- * Порядок виконування коду та стек викликів функцій
+ * Перебір об'ектов: for...in та методи Object.keys|values|entries|hasOwnProperty
  */
 
-// function fn1() {
-//   console.log("fn1 work");
-//   console.log("next work fn2");
-//   fn2();
-//   console.log("finish fn1");
-// }
-// function fn2() {
-//   console.log("fn2 work");
-//   console.log("next work fn3");
-//   fn3();
-//   console.log("finish fn2");
-// }
-// function fn3() {
-//   console.log("fn3 work");
-//   console.log("next work NULL");
-//   console.log("finish fn3");
+const obj = {
+  name: "Bob",
+  age: 25,
+  games: ["footbal", "tenis"],
+  isWork: true,
+  sayHello: function () {
+    console.log("Hello");
+  },
+  contacts: {
+    email: "example@domain.com",
+    phone: "8800-000-00-99",
+  },
+};
+
+// for (const key in obj) {
+//   //obj["name"]
+//   //obj["age"]
+//   console.log(obj[key]);
 // }
 
-// fn1();
+console.log(Object.keys(obj));
+console.log(Object.values(obj));
+console.log(Object.entries(obj));
 
+// console.log(obj.hasOwnProperty('cat'));
+
+// console.log(obj);
 /**
  * Example 5
- * Область бачення функції
+ * Методи: freeze, defineProperty
  */
 
-// const users = ["Jhon", "Bob", "James"];
-
-// const getUserName = function (index) {
-//   const users = ["Vova", "Vaesil", "Egor"];
-
-//   const some = function (i) {
-//     const users = ["Jhon", "Bob", "James"];
-
-//     return users[i];
-//   };
-//   const name = some(index);
-//   return name;
+// const obj = {
+//   name: 'Bob',
+//   age: 25,
+//   games: ['footbal', 'tenis'],
+//   isWork: true,
+//   sayHello: function () {
+//     console.log('Hello');
+//   },
+//   contacts: {
+//     email: 'example@domain.com',
+//     phone: '8800-000-00-99',
+//   },
 // };
 
-// // const fn = function () {
+// Object.freeze(obj);
 
-// //   console.log(customers);
-// // };
+// obj.name = 'James';
+// console.log(obj);
 
-// console.log(getUserName(2));
-// fn();
+// Object.defineProperty(obj, 'name', {
+//   enumerable: false,
+//   configurable: false,
+//   writable: false,
+//   //   value: 'static',
+// });
+
+// Object.defineProperty(obj, 'name', {
+//   enumerable: true,
+//   configurable: true,
+//   writable: true,
+//   //   value: 'static',
+// });
+
+// console.log(obj);
+// obj.name = 20;
+
 /**
  * Example 6
- * Псевдомасив arguments
+ * Работа с масивом объектов
  */
-// console.log(Array());
-// const array = [1, 2, 5, 6, 7];
-// console.log("ARRAY: ", array);
+// const users = [
+//   {
+//     name: 'Bob',
+//     age: 25,
+//   },
+//   {
+//     name: 'Jhon',
+//     age: 20,
+//   },
+//   {
+//     name: 'James',
+//     age: 30,
+//   },
+// ];
 
-function summ() {
-  // arguments спеціальне зарезервоване слово яке дає можловіть
-  // отримувати список всіх аргументів у вигляді масиву
-  // доступне тільки в середині функції. Для arguments не існують методи масивів.
-  // return arguments.map(item => item); // не працює
-  // перетворити масив можна Array.from(arguments)
-  // console.log("ARGS: ", Array.from(arguments));
-
-  let total = 0;
-  for (const argument of arguments) {
-    total += argument;
-  }
-
-  return total;
-}
-// summ(1, "Vova", true);
-
-console.log(summ(1, 2, 3, 4, 5));
-
-// function summ(name, ...args) {
-//   // Актуальний синтаксис використання аргументів.
-//   console.log(name);
-//   console.log(args);
+// //forEach
+// //map
+// //filter
+// //sort
+// //reduce
+// users.push({
+//   name: 'Calvin',
+//   age: 50,
+// });
+// for (const item of users) {
+//   console.group(item.name);
+//   if (item.name === 'Calvin') {
+//     item.isWork = true;
+//   }
+//   for (const key in item) {
+//     console.log(key);
+//   }
+//   console.groupEnd();
 // }
 
-// summ('Vova', 1, 2, 3, 4, 5);
+// console.log(users);
 
 /**
  * Example 7
- * Отладка коду в браузері Chrome
+ * Всі сутності в js - це об'єкти.
  */
-// fn1();
+// const munber2 = 10;
+// const number = new Number(10);
+// console.log(typeof munber2);
+// console.log(typeof number);
+// const string = new String('Wellcome');
+// const array = new Array(10, 20, 30);
 
-// function fn1() {
-//   console.log('fn1 work');
+// number.property = 5;
+// string.someValue = 'lolo';
+// array.MEGAINDEX = 10;
 
-//   fn2();
-// }
-// function fn2() {
-//   console.log('fn2 work');
+// console.log(number);
+// console.log(string);
+// console.log(array);
 
-//   fn3();
-// }
-// function fn3() {
-//   console.log('fn3 work');
-
-//   const some = 10;
-//   some = 20;
-// }
+// console.log(number * number);
+// console.log(string.toLowerCase());
+// console.log(array.length);
 
 /**
  * Example 8
- * Паттерн «Раннє повернення»
+ * Власні властивості, та не власні властивості.
  */
 
-// const someInformation = {
-//   cat: "Catty",
-//   dog: "Doggy",
+// const obj = {
+//   cat: 'Catty',
+//   dog: 'Doggy',
 // };
 
-// function getInformation(currentKey, info) {
-//   if (!currentKey) {
-//     throw new Error("Key was not hand over");
-//   }
+// const obj2 = Object.create(obj);
+// obj2.slon = 'Slonny';
+// console.log(obj2);
 
-//   if (!info[currentKey]) {
-//     throw new Error("Can not fount current key in info");
-//   }
-
-//   return info[currentKey];
+// for (const key in obj2) {
+//   console.log(key);
+//   console.log(obj2.hasOwnProperty(key));
 // }
-
-// console.log(someInformation["cat"]);
-// console.log(getInformation());
-// console.log(getInformation("slon", someInformation));
-// console.log(getInformation("cat", someInformation));
-
-// Additional example
-// function concat(...args) {
-//   const newArr = args;
-//   //   console.log(newArr);
-
-//   const array = [];
-//   for (const arg of args) {
-//     if (Array.isArray(arg)) {
-//       for (const item of arg) {
-//         array.push(item);
-//       }
-//     } else {
-//       array.push(arg);
-//     }
-//   }
-
-//   return array;
-// }
-// console.log(concat([1, 2, 3], [4, 5], [6, 7])); // ➞ [1, 2, 3, 4, 5, 6, 7]
-// console.log(concat([1], [2], [3], [4], [5], [6], [7])); // ➞ [1, 2, 3, 4, 5, 6, 7]
-// // concat([1, 2], [3, 4]); // ➞ [1, 2, 3, 4]
-// // concat([4, 4, 4, 4, 4]); // ➞ [4, 4, 4, 4, 4]
-// console.log(concat(1, 2, 3, [2, 2]));
+// console.log(Object.keys(obj2));

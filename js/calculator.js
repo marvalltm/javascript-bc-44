@@ -15,7 +15,7 @@
  */
 const main = function () {
   const userInput = prompt(
-    'Введыть будь ласка операнди та дію між ними у форматі "2 + 4"'
+    'Введіть будь ласка операнди та дію між ними у форматі "2 + 4"'
   );
 
   const operands = parseString(userInput);
