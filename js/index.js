@@ -3,19 +3,19 @@
  * Перебір об'ектов: for...in та методи Object.keys|values|entries|hasOwnProperty
  */
 
-const obj = {
-  name: "Bob",
-  age: 25,
-  games: ["footbal", "tenis"],
-  isWork: true,
-  sayHello: function () {
-    console.log("Hello");
-  },
-  contacts: {
-    email: "example@domain.com",
-    phone: "8800-000-00-99",
-  },
-};
+// const obj = {
+//   name: "Bob",
+//   age: 25,
+//   games: ["footbal", "tenis"],
+//   isWork: true,
+//   sayHello: function () {
+//     console.log("Hello");
+//   },
+//   contacts: {
+//     email: "example@domain.com",
+//     phone: "8800-000-00-99",
+//   },
+// };
 
 // for (const key in obj) {
 //   //obj["name"]
@@ -23,11 +23,24 @@ const obj = {
 //   console.log(obj[key]);
 // }
 
-console.log(Object.keys(obj));
-console.log(Object.values(obj));
-console.log(Object.entries(obj));
+// for (const key of Object.keys(obj)) {
+//   console.log(key, ": ", obj[key]);
+// }
 
-// console.log(obj.hasOwnProperty('cat'));
+// for (const value of Object.values(obj)) {
+//   console.log(value);
+// }
+// for (const [index, value] of Object.entries(obj)) {
+//   console.log("index: ", index);
+//   console.log("value: ", value);
+// }
+
+// console.log(Object.keys(obj));
+// console.log(Object.values(obj));
+// console.log(Object.entries(obj));
+
+// console.log(obj);
+// console.log(obj.hasOwnProperty("games"));
 
 // console.log(obj);
 /**
@@ -36,16 +49,16 @@ console.log(Object.entries(obj));
  */
 
 // const obj = {
-//   name: 'Bob',
+//   name: "Bob",
 //   age: 25,
-//   games: ['footbal', 'tenis'],
+//   games: ["footbal", "tenis"],
 //   isWork: true,
 //   sayHello: function () {
-//     console.log('Hello');
+//     console.log("Hello");
 //   },
 //   contacts: {
-//     email: 'example@domain.com',
-//     phone: '8800-000-00-99',
+//     email: "example@domain.com",
+//     phone: "8800-000-00-99",
 //   },
 // };
 
@@ -77,39 +90,51 @@ console.log(Object.entries(obj));
  */
 // const users = [
 //   {
-//     name: 'Bob',
+//     name: "Bob",
 //     age: 25,
 //   },
 //   {
-//     name: 'Jhon',
+//     name: "Jhon",
 //     age: 20,
 //   },
 //   {
-//     name: 'James',
+//     name: "James",
 //     age: 30,
 //   },
 // ];
 
-// //forEach
-// //map
-// //filter
-// //sort
-// //reduce
+// // //forEach
+// // //map
+// // //filter
+// // //sort
+// // //reduce
 // users.push({
-//   name: 'Calvin',
+//   name: "Calvin",
 //   age: 50,
 // });
+
 // for (const item of users) {
 //   console.group(item.name);
-//   if (item.name === 'Calvin') {
+//   if (item.name === "Calvin") {
 //     item.isWork = true;
 //   }
+//   // console.log(item);
 //   for (const key in item) {
 //     console.log(key);
 //   }
 //   console.groupEnd();
 // }
 
+// console.log("This is the outer level");
+// console.group();
+// console.log("Level 2");
+// console.group();
+// console.log("Level 3");
+// console.warn("More of level 3");
+// console.groupEnd();
+// console.log("Back to level 2");
+// console.groupEnd();
+// console.log("Back to the outer level");
 // console.log(users);
 
 /**
@@ -118,9 +143,17 @@ console.log(Object.entries(obj));
  */
 // const munber2 = 10;
 // const number = new Number(10);
+
 // console.log(typeof munber2);
 // console.log(typeof number);
-// const string = new String('Wellcome');
+
+// console.log(number);
+
+// const string1 = "Wellcome";
+// const string = new String("Wellcome");
+
+// console.log(string1.replace("W", "M"));
+// console.log(string.replace("W", "M"));
 // const array = new Array(10, 20, 30);
 
 // number.property = 5;
@@ -141,12 +174,13 @@ console.log(Object.entries(obj));
  */
 
 // const obj = {
-//   cat: 'Catty',
-//   dog: 'Doggy',
+//   cat: "Catty",
+//   dog: "Doggy",
 // };
 
-// const obj2 = Object.create(obj);
-// obj2.slon = 'Slonny';
+// const obj2 = Object.create({});
+// obj2.slon = "Slonny";
+
 // console.log(obj2);
 
 // for (const key in obj2) {
@@ -164,43 +198,44 @@ console.log(Object.entries(obj));
  */
 
 // const user = {
-//   firstName: 'Jonathan',
-//   lastName: 'Barnett',
+//   firstName: "Jonathan",
+//   lastName: "Barnett",
 //   age: 30,
 // };
 
 // const user2 = { ...user };
 
-// console.log('user: ', user);
-// console.log('user2: ', user2);
+// console.log("user: ", user);
+// console.log("user2: ", user2);
 
-// user2.firstName = 'Birdie';
+// user2.firstName = "Birdie";
+// user.firstName = "asdasd";
 
-// console.log('user: ', user);
-// console.log('user2: ', user2);
+// console.log("user: ", user);
+// console.log("user2: ", user2);
 
 /*
  * Розпилення складних типів. Проблема поверхносного роспилення.
  */
 
 // const user = {
-//   firstName: 'Jonathan',
-//   lastName: 'Barnett',
+//   firstName: "Jonathan",
+//   lastName: "Barnett",
 //   age: 30,
 //   someArr: [1, 2, 3, 4],
 // };
 
-// // // const user2 = { ...user };
-// // const user2 = _.cloneDeep(user);
-// const user2 = JSON.parse(JSON.stringify(user));
+// // const user2 = { ...user };
+// const user2 = _.cloneDeep(user);
+// // const user2 = JSON.parse(JSON.stringify(user));
 
-// console.log('user: ', user);
-// console.log('user2: ', user2);
+// // console.log("user: ", user);
+// // console.log("user2: ", user2);
 
 // user2.someArr.push(10);
 
-// console.log('user: ', user);
-// console.log('user2: ', user2);
+// console.log("user: ", user);
+// console.log("user2: ", user2);
 
 /*
  * Example 2
@@ -216,11 +251,34 @@ console.log(Object.entries(obj));
  * Данний об'ект
  */
 
-// const user = {
-//   firstName: 'John',
-//   lastName: 'Reese',
-//   age: 30,
-// };
+// const firstName = "aldhjskdhgkjshdg";
+// умвно уявимо собі, що ця змінна занята десь вище по коду
+
+const user = {
+  firstName: "John",
+  lastName: "Reese",
+  age: 30,
+};
+// const { firstName: firstNameFromObject } = user;
+
+// const users = [
+//   {
+//     firstName: "John",
+//     lastName: "Reese",
+//     age: 30,
+//     isWorked: true,
+//   },
+//   {
+//     firstName: "John",
+//     lastName: "Reese",
+//     age: 30,
+//   },
+// ];
+
+// for (const item of users) {
+//   const { isWorked = false } = item;
+//   console.log(isWorked);
+// }
 
 /*
  * Напишіть деструктційне присвоення, котре:
@@ -231,25 +289,7 @@ console.log(Object.entries(obj));
 
 // let { firstName, age: userAge, isAdmin = false } = user; //можемо змынювати.
 // const { firstName, age: userAge, isAdmin = false } = user;
-
-// 1. const { firstName } = user;
-// 2. const { age: userAge } = user; //const userAge = user.age
-// 3. const { isAdmin = false } = user;
-
-// let isAdmin = false;
-// isAdmin = user.isAdmin ? user.isAdmin : isAdmin;
-// firstName = 'sdfsdfsdf';
-// console.log('firstName: ', firstName);
-// console.log('userAge: ', userAge);
-// console.log('isAdmin: ', isAdmin);
-// console.log(user);
-
-// const app = {};
-// app.lastTime = new Date();
-// console.log(app);
-
-// let lastTime = app.lastTime;
-// let { lastTime } = app;
+// console.log(firstName, userAge, isAdmin);
 
 /*
  * Більш глибока деструктурізація об'єктів
@@ -257,15 +297,16 @@ console.log(Object.entries(obj));
 
 // const team = {
 //   number: 4,
-//   flag: './images/flag.jpg',
-//   employees: ['Anton', 'Oleg', 'Ronnie', 'Carr'],
+//   flag: "./images/flag.jpg",
+//   employees: ["Anton", "Oleg", "Ronnie", "Carr"],
 //   langs: {
-//     original: 'uk',
-//     secondary: 'en',
+//     original: "uk",
+//     secondary: "en",
 //   },
 // };
 
 // const { number, flag, employees, langs } = team;
+
 // console.log(langs);
 // const { original, secondary } = langs;
 // console.log(original, secondary);
@@ -296,27 +337,27 @@ console.log(Object.entries(obj));
  * Копія массива
  */
 // const numbers = [1, 2, 3, 4];
-//0: 1
-//1: 2
-//3: 3
+// //0: 1
+// //1: 2
+// //3: 3
 
 // const numbers2 = [...numbers];
 
-// console.log('numbers: ', numbers);
-// console.log('numbers2: ', numbers2);
+// // console.log("numbers: ", numbers);
+// // console.log("numbers2: ", numbers2);
 
 // numbers2[0] = 10;
 
-// console.log('numbers: ', numbers);
-// console.log('numbers2: ', numbers2);
+// console.log("numbers: ", numbers);
+// console.log("numbers2: ", numbers2);
 
 /*
  * Об'єднання масивів
  */
-
+// const someNumber = 400;
 // const numbers = [1, 2, 3, 4, 5];
 // const numbers2 = [10, 9, 8, 7];
-// const allNumbers = [600, ...numbers, 400, ...numbers2, 300];
+// const allNumbers = [someNumber, ...numbers, 10, 20, ...numbers2];
 
 // console.log(allNumbers);
 
@@ -325,28 +366,34 @@ console.log(Object.entries(obj));
  */
 
 // const numbers = [1, 2, 3, 4, 5];
+// console.log(Math.max(...numbers)); //spread
+// const [first, second, third] = numbers;
 
-// console.log(Math.max(...numbers));
+// function some(...args) {
+//   //rest
+//   console.log(args);
+// }
+// some(1, 2, 3, 4, 5, 6, 7);
 
-// const names = ['Herbert Todd', 'Belle Soto', 'Roger Marsh', 'Ethan Lindsey'];
-// const [user1, , user2] = names;
-// const user1 = names[0];
-// const user2 = names[2];
+// const names = ["Herbert Todd", "Belle Soto", "Roger Marsh", "Ethan Lindsey"];
+// const [, user1, , user2] = names;
+// // const user1 = names[0];
+// // const user2 = names[2];
 // console.log(user1, user2);
 
 // const rgb = [0, 255, 34];
 // const [red, green, blue] = rgb;
 
-// console.log('red: ', red);
-// console.log('green: ', green);
-// console.log('blue: ', blue);
+// console.log("red: ", red);
+// console.log("green: ", green);
+// console.log("blue: ", blue);
 
 /*
  * Напишіть функцію sum, котра суммує будь яку кілкість аргументів
  */
 // function sum(...args) {
-//     console.log(args);
-//   }
+//   console.log(args);
+// }
 
 // function sum(...numbers) {
 //   let total = 0;
@@ -355,4 +402,33 @@ console.log(Object.entries(obj));
 //   }
 //   return total;
 // }
+
 // console.log(sum(1, 2, 3, 4, 5, 6));
+
+// const arr1 = [1, 2, 3];
+// const arr2 = [...arr1];
+// console.log(arr1 === arr2);
+
+// function foo({ username } = {}) {
+//   console.log(username);
+// }
+// foo();
+
+// const rgb = [0, 255, 34];
+// const [red, green, blue] = rgb;
+
+// const red = rgb[0];
+// const green = rgb[1];
+// const blue = rgb[2];
+
+// console.log("red: ", red);
+// console.log("green: ", green);
+// console.log("blue: ", blue);
+
+// const RGB = {
+//   red: red,
+//   green: green,
+//   blue,
+// };
+
+// console.log(RGB);
