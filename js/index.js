@@ -11,62 +11,75 @@
  * Колбек функції, функції вищого порядку
  */
 
-// const foo1 = function (callback) {
-//   // let callback = foo2;
-//   callback();
+//функція вищого порядку
+// const someHightOrderFunction = function (number, callback) {
+//   if (number > 5) {
+//     callback();
+//   }
 // };
 
-// const foo2 = function () {
-//   console.log(`Hello!`);
+// // callback функція
+// const someCallbackFunction = function () {
+//   console.log("Fine");
 // };
 
-// foo1(foo2);
-
+// // // коли передаємо callback, нам не потрібно його викликати.
+// someHightOrderFunction(56, someCallbackFunction);
+// someHightOrderFunction(4, someCallbackFunction);
 /**
  *  Запит на сервер
  **/
 // const fetchUser = async function (userUrl, callback) {
 //   const response = await fetch(`https://api.github.com/users/${userUrl}`);
 //   const result = await response.json();
+//   //result - це обьект.
 
 //   callback(result);
 // };
 
+// /**
+//  * Shot to console.log info about user
+//  * @param {Object} user
+//  */
 // const showInfoAboutUser = function (user) {
+//   // повынна бути логіка опрацювання наших данных
 //   console.log(user);
 // };
 
-// fetchUser('marvall', showInfoAboutUser);
+// const showUserID = function (user) {
+//   console.log(user.id);
+// };
+
+// fetchUser("marvall", showInfoAboutUser);
+// fetchUser("marvall", showUserID);
 
 /**
  * Виклик калбека по евенту на сторінкі
  * */
-// const button = document.querySelector('.button');
+// const button = document.querySelector(".button");
+// console.dir(button);
 
 // const logValues = function (event) {
-// //   console.log(event);
-//   //   console.log('Hi!');
+//   console.log(event);
 // };
 
-// button.addEventListener('click', logValues);
-// //  {
-// //     // перевіряти наш event.
-
-// //     logValues(event)
-// // }
+// button.addEventListener("click", logValues);
 
 /**
  * Виклик калбека по евенту у setTimeout
- * */
+ */
 
 // const callback = function () {
-//   console.log('hi');
+//   console.log("hi");
 // };
-// setTimeout(callback, 1000);
+
+// setTimeout(callback, 2000);
 
 // setTimeout(function () {
-//   console.log('hi');
+//   console.log("hi");
 // }, 2000);
+
+// console.log("sync function");
 
 // setTimeout(() => {
 //   console.log('hi');
@@ -75,55 +88,37 @@
 /*
  * TASK 1
  * Напишіть функцію each(array, callback), котра першим параметром очікує масив,
- * а другим - функцію, котра викликається для кожного едементу масива
+ * а другим - функцію, котра викликається для кожного едементу масива.
  * Функція each повинна повернути новий масив, елементами котрого будуть результати виклику коллбека.
  */
 
 // const each = function (array, callback) {
-//   let newArray = [];
-
-//   for (const value of array) {
-//     newArray.push(callback(value));
+//   const newArray = [];
+//   for (const item of array) {
+//     newArray.push(callback(item));
 //   }
-
 //   return newArray;
 // };
 
-// const callback1 = function (item) {
-//   return item * 2;
+// const multiplayTo2 = function (number) {
+//   return number * 2;
 // };
 
-// const callback2 = function (item) {
-//   return item.toString();
+// const getNamesArray = function (user) {
+//   return user.name;
 // };
 
-// const callback3 = function (item) {
-//   return item * item;
-// };
+// const result = each([1, 2, 3, 4, 5, 6], multiplayTo2);
 
-// console.log(each([1, 2, 3, 4, 5], callback1));
-// console.log(each([1, 2, 3, 4, 5], callback2));
-// console.log(each([1, 2, 3, 4, 5], callback3));
+// const initArr = [
+//   { name: "John", age: 10 },
+//   { name: "James", age: 50 },
+// ];
 
-// const some = function Some() {
-//   console.log(arguments);
-// };
+// const result2 = each(initArr, getNamesArray);
 
-// const some = function () {
-
-// }
-
-// function Some() {
-//   console.log(arguments.callee);
-// }
-
-// const some = function Some() {
-//   console.log(arguments.callee);
-// };
-
-// // const some = Some;
-
-// some();
+// console.log(result);
+// console.log(result2);
 
 /*
  * TASK 2
@@ -135,29 +130,25 @@
  * logTotalPrice(product) - коллбек приймає об'ект продукта та вbводить в консоль ціну.
  */
 
-// console.log(Date.now()); //unix time
-// const createProduct = function (product, callback) {
+// function createProduct(product, callback) {
 //   const newProduct = {
-//     id: Date.now(),
+//     id: Math.floor(Math.random() * 1000000).toString(36),
 //     ...product,
 //   };
 
 //   callback(newProduct);
-// };
+// }
 
-// const logProduct = function (product) {
+// function logProduct(product) {
 //   console.log(product);
-// };
+// }
 
-// const logTotalPrice = function ({ price, quantity } = {}) {
-//   console.log(`Total price: ${price * quantity}`);
-// };
+// function logTotalPrice(product) {
+//   console.log(product.price);
+// }
 
-// createProduct({ name: '🍎', price: 30, quantity: 3 }, logProduct);
-// createProduct({ name: '🍋', price: 20, quantity: 5 }, logProduct);
-
-// createProduct({ name: '🍎', price: 30, quantity: 3 }, logTotalPrice);
-// createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
+// createProduct({ name: "🍎", price: 30, quantity: 3 }, logProduct);
+// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
 
 /*
  * Example 2
@@ -166,25 +157,20 @@
  * Чому не використовуємо стрілкові функціі в методах об'екта
  */
 
-// const some = object => ({
-//   id: Date.now(),
-//   ...object,
-// });
+// const some = (...args) => {
+//   console.log(args);
+// };
 
-// console.log(
-//   some({
-//     name: 'Jhon',
-//     email: 'example@domain.com',
-//   })
-// );
+// console.log(some(10, 2, 3, 4, 56));
 
 // const object = {
-//   name: 'Jhon',
+//   name: "Jhon",
 //   sayHello() {
 //     console.log(this);
 //     console.log(`${this.name} say: Hello`);
 //   },
 // };
+
 // object.sayHello();
 
 /**
@@ -193,7 +179,7 @@
  */
 
 // const each = (array, callback) => {
-//   let newArray = [];
+//   const newArray = [];
 
 //   for (const value of array) {
 //     newArray.push(callback(value));
@@ -202,13 +188,20 @@
 //   return newArray;
 // };
 
-// const multiplyNumberOnTwo = number => number * 2;
-// const convertNumberToString = number => number.toString();
-// const squareOfNumber = number => number * number;
+// const multiplayTo2 = (number) => number * 2;
+// const getNamesArray = (user) => user.name;
 
-// console.log(each([1, 2, 3, 4, 5], multiplyNumberOnTwo));
-// console.log(each([1, 2, 3, 4, 5], convertNumberToString));
-// console.log(each([1, 2, 3, 4, 5], squareOfNumber));
+// const result = each([1, 2, 3, 4, 5, 6], multiplayTo2);
+
+// const initArr = [
+//   { name: "John", age: 10 },
+//   { name: "James", age: 50 },
+// ];
+
+// const result2 = each(initArr, getNamesArray);
+
+// console.log(result);
+// console.log(result2);
 
 /**
  * TASK 4
@@ -216,47 +209,51 @@
  */
 
 // const createProduct = (product, callback) => {
-//   //   const newProduct = {
-//   //     id: Date.now(),
-//   //     ...product,
-//   //   };
+//   const newProduct = {
+//     id: Date.now(),
+//     ...product,
+//   };
 
-//   //   callback(newProduct);
-
-//   callback({ id: Date.now(), ...product });
+//   callback(newProduct);
 // };
 
 // const createProduct = (product, callback) =>
 //   callback({ id: Date.now(), ...product });
 
-// const logProduct = product => console.log(product);
+// const logProduct = (product) => console.log(product);
+// const logTotalPrice = (product) => console.log(product.price);
 
-// const logTotalPrice = ({ price, quantity } = {}) =>
-//   console.log(`Total price: ${price * quantity}`);
+// createProduct({ name: "🍎", price: 30, quantity: 3 }, logProduct);
+// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
 
-// //не бажано приберати тіло стрілочної функції, якщо вони не влазить в одну строку.
-// // const logTotalPrice = ({ price, quantity } = {}) => {
-// //   console.log(`Total price: ${price * quantity}`);
-// // };
-
-// createProduct({ name: '🍎', price: 30, quantity: 3 }, logProduct);
-// createProduct({ name: '🍋', price: 20, quantity: 5 }, logProduct);
-
-// createProduct({ name: '🍎', price: 30, quantity: 3 }, logTotalPrice);
-// createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
+// createProduct({ name: "🍎", price: 30, quantity: 3 }, logTotalPrice);
+// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
 
 /*
  * Exapmle 3
  * forEach() как замена циклов for и for...of для массивов
  */
 
-// const numbers = [1, 2, 3, 4, 5];
+// const numbers = [{ num: 1 }, { num: 2 }];
 
 // const callback = (element, index, array) => {
-//   console.log('element: ', element);
-//   console.log('index: ', index);
-//   console.log('array: ', array);
+//   element.num *= 2;
+//   console.group();
+//   console.log("element: ", element);
+//   console.log("index: ", index);
+//   console.log("array: ", array);
+//   console.groupEnd();
 // };
+
+// const ss = numbers.forEach(callback);
+// console.log(numbers);
+
+// ==========================================================================
+// ==========================================================================
+
+// numbers.forEach((item) => {
+//   console.log(item);
+// });
 
 // numbers.forEach(callback);
 
