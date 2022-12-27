@@ -1,370 +1,645 @@
+"use strict";
 /*
- * Example 0
- * Імперативний та деклоративний код
- * Імп - це послідовне виконнаня дій. Та спрощення коду до більш ранніх версій.
- * Дек - це описання задач та використання сучастного синтаксису і патрнів.
- * Ідеалу не існує.
+ *  ================ Грязні та чисті функції ================
  */
 
-/*
- * Example 1
- * Колбек функції, функції вищого порядку
- */
+//! Dirty function
+// const numbers = [1, 2, 3, 4, 5];
 
-//функція вищого порядку
-// const someHightOrderFunction = function (number, callback) {
-//   if (number > 5) {
-//     callback();
-//   }
+// const pushNumbers = (...args) => {
+//   numbers.push(...args);
 // };
 
-// // callback функція
-// const someCallbackFunction = function () {
-//   console.log("Fine");
-// };
+// pushNumbers(9, 6, 8);
 
-// // // коли передаємо callback, нам не потрібно його викликати.
-// someHightOrderFunction(56, someCallbackFunction);
-// someHightOrderFunction(4, someCallbackFunction);
-/**
- *  Запит на сервер
- **/
-// const fetchUser = async function (userUrl, callback) {
-//   const response = await fetch(`https://api.github.com/users/${userUrl}`);
-//   const result = await response.json();
-//   //result - це обьект.
-
-//   callback(result);
-// };
-
-// /**
-//  * Shot to console.log info about user
-//  * @param {Object} user
-//  */
-// const showInfoAboutUser = function (user) {
-//   // повынна бути логіка опрацювання наших данных
-//   console.log(user);
-// };
-
-// const showUserID = function (user) {
-//   console.log(user.id);
-// };
-
-// fetchUser("marvall", showInfoAboutUser);
-// fetchUser("marvall", showUserID);
-
-/**
- * Виклик калбека по евенту на сторінкі
- * */
-// const button = document.querySelector(".button");
-// console.dir(button);
-
-// const logValues = function (event) {
-//   console.log(event);
-// };
-
-// button.addEventListener("click", logValues);
-
-/**
- * Виклик калбека по евенту у setTimeout
- */
-
-// const callback = function () {
-//   console.log("hi");
-// };
-
-// setTimeout(callback, 2000);
-
-// setTimeout(function () {
-//   console.log("hi");
-// }, 2000);
-
-// console.log("sync function");
-
-// setTimeout(() => {
-//   console.log('hi');
-// }, 3000);
-
-/*
- * TASK 1
- * Напишіть функцію each(array, callback), котра першим параметром очікує масив,
- * а другим - функцію, котра викликається для кожного едементу масива.
- * Функція each повинна повернути новий масив, елементами котрого будуть результати виклику коллбека.
- */
-
-// const each = function (array, callback) {
-//   const newArray = [];
-//   for (const item of array) {
-//     newArray.push(callback(item));
-//   }
-//   return newArray;
-// };
-
-// const multiplayTo2 = function (number) {
-//   return number * 2;
-// };
-
-// const getNamesArray = function (user) {
-//   return user.name;
-// };
-
-// const result = each([1, 2, 3, 4, 5, 6], multiplayTo2);
-
-// const initArr = [
-//   { name: "John", age: 10 },
-//   { name: "James", age: 50 },
-// ];
-
-// const result2 = each(initArr, getNamesArray);
-
-// console.log(result);
-// console.log(result2);
-
-/*
- * TASK 2
- * Напишіть наступні функції:
- * createProduct(product, callback) - приймає об'ект товара без id,
- * а також колбек. Функція створює об'ект товара, додає ему унікальний
- * id та викликає колбек передає йому новий об'ект.
- * logProduct(product) - коллбек приймає об'ект продукта та логує його в консоль
- * logTotalPrice(product) - коллбек приймає об'ект продукта та вbводить в консоль ціну.
- */
-
-// function createProduct(product, callback) {
-//   const newProduct = {
-//     id: Math.floor(Math.random() * 1000000).toString(36),
-//     ...product,
-//   };
-
-//   callback(newProduct);
-// }
-
-// function logProduct(product) {
-//   console.log(product);
-// }
-
-// function logTotalPrice(product) {
-//   console.log(product.price);
-// }
-
-// createProduct({ name: "🍎", price: 30, quantity: 3 }, logProduct);
-// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
-
-/*
- * Example 2
- * Стрілкові функції, явне - неявне повернення, arguments, поврнення об'екта.
- * Круглі дужки підчас оголошння.
- * Чому не використовуємо стрілкові функціі в методах об'екта
- */
-
-// const some = (...args) => {
-//   console.log(args);
-// };
-
-// console.log(some(10, 2, 3, 4, 56));
-
-// const object = {
-//   name: "Jhon",
-//   sayHello() {
-//     console.log(this);
-//     console.log(`${this.name} say: Hello`);
-//   },
-// };
-
-// object.sayHello();
-
-/**
- * TASK 3
- * Переписать TASK 1 на стрілкові функції
- */
-
-// const each = (array, callback) => {
-//   const newArray = [];
-
-//   for (const value of array) {
-//     newArray.push(callback(value));
-//   }
-
-//   return newArray;
-// };
-
-// const multiplayTo2 = (number) => number * 2;
-// const getNamesArray = (user) => user.name;
-
-// const result = each([1, 2, 3, 4, 5, 6], multiplayTo2);
-
-// const initArr = [
-//   { name: "John", age: 10 },
-//   { name: "James", age: 50 },
-// ];
-
-// const result2 = each(initArr, getNamesArray);
-
-// console.log(result);
-// console.log(result2);
-
-/**
- * TASK 4
- * Переписать TASK 2 на стрілкові функції
- */
-
-// const createProduct = (product, callback) => {
-//   const newProduct = {
-//     id: Date.now(),
-//     ...product,
-//   };
-
-//   callback(newProduct);
-// };
-
-// const createProduct = (product, callback) =>
-//   callback({ id: Date.now(), ...product });
-
-// const logProduct = (product) => console.log(product);
-// const logTotalPrice = (product) => console.log(product.price);
-
-// createProduct({ name: "🍎", price: 30, quantity: 3 }, logProduct);
-// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
-
-// createProduct({ name: "🍎", price: 30, quantity: 3 }, logTotalPrice);
-// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
-
-/*
- * Exapmle 3
- * forEach() как замена циклов for и for...of для массивов
- */
-
-// const numbers = [{ num: 1 }, { num: 2 }];
-
-// const callback = (element, index, array) => {
-//   element.num *= 2;
-//   console.group();
-//   console.log("element: ", element);
-//   console.log("index: ", index);
-//   console.log("array: ", array);
-//   console.groupEnd();
-// };
-
-// const ss = numbers.forEach(callback);
 // console.log(numbers);
 
-// ==========================================================================
-// ==========================================================================
-
-// numbers.forEach((item) => {
-//   console.log(item);
-// });
-
-// numbers.forEach(callback);
-
-// numbers.forEach((el, idx, arr) => console.log(el));
-
-// const ownForEach = function (array, callback) {
-//   for (let i = 0; i < array.length; i += 1) {
-//     callback(array[i], i, array);
-//   }
-// };
-
-// ownForEach(numbers, (el, idx, arr) => {
-//   console.log(el);
-// });
+//! Clear function
 
 // const numbers = [1, 2, 3, 4, 5];
 
-// const getTotal = function (numbersArr) {
-//   let total = 0;
+// const pushNumbers = (numbers, ...args) => {
+//   //1. ВСІ ПАРЕМЕТРИ, ЗНАЧЕННЯ із зовні отримують ц якоскі аргумантів
+//   //2. Не змінює ті данні що в неї передаються у якості аргументів.
+//   const newNumbers = [...numbers];
+//   newNumbers.push(...args);
 
-//   // Через обычный for
-//   //   for (let i = 0; i < numbersArr.length; i += 1) {
-//   //     total += numbersArr[i];
-//   //   }
-
-//   // Через обычный for...of
-//   for (const num of numbersArr) {
-//     total += num;
-//   }
-
-//   // Через forEach();
-//   numbersArr.forEach(el => (total += el));
-
-//   return total;
+//   return newNumbers;
 // };
 
-// console.log(getTotal(numbers));
+// console.log(numbers);
+// console.log(pushNumbers(numbers, 9, 6, 8));
+
+//! Dirty function
+// const numbers = [123, 56, 78, 9, 3];
+
+// const doubleMulti = function (arr) {
+//   for (let i = 0; i < arr.length; i += 1) {
+//     arr[i] *= 2;
+//   }
+// };
+
+// doubleMulti(numbers);
+
+// console.log(numbers);
+
+//? Clear function
+// const numbers = [123, 56, 78, 9, 3];
+
+// const doubleMulti = function (arr) {
+//   const numbersCopyArr = [...arr];
+
+//   for (let i = 0; i < numbersCopyArr.length; i += 1) {
+//     numbersCopyArr[i] *= 2;
+//   }
+
+//   return numbersCopyArr;
+// };
+
+// const result = doubleMulti(numbers);
+
+// console.log('numbers: ', numbers);
+// console.log('copy of numbers: ', result);
 
 /*
- * є функція, зробити рефакторіг, переписати її на forEach.
+ *  ===================== Метод map() ===============================
  */
 
-// function logItems(items) {
-//   console.log(items);
+// масив.map((element, index, array) => {
+//  Тіло коллбек-функції
+// });
+// map завжди поверне новий масив, який дорівнює довжині почтакового.
 
-//   for (let i = 0; i < items.length; i += 1) {
-//     console.log(`${i + 1} - ${items[i]}`);
-//   }
-// }
+// array.map((currentElement, index, array) => {});
 
-// const logItems = items =>
-//   items.forEach((item, index) => console.log(`${index + 1} - ${item}`));
+// array.map(currentElement => {
 
-// const logItems = items => {
-//   items.forEach((item, index) => {
-//     console.log(`${index + 1} - ${item}`);
-//   });
-// };
+// });
 
-// logItems(['Mango', 'Poly', 'Ajax']);
-// logItems(['🍎', '🍇', '🍑', '🍌', '🍋']);
+/**
+ * TASK 1
+ * Є масив треба помножити всі числа на 2
+ */
+
+// const numbers = [1, 2, 3, 4, 5];
+// console.log(numbers.map((item) => item * 2));
 
 /*
- * є функція, зробити рефакторіг, переписати її на forEach та стрілкові функції.
+ * TASK 2
+ * Напишіть цикл використовуючи map. Сторити функцію, яка повертає
+ * новий масив з довжиною слів з ісходного масива.
  */
 
-// function printContactsInfo({ names, phones } = {}) {
-//   const nameList = names ? names.split(',') : [];
-//   const phoneList = phones ? phones.split(',') : [];
+// const wordsArr = ["Есть", "жизнь", "на", "Марсе"];
+// console.log(wordsArr.map((item) => item.length));
 
-//   for (let i = 0; i < nameList.length; i += 1) {
-//     console.log(`${nameList[i]}: ${phoneList[i]}`);
-//   }
+/*
+ * Створити масив значень Фаренгейта з масива значень Цельсія
+ * Формула: F = C * 1.8 + 32
+ */
+
+// const celsius = [-5.5299, -5.55, 0, 10, 16, 20, 24, 32];
+// console.log(
+//   celsius.map((item) => {
+//     console.log(item * 1.8 + 32);
+//     console.log((item * 1.8 + 32).toFixed(2));
+//     console.log(Number((item * 1.8 + 32).toFixed(2)));
+//     return (item * 1.8 + 32).toFixed(2);
+//   })
+// );
+
+/*
+ * Нехай функція getModels повертає новий масив моделей (поле model) всіх автомобілей.
+ */
+
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+// ];
+
+// const getModels = cars => {
+//   return cars.map(car => car.model);
+// };
+// console.log(getModels(cars));
+
+// const getCarsAmount = cars => {
+//   return cars.map(car => ({
+//     make: car.make,
+//     model: car.model,
+//     amount: car.amount,
+//   }));
+// };
+// console.log(getModels(cars));
+// console.log(getCarsAmount(cars));
+/*
+ * Нехай функція makeCarsWithDiscount повертає новий масив об'єктів з зміненним значенням властивості price
+ * в залежності від скидки.
+ */
+
+// const makeCarsWithDiscount = (cars, discont) => {
+//     return cars.map((item) => {
+//         return {
+//             ...item,
+//             price: item.onSale ? item.price - (item.price / 100 * discont) : item.price
+//         }
+//     })
 // }
 
-// const printContactsInfo = ({ names, phones } = {}) => {
-//   const nameList = names ? names.split(',') : [];
-//   const phoneList = phones ? phones.split(',') : [];
+// console.log(makeCarsWithDiscount(cars, 5))
+// console.log("INIT ARRAY: ", cars)
 
-//   nameList.forEach((name, index) => {
-//     console.log(`${name}: ${phoneList[index]}`);
-//   });
-// };
+/*
+ *  ===================== Метод filter() ===============================
+ */
 
-// printContactsInfo({
-//   names: 'Jacob,William,Solomon,Artemis',
-//   phones: '89001234567,89001112233,890055566377,890055566300',
+// масив.filter((element, index, array) => {
+//     Тіло калбек функціх
 // });
 
 /*
- * є функція, зробити рефакторіг, переписати її на forEach.
+ * Відфільтруйте масив, так щоб залишились тільки парні елементи
  */
 
-// function calсulateAverage(...args) {
-//   let total = 0;
+// const numbers = [1, 2, 3, 4, 5, 6];
+// console.log(numbers.filter(item => item % 2 === 0))
 
-//   for (let i = 0; i < args.length; i++) {
-//     total += args[i];
-//   }
+// console.log(
+//   numbers.filter(item => {
+//     if (item % 2 === 0) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   })
+// );
 
-//   return total / args.length;
+/*
+ * Відфільтруйте масив, залишити в ньому тільки позитивні числа:
+ */
+
+// const numbers = [-2, 5, 1, -5, -1, 1, 3, 4, -1];
+// console.log(numbers.filter(num => num > 0));
+
+/*
+ * Відфільтруйте масив heroes по властивості об'єкта franchise.
+ */
+
+// const heroes = [
+//   { name: 'Batman', franchise: 'DC' },
+//   { name: 'Ironman', franchise: 'Marvel' },
+//   { name: 'Thor', franchise: 'Marvel' },
+//   { name: 'Superman', franchise: 'DC' },
+// ];
+
+// const filteredByFranchise = (heroes, filterQuery) => {
+//     return heroes.filter(item => item.franchise === filterQuery)
 // }
 
-// const calсulateAverage = (...numbers) => {
-//   let total = 0;
+// console.log(filteredByFranchise(heroes, 'Marvel'))
+// console.log(filteredByFranchise(heroes, 'DC'))
 
-//   numbers.forEach(number => (total += number));
+/*
+ * Нехай функція filterByPrice повертає масив автомобілів ціна котрих
+ * меньше за значення параметра threshold.
+ */
 
-//   return total / numbers.length;
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+// ];
+
+// const filterByPrice = (cars, threshold) => {
+//     return cars.filter(item => item.price < threshold)
+// }
+
+// console.log(filterByPrice(cars, 25000))
+
+/*
+ * Нехай функція getCarsWithDiscount поверне масив автомобілей властивість onSale котрих true.
+ */
+
+// const getCarsWithDiscount = cars => cars.filter(car => car.onSale);
+
+// const getCarsWithDiscount = cars => {
+//   return cars.filter(car => {
+//     if (car.onSale) {
+//       return 1;
+//     }
+//   });
 // };
 
-// console.log(calсulateAverage(1, 2, 3, 4)); // 2.5
-// console.log(calсulateAverage(14, 8, 2)); // 8
-// console.log(calсulateAverage(27, 43, 2, 8, 36)); // 23.2
+// console.table(getCarsWithDiscount(cars));
+
+/*
+ * Нехай функція getCarsWithType поверне масив автомобілей type котрих
+ * співпадає з значенням параметра type.
+ */
+
+// const getCarsWithType = (cars, type) => cars.filter(car => car.type === type);
+
+// console.table(getCarsWithType(cars, 'suv'));
+// console.table(getCarsWithType(cars, 'sedan'));
+// console.table(getCarsWithType(cars, 'truck'));
+
+// const getCarsWithType = (cars, sometype) => cars.filter(({ type }) => type === sometype);
+
+// console.table(getCarsWithType(cars, 'suv'));
+// console.table(getCarsWithType(cars, 'sedan'));
+// console.table(getCarsWithType(cars, 'truck'));
+
+/**
+ * Залишити тільки унікальні числа
+ */
+// const numbers = [1, 2, 3, 3, 2, 1, 4, 5, 6, 4];
+
+// const filteredNumbers = numbers.filter((el, idx, arr) => arr.indexOf(el) === idx);
+
+// console.log(filteredNumbers);
+
+/*
+ *  ===================== Метод sort() ===============================
+ */
+// посилання на ASCII https://www.asciitable.com/
+// array.sort((current, next) => умова)
+// array.sort()
+
+// const numbers = [4, 2, 1, 6, 50, 51, 56, 6];
+// const numbers = ['4', '2', '1', '6','50', '51', '56', '6'];
+// numbers.sort((a, b) => a - b)
+// numbers.sort((a, b) => {
+//     if (a - b > 0) {
+//        return 1
+//     } else if (a - b < 0) {
+//        return -1
+//     }else{
+//        return 0
+//     }
+// });
+// console.log(numbers);
+
+// const sortedNumbers = [...numbers].sort((a, b) => a - b);
+
+// console.log('numbers:', numbers);
+// console.log('sortedNumbers: ', sortedNumbers);
+
+/**
+ * Сортировка по замовчуванню.
+ */
+
+// const numbers = ['30', '94', '60', '97', '5', "-3", '55', "9", '23', '21'];
+// const sortedNumbers = [...numbers].sort();
+
+// console.log(`source arr: `, numbers);
+// console.log('sortedNumbers: ', sortedNumbers);
+
+// const words = ['Gavin', 'Edgar', 'Edith', '1Maurice', '{Rosa', '-Roger'];
+// const sortedWords = [...words].sort();
+
+// console.log(`source arr: `, words);
+// console.log('sortedWords: ', sortedWords);
+
+/**
+ * сортировка чисел та строк по умові
+ */
+
+// const numbers = [30, 94, 60, 97, 5];
+// const sortedNumbers = [...numbers].sort((a, b) => {
+//   return a - b;
+// });
+
+// console.log(`source arr: `, numbers);
+// console.log('sortedNumbers: ', sortedNumbers);
+
+// const words = ['Gavin', 'Edgar', 'Edith', 'Maurice', 'Rosa', 'Roger', 'alex'];
+// // 1й зовнышній цикл [ 'Edgar', 'Edith', 'Gavin', 'Maurice' , 'Roger', , 'Rosa'];
+// // 2й зовнышній цикл [ 'Edgar', 'Edith', 'Gavin', 'Maurice' , 'alex', 'Roger', 'Rosa'];
+// // 3й зовнышній цикл [ 'Edgar', 'Edith', 'Gavin', 'alex' 'Maurice' , 'Roger', 'Rosa'];
+// // 4й зовнышній цикл [ 'Edgar', 'Edith', 'alex' 'Gavin', 'Maurice', 'Roger', 'Rosa'];
+// // 5й зовнышній цикл [ 'Edgar', 'alex', 'Edith', 'Gavin', 'Maurice', 'Roger', 'Rosa'];
+// // 6й зовнышній цикл [ 'alex', 'Edgar', 'Edith', 'Gavin', 'Maurice', 'Roger', 'Rosa'];
+// // 7й зовнышній цикл [ 'alex', 'Edgar', 'Edith', 'Gavin', 'Maurice', 'Roger', 'Rosa'];
+// const sortedWords = [...words].sort((a, b) => {
+//   console.log(a.localeCompare(b)); // порівнює строки по їх кодам,
+//   // повертає 1, -1, 0 відносто того, что строка "а"
+//   // стоїть раніше за "b", після неї або на томуж місці.
+
+//   return a.localeCompare(b);
+// });
+
+// console.log(`source arr: `, words);
+// console.log('sortedWords: ', sortedWords);
+
+/*
+ * Нехай функція sortByAscendingAmount поверне новий масив автомобілей відсортирований
+ * по зростанню значення властивості amount.
+ */
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true, sold: { amount: 1 } },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true, sold: { amount: 3 } },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false, sold: { amount: 4 } },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true, sold: { amount: 1 } },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false, sold: { amount: 5 } },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false, sold: { amount: 6 } },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true, sold: { amount: 7 } },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true, sold: { amount: 8 } },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true, sold: { amount: 9 } },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false, sold: { amount: 1 } },
+// ];
+
+// const sortByAscendingAmount = cars => {
+//   return [...cars].sort((a, b) => a.amount - b.amount);
+// };
+
+// console.table(sortByAscendingAmount(cars));
+
+/*
+ * Нехай функція sortByDescendingPrice поверне новий масив автомобілей
+ * відсортирований в порядку від більшого до меншого значення властивості price
+ */
+
+// const sortByDescendingPrice = cars => {
+//   return [...cars].sort((a, b) => {
+//     return b.price - a.price;
+//   });
+// };
+
+// console.table(sortByDescendingPrice(cars));
+
+//Сортировка по владному об'єкту. Відсортировані автомобілі по кількості проданих sold.amount
+// const sortByDescendingPrice = cars => {
+//   return [...cars].sort((a, b) => {
+//     return a.sold.amount - b.sold.amount;
+//   });
+// };
+
+// console.table(sortByDescendingPrice(cars));
+
+/*
+ * Нехай функція sortByModel поверне новий масив автомобілей відсортирований по назві моделі
+ * в алфавітном та зворотньом алфавітном порядку, в залежності від значення параметра order.
+ */
+
+// const sortByModel = (cars, order) => {
+//     return [...cars].sort((a, b) => {
+//         if (order === 'asc') {
+//         return a.model.localeCompare(b.model);
+//         } else if (order === 'desc') {
+//         return b.model.localeCompare(a.model);
+//         }
+//     });
+   
+//     // if (order === 'asc') {
+//     //   return [...cars].sort((a, b) => a.model.localeCompare(b.model));
+//     // } else if (order === 'desc') {
+//     //   return [...cars].sort((a, b) => b.model.localeCompare(a.model));
+//     // }
+// };
+
+// console.table(sortByModel(cars, 'asc'));
+// console.table(sortByModel(cars, 'desc'));
+
+/*
+ *  ===================== Метод find() ===============================
+ */
+
+// массив.find((element, index, array) => {
+// Тіло коллбек-функції
+// });
+
+/*
+ * Знайти перше непарне число
+ */
+
+// const numbers = [2, 4, 6, 8, 9, 10, 12];
+// // console.log(numbers.find(item => item % 2 > 0));
+// console.log(numbers.find(item => {
+//     if (item % 2 > 0) {
+//         return true
+//     }else{
+//         return false
+//     }
+// }));
+/*
+ * Знайти автомобіль по моделі
+ */
+
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+// ];
+// const getCarByModel = (cars, model) => {
+//   return cars.find(item => item.model === model);
+// };
+
+// console.log(getCarByModel(cars, 'F-150'));
+// console.log(getCarByModel(cars, 'CX-9'));
+
+/*
+ *  ===================== Метод reduce() ===============================
+ */
+
+// массив.reduce((previousValue, element, index, array) => {
+// Тіло коллбек-функції
+// }, initialValue);
+
+/*
+ * Порахуємо суму масива чисел
+ */
+
+// const numbers = [1, 2, 3, 4, 5];
+// const total = numbers.reduce((acc, item) => {
+//     return acc + item
+// }, 0)
+
+// console.log(totalSum);
+/*
+ * Нехай функція getTotalAmount поврне загальну кількість автомобілей (значення алпстивості amount).
+ */
+
+const cars = [
+  { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+  { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+  { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+  { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+  { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false },
+  { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+  { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+  { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+  { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+  { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+];
+
+// const getTotalAmount = cars => {
+//   return cars.reduce((acc, item) => (acc += item.amount), 0);
+// };
+// console.log(getTotalAmount(cars));
+
+/**
+ * 
+ */
+
+// const getTotalAmount = cars => {
+//   return cars.reduce((acc, { model, onSale, price }, index, array) => {
+//     if (!onSale && price > 30000) {
+//       return [...acc, model];
+//     } else {
+//       return acc;
+//     }
+//   }, []);
+// };
+
+// const getTotalAmount = cars => {
+//   return cars.reduce((acc, { model, onSale, price }) => {
+//     return !onSale && price > 30000 ? [...acc, model] : acc
+//   }, []);
+// };
+
+// const getTotalAmount = cars => {
+//   return cars.reduce((acc, { model, onSale, price }, index, array) => {
+//     return !onSale && price > 30000 ? acc + 1 : acc
+//   }, 0);
+// };
+
+
+// console.log(getTotalAmount(cars));
+
+/*
+ *  ===================== Метод findIndex() ===============================
+ */
+
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+// ];
+
+/**
+ * Знайти індекс елемента за значнням моделі
+ */
+
+// console.log(cars.findIndex(item => item.model === 'Mazda 6'));
+
+/*
+ *  ===================== Метод some() ===============================
+ */
+
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 0, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 0, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 0, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 0, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 0, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 0, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 1, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 0, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 0, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 0, price: 31660, onSale: false },
+// ];
+
+/**
+ * Перевірити що хоча б один з автомобілів є в гаражі (властивість amount )
+ */
+
+// console.log(cars.some(item => item.amount));
+
+/*
+ *  ===================== Метод every() ===============================
+ */
+
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 0, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+// ];
+
+/**
+ * Перевырити що всі автомобілі є в гаражі
+ */
+
+// console.log(cars.every(item => item.amount));
+
+/*
+ *  ===================== Ланцюжки методів ===============================
+ */
+
+// const cars = [
+//   { make: 'Honda', model: 'CR-V', type: 'suv', amount: 14, price: 24045, onSale: true },
+//   { make: 'Honda', model: 'Accord', type: 'sedan', amount: 2, price: 22455, onSale: true },
+//   { make: 'Mazda', model: 'Mazda 6', type: 'sedan', amount: 8, price: 24195, onSale: false },
+//   { make: 'Mazda', model: 'CX-9', type: 'suv', amount: 7, price: 31520, onSale: true },
+//   { make: 'Toyota', model: '4Runner', type: 'suv', amount: 19, price: 34210, onSale: false },
+//   { make: 'Toyota', model: 'Sequoia', type: 'suv', amount: 16, price: 45560, onSale: false },
+//   { make: 'Toyota', model: 'Tacoma', type: 'truck', amount: 4, price: 24320, onSale: true },
+//   { make: 'Ford', model: 'F-150', type: 'truck', amount: 11, price: 27110, onSale: true },
+//   { make: 'Ford', model: 'Fusion', type: 'sedan', amount: 13, price: 22120, onSale: true },
+//   { make: 'Ford', model: 'Explorer', type: 'suv', amount: 6, price: 31660, onSale: false },
+// ];
+
+/*
+ * Нехай функція getAvailableCarNames поверне масив моделей автомобілей, но тольки тих, котрі зараз на распродажі.
+ */
+
+// const getModelsOnSale = cars => {
+//   // 1 вариант
+//   //   const onSaleCars = cars.filter((el, idx, arr) => {
+//   //     return el.onSale;
+//   //   });
+
+//   //   return onSaleCars.map((el, idx, arr) => {
+//   //     return el.model;
+//   //   });
+
+//   // 2 вариант
+// //   return cars.filter(el => el.onSale).map(el => el.model);
+// };
+
+// console.log(getModelsOnSale(cars));
+
+/*
+ * Нехай функція getSortedCarsOnSale поверне масив автомобілей на распродажі (властивість onSale),
+ * відсортированний по зростанню ціни.
+ */
+
+// const getSortedCarsOnSale = cars => {
+//   return cars.filter(el => el.onSale).sort((a, b) => a.price - b.price);
+// };
+
+// console.table(getSortedCarsOnSale(cars));
