@@ -1,370 +1,691 @@
+'use strict';
+
 /*
- * Example 0
- * Імперативний та деклоративний код
- * Імп - це послідовне виконнаня дій. Та спрощення коду до більш ранніх версій.
- * Дек - це описання задач та використання сучастного синтаксису і патрнів.
- * Ідеалу не існує.
+ *  Контекст виконання this
  */
 
 /*
- * Example 1
- * Колбек функції, функції вищого порядку
+ * this існує тільки всередині функцій.
+ * На this не впливає те де функція була //! ОГОЛОШЕНА.
+ * На this впливає те де функція //! ВИКЛИКАЄТЬСЯ.
  */
 
-//функція вищого порядку
-// const someHightOrderFunction = function (number, callback) {
-//   if (number > 5) {
-//     callback();
-//   }
+//TODO: Розглянемо як this поводиться у звичайних функціях (суворий, не суворий режим)
+
+// Function expression
+// const greet1 = function () {
+//   console.log('This --->', this);
+//   console.log('Hello');
 // };
 
-// // callback функція
-// const someCallbackFunction = function () {
-//   console.log("Fine");
-// };
+// greet1();
 
-// // // коли передаємо callback, нам не потрібно його викликати.
-// someHightOrderFunction(56, someCallbackFunction);
-// someHightOrderFunction(4, someCallbackFunction);
-/**
- *  Запит на сервер
- **/
-// const fetchUser = async function (userUrl, callback) {
-//   const response = await fetch(`https://api.github.com/users/${userUrl}`);
-//   const result = await response.json();
-//   //result - це обьект.
-
-//   callback(result);
-// };
-
-// /**
-//  * Shot to console.log info about user
-//  * @param {Object} user
-//  */
-// const showInfoAboutUser = function (user) {
-//   // повынна бути логіка опрацювання наших данных
-//   console.log(user);
-// };
-
-// const showUserID = function (user) {
-//   console.log(user.id);
-// };
-
-// fetchUser("marvall", showInfoAboutUser);
-// fetchUser("marvall", showUserID);
-
-/**
- * Виклик калбека по евенту на сторінкі
- * */
-// const button = document.querySelector(".button");
-// console.dir(button);
-
-// const logValues = function (event) {
-//   console.log(event);
-// };
-
-// button.addEventListener("click", logValues);
-
-/**
- * Виклик калбека по евенту у setTimeout
- */
-
-// const callback = function () {
-//   console.log("hi");
-// };
-
-// setTimeout(callback, 2000);
-
-// setTimeout(function () {
-//   console.log("hi");
-// }, 2000);
-
-// console.log("sync function");
-
-// setTimeout(() => {
-//   console.log('hi');
-// }, 3000);
-
-/*
- * TASK 1
- * Напишіть функцію each(array, callback), котра першим параметром очікує масив,
- * а другим - функцію, котра викликається для кожного едементу масива.
- * Функція each повинна повернути новий масив, елементами котрого будуть результати виклику коллбека.
- */
-
-// const each = function (array, callback) {
-//   const newArray = [];
-//   for (const item of array) {
-//     newArray.push(callback(item));
-//   }
-//   return newArray;
-// };
-
-// const multiplayTo2 = function (number) {
-//   return number * 2;
-// };
-
-// const getNamesArray = function (user) {
-//   return user.name;
-// };
-
-// const result = each([1, 2, 3, 4, 5, 6], multiplayTo2);
-
-// const initArr = [
-//   { name: "John", age: 10 },
-//   { name: "James", age: 50 },
-// ];
-
-// const result2 = each(initArr, getNamesArray);
-
-// console.log(result);
-// console.log(result2);
-
-/*
- * TASK 2
- * Напишіть наступні функції:
- * createProduct(product, callback) - приймає об'ект товара без id,
- * а також колбек. Функція створює об'ект товара, додає ему унікальний
- * id та викликає колбек передає йому новий об'ект.
- * logProduct(product) - коллбек приймає об'ект продукта та логує його в консоль
- * logTotalPrice(product) - коллбек приймає об'ект продукта та вbводить в консоль ціну.
- */
-
-// function createProduct(product, callback) {
-//   const newProduct = {
-//     id: Math.floor(Math.random() * 1000000).toString(36),
-//     ...product,
-//   };
-
-//   callback(newProduct);
+// // Function declaration
+// function greet2() {
+//   console.log('This --->', this);
+//   console.log('Hello');
 // }
 
-// function logProduct(product) {
-//   console.log(product);
-// }
+// greet2();
 
-// function logTotalPrice(product) {
-//   console.log(product.price);
-// }
-
-// createProduct({ name: "🍎", price: 30, quantity: 3 }, logProduct);
-// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
-
-/*
- * Example 2
- * Стрілкові функції, явне - неявне повернення, arguments, поврнення об'екта.
- * Круглі дужки підчас оголошння.
- * Чому не використовуємо стрілкові функціі в методах об'екта
- */
-
-// const some = (...args) => {
-//   console.log(args);
+// // Arrow function
+// const greet3 = () => {
+//   console.log('This --->', this);
+//   console.log('Hello');
 // };
 
-// console.log(some(10, 2, 3, 4, 56));
+// greet3();
 
-// const object = {
-//   name: "Jhon",
-//   sayHello() {
-//     console.log(this);
-//     console.log(`${this.name} say: Hello`);
+//TODO: Розглянемо як this поводиться в методах
+// const user = {
+//   name: 'Luis',
+//   age: 30,
+
+//   showThis() {
+//     console.log('This --->', this);
+//   },
+
+//   showName() {
+//     console.log(this.name);
 //   },
 // };
 
-// object.sayHello();
+// user.showThis();
+// user.showName();
 
-/**
- * TASK 3
- * Переписать TASK 1 на стрілкові функції
- */
+// const anotherUser = {
+//   name: 'Oleksii',
+//   age: 50,
 
-// const each = (array, callback) => {
-//   const newArray = [];
+//   showThis() {
+//     console.log('This --->', this);
+//   },
 
-//   for (const value of array) {
-//     newArray.push(callback(value));
-//   }
-
-//   return newArray;
+//   showName() {
+//     console.log(this.name);
+//   },
 // };
 
-// const multiplayTo2 = (number) => number * 2;
-// const getNamesArray = (user) => user.name;
+// anotherUser.showThis();
+// anotherUser.showName();
 
-// const result = each([1, 2, 3, 4, 5, 6], multiplayTo2);
+//TODO: Присвоєння функції як методу об'єкта
+// const showThis = function () {
+//   console.log('This --->', this);
+// };
 
-// const initArr = [
-//   { name: "John", age: 10 },
-//   { name: "James", age: 50 },
-// ];
+// const showName = function () {
+//   console.log(`Hello ${this.name}`);
+// };
 
-// const result2 = each(initArr, getNamesArray);
+// const user = {
+//   name: 'Luis',
+//   age: 30,
+// };
 
-// console.log(result);
-// console.log(result2);
+// user.showUserName = showName;
+// user.showUserThis = showThis;
 
-/**
- * TASK 4
- * Переписать TASK 2 на стрілкові функції
- */
+// // console.log(user);
 
-// const createProduct = (product, callback) => {
-//   const newProduct = {
-//     id: Date.now(),
-//     ...product,
+// user.showUserThis();
+// user.showUserName();
+
+// const anotherUser = {
+//   name: 'Oleksii',
+//   age: 40,
+// };
+
+// anotherUser.showUserName = showName;
+// anotherUser.showUserThis = showThis;
+
+// // console.log(anotherUser);
+
+// anotherUser.showUserThis();
+// anotherUser.showUserName();
+
+//TODO: Виклик методу об'єкта без контексту
+// const user = {
+//   name: 'Luis',
+//   age: 30,
+
+//   showUserThis() {
+//     console.log('This --->', this);
+//   },
+
+//   showUserName() {
+//     console.log(this.name);
+//   },
+//   showUserName2() {
+//     console.log('asjkdfhajkshfjk');
+//   },
+// };
+
+// const showThis = user.showUserThis;
+// const showName = user.showUserName;
+// const showName2 = user.showUserName2;
+// // showThis();
+// // showName();
+// showName2();
+
+//TODO: This в callback функціях
+
+// const user = {
+//   name: 'Luis',
+//   age: 30,
+
+//   showUserThis() {
+//     console.log('This --->', this);
+//   },
+
+//   showUserName() {
+//     console.log(this.name);
+//   },
+// };
+
+// const someFunction = function (callback) {
+//   // let callback = user.showUserThis;
+//   callback();
+// };
+
+// someFunction(user.showUserThis);
+
+//TODO: This у стрілочних функціях.
+// Стрілочні функції не мають свого this,
+// this в стрілках завжди посилається на батьківський this.
+
+// const user = {
+//   name: 'Luis',
+//   age: 30,
+
+//   changeUserAge(newAge) {
+//     // ТАК ПИСАТИ Н ТРЕБА - ПРИКЛАД ТОГО ЯК НЕ ТРАБА.
+//     const changeAge = () => {
+//       console.log(`this ---->`, this);
+//       this.age = newAge;
+//     };
+
+//     changeAge();
+//   },
+// };
+
+// const user2 = {
+//   name: 'Jhon',
+//   age: 50,
+//   // ТАК ПИСАТИ Н ТРЕБА - ПРИКЛАД ТОГО ЯК НЕ ТРАБА.
+//   changeUserAge: user.changeUserAge,
+// };
+
+// user2.changeUserAge(40);
+// console.log(user2);
+
+/*
+? Яким буде результат виконання цього коду?
+*/
+
+// let user = {
+//   name: 'Джон',
+
+//   go() {
+//     console.log(this);
+//     console.log(this.name);
+//   },
+// };
+
+// const goFn = user.go;
+// goFn();
+// user.go();
+
+/*
+? Тут функція makeUser повертає об'єкт.
+? Яким буде результат при зверненні до об'єкта ref? Чому?
+*/
+
+// const makeUser = function () {
+//   console.log(this);
+//   return {
+//     name: 'Джон',
+//     ref: this,
 //   };
-
-//   callback(newProduct);
 // };
 
-// const createProduct = (product, callback) =>
-//   callback({ id: Date.now(), ...product });
+// const user = makeUser();
 
-// const logProduct = (product) => console.log(product);
-// const logTotalPrice = (product) => console.log(product.price);
-
-// createProduct({ name: "🍎", price: 30, quantity: 3 }, logProduct);
-// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
-
-// createProduct({ name: "🍎", price: 30, quantity: 3 }, logTotalPrice);
-// createProduct({ name: "🍋", price: 20, quantity: 5 }, logTotalPrice);
+// console.log(user);
+// console.log(user.ref.name);
 
 /*
- * Exapmle 3
- * forEach() как замена циклов for и for...of для массивов
- */
+? Яким буде результат console.log
+*/
 
-// const numbers = [{ num: 1 }, { num: 2 }];
-
-// const callback = (element, index, array) => {
-//   element.num *= 2;
-//   console.group();
-//   console.log("element: ", element);
-//   console.log("index: ", index);
-//   console.log("array: ", array);
-//   console.groupEnd();
-// };
-
-// const ss = numbers.forEach(callback);
-// console.log(numbers);
-
-// ==========================================================================
-// ==========================================================================
-
-// numbers.forEach((item) => {
-//   console.log(item);
-// });
-
-// numbers.forEach(callback);
-
-// numbers.forEach((el, idx, arr) => console.log(el));
-
-// const ownForEach = function (array, callback) {
-//   for (let i = 0; i < array.length; i += 1) {
-//     callback(array[i], i, array);
-//   }
-// };
-
-// ownForEach(numbers, (el, idx, arr) => {
-//   console.log(el);
-// });
-
-// const numbers = [1, 2, 3, 4, 5];
-
-// const getTotal = function (numbersArr) {
-//   let total = 0;
-
-//   // Через обычный for
-//   //   for (let i = 0; i < numbersArr.length; i += 1) {
-//   //     total += numbersArr[i];
-//   //   }
-
-//   // Через обычный for...of
-//   for (const num of numbersArr) {
-//     total += num;
-//   }
-
-//   // Через forEach();
-//   numbersArr.forEach(el => (total += el));
-
-//   return total;
-// };
-
-// console.log(getTotal(numbers));
-
-/*
- * є функція, зробити рефакторіг, переписати її на forEach.
- */
-
-// function logItems(items) {
-//   console.log(items);
-
-//   for (let i = 0; i < items.length; i += 1) {
-//     console.log(`${i + 1} - ${items[i]}`);
-//   }
+// function makeUser() {
+//   console.log(this);
+//   return {
+//     name: 'Джон',
+//     ref() {
+//       return this;
+//     },
+//   };
 // }
 
-// const logItems = items =>
-//   items.forEach((item, index) => console.log(`${index + 1} - ${item}`));
-
-// const logItems = items => {
-//   items.forEach((item, index) => {
-//     console.log(`${index + 1} - ${item}`);
-//   });
+// // let user = makeUser();
+// let user = {
+//   name: 'Джон',
+//   ref() {
+//     return this;
+//   },
 // };
 
-// logItems(['Mango', 'Poly', 'Ajax']);
-// logItems(['🍎', '🍇', '🍑', '🍌', '🍋']);
+// console.log(user.ref()); // user
+// // console.log(user.ref().name);
 
 /*
- * є функція, зробити рефакторіг, переписати її на forEach та стрілкові функції.
- */
+? Це ladder (сходи) – об'єкт, який дозволяє підніматися вгору та спускатися:
+*/
 
-// function printContactsInfo({ names, phones } = {}) {
-//   const nameList = names ? names.split(',') : [];
-//   const phoneList = phones ? phones.split(',') : [];
+// const ladder = {
+//   step: 0,
 
-//   for (let i = 0; i < nameList.length; i += 1) {
-//     console.log(`${nameList[i]}: ${phoneList[i]}`);
-//   }
-// }
+//   up() {
+//     this.step += 10;
+//     return this;
+//   },
 
-// const printContactsInfo = ({ names, phones } = {}) => {
-//   const nameList = names ? names.split(',') : [];
-//   const phoneList = phones ? phones.split(',') : [];
+//   down() {
+//     this.step -= 5;
+//     return this;
+//   },
 
-//   nameList.forEach((name, index) => {
-//     console.log(`${name}: ${phoneList[index]}`);
-//   });
+//   showStep() {
+//     console.log(this.step);
+//     return this;
+//   },
 // };
 
-// printContactsInfo({
-//   names: 'Jacob,William,Solomon,Artemis',
-//   phones: '89001234567,89001112233,890055566377,890055566300',
-// });
+// Тепер, якщо нам потрібно зробити кілька послідовних викликів, ми можемо зробити це так:
+
+// ladder.up();
+// ladder.up();
+// ladder.down();
+// ladder.showStep();
+
+// Змініть код методів up, down та showStep таким чином, щоб їх виклик можна було зробити по ланцюжку, наприклад:
+
+// ladder.up().up().down().showStep(); // ladder.spet + 10
+// ladder.up().down().showStep(); // ladder.spet + 10
+// ladder.down().showStep(); // ladder.spet - 5
+// ladder.showStep(); // ladder === 15
+/*
+ *  Методи функцій call та apply
+ */
+
+//* Функції це об'єкти зі своїми властивостями та методами
+
+// console.log(this);
+// obj.metod()
+// obj -> metod = func
+// func <- obj.metod
+
+// const obj = {
+//   name: 'SomeName',
+//   ref() {
+//     return this;
+//   },
+// };
+
+// const some = function () {
+//   console.log(obj.ref().name);
+// };
+
+// // some(obj);
+// console.log(some);
 
 /*
- * є функція, зробити рефакторіг, переписати її на forEach.
+ * ======================================================================================================
+ * call та apply
+ * ======================================================================================================
  */
 
-// function calсulateAverage(...args) {
-//   let total = 0;
+//? Викличте функцію showFullName у контексті об'єкта user
 
-//   for (let i = 0; i < args.length; i++) {
-//     total += args[i];
-//   }
-
-//   return total / args.length;
-// }
-
-// const calсulateAverage = (...numbers) => {
-//   let total = 0;
-
-//   numbers.forEach(number => (total += number));
-
-//   return total / numbers.length;
+// const showFullName = function (message, number) {
+//   console.log(`${message} ${this.firstName} ${this.lastName} ${number}`);
 // };
 
-// console.log(calсulateAverage(1, 2, 3, 4)); // 2.5
-// console.log(calсulateAverage(14, 8, 2)); // 8
-// console.log(calсulateAverage(27, 43, 2, 8, 36)); // 23.2
+// const showFullName = function () {
+//   console.log(`${this.firstName} ${this.lastName}`);
+// };
+
+// // showFullName();
+// const user = {
+//   firstName: 'Ernest',
+//   lastName: 'Vasquez',
+//   age: 30,
+// };
+
+// showFullName.call(user, 'Hello', 10);
+// showFullName.apply(user, ['Hello', 10]);
+
+//? Викличте функцію showFullName у контексті об'єкта anotherUser
+// const anotherUser = {
+//   firstName: 'Lottie',
+//   lastName: 'Burgess',
+//   age: 40,
+// };
+
+// showFullName.call(anotherUser, 'Hi', 20);
+// showFullName.apply(anotherUser, ['Hi', 20]);
+
+//* Позичання методу
+
+// const createCurrentDate = function () {
+//   //   console.log(arguments);
+//   //   const newArr = Array.from(arguments);
+//   //   return newArr.join('.');
+//   //   return [].join.call(arguments, '.');
+// };
+
+// console.log(createCurrentDate(22, 12, 21));
+
+// console.log.call(anotherUser, 'asdasd');
+
+/*
+ * ======================================================================================================
+ * bind
+ * ======================================================================================================
+ */
+
+// const showFullName = function () {
+//   console.log(`${this.firstName} ${this.lastName}`);
+// };
+
+// const user = {
+//   firstName: 'Ernest',
+//   lastName: 'Vasquez',
+//   age: 30,
+// };
+
+// const showUserFullName = showFullName.bind(user);
+// showUserFullName();
+
+//* Метод об'єкта у ролі колбека
+
+// const user = {
+//   name: 'Luis',
+//   age: 30,
+
+//   showThis() {
+//     console.log(`this ---->`, this);
+//   },
+
+//   showName() {
+//     console.log(`this name is: ${this.name}`);
+//   },
+// };
+
+// const someFunction = function (callback) {
+//   // let callback = user.showName;
+//   callback();
+// };
+
+// someFunction(user.showThis.bind(user));
+
+/*
+? Що виведе код?
+*/
+
+// const f = function () {
+//   console.log(this.name);
+// };
+
+// const user = {
+//   name: 'Вася',
+// };
+
+// const anotherUser = {
+//   name: 'Петя',
+// };
+
+// const copyFunc = f.bind(user).bind(anotherUser);
+// copyFunc();
+// console.dir(copyFunc);
+
+/*
+ * Виклик checkPassword() у наведеному нижче коді повинен перевірити пароль та викликати
+ * user.loginOk/loginFail залежно від відповіді.
+ * Однак його виклик призводить до помилки. Чому?
+ */
+
+// const checkPassword = function (ok, fail) {
+//   // let ok = user.loginOk;
+//   // let fail = user.loginFail;
+
+//   const password = 'rockstar';
+
+//   if (password === 'rockstar') {
+//     ok();
+//   } else {
+//     fail();
+//   }
+// };
+
+// const user = {
+//   name: 'Вася',
+
+//   loginOk() {
+//     console.log(`${this.name} logged in`);
+//   },
+
+//   loginFail() {
+//     console.log(`${this.name} failed to log in`);
+//   },
+// };
+
+// checkPassword(user.loginOk.bind(user), user.loginFail.bind(user));
+
+/**
+ * Замикання. Bind своїми руками.
+ */
+
+// function bind(fn, object) {
+//   const bindedValues = object;
+//   return function (...args) {
+//     return fn.apply(bindedValues, ...args);
+//   };
+// }
+// const bindedFn = bind(
+//   function () {
+//     console.log(this.name);
+//   },
+//   { name: 'John' }
+// );
+// bindedFn();
+
+// function multiplyCreator(numberStatic) {
+//   //виклик під час створення замкання.
+//   //   const staticValue = numberStatic;
+//   return function (number) {
+//     //виклик під час використання замкнутої змінної.
+//     return number * numberStatic;
+//   };
+// }
+
+// const myltiplyOnTen = multiplyCreator(10); //виклик під час створення замкання.
+// console.log(myltiplyOnTen(123)); // виклик під час використання замкнутої змінної.
+
+// ===================================================================================
+// ===================================================================================
+// ===================================================================================
+/**
+ * BAC ARCH 1
+ */
+
+// const module1 = {
+//   name: 'module1',
+//   initModule() {
+//     return this;
+//   },
+//   showName() {
+//     return this.name;
+//   },
+// };
+
+// const module2 = {
+//   name: 'module2',
+//   initModule() {
+//     return this;
+//   },
+//   showName() {
+//     return this.name;
+//   },
+// };
+
+// const module3 = {
+//   name: 'module3',
+//   initModule() {
+//     return this;
+//   },
+//   showName() {
+//     return this.name;
+//   },
+// };
+
+// const modules = [module1, module2, module3];
+
+// const app = {
+//   initModules(modules) {
+//     modules.forEach(module => {
+//       this[module.name] = module.initModule();
+//     });
+//   },
+// };
+
+// app.initModules(modules);
+// console.log(app);
+// console.log(app.module1.showName());
+// console.log(app.module2.showName());
+// console.log(app.module3.showName());
+
+/**
+ * BAC ARCH 2
+ */
+
+// const module1 = function () {
+//   let that;
+//   return {
+//     name: 'module1',
+//     initModule() {
+//       that = this;
+//       return that;
+//     },
+//     showName: () => {
+//       return that.name;
+//     },
+//   };
+// };
+
+// const module2 = function () {
+//   let that;
+//   return {
+//     name: 'module2',
+//     initModule() {
+//       that = this;
+//       return that;
+//     },
+//     showName: () => {
+//       return that.name;
+//     },
+
+//     saveName: newName => {
+//       that.name = newName;
+//     },
+//   };
+// };
+
+// const modules = [module1, module2];
+
+// const app = {
+//   initModules(modules) {
+//     modules.forEach(module => {
+//       this[module.name] = module().initModule();
+//     });
+//   },
+// };
+// app.initModules(modules);
+// console.log(app);
+// console.log(app.module1.showName());
+// console.log(app.module2.saveName());
+
+/**
+ * Function.name
+ */
+
+// function someFunction() {
+//   return true;
+// }
+// console.log(typeof someFunction);
+// console.log(someFunction.name);
+// console.dir(someFunction)
+
+//========================== EXAMPLES ==================================
+
+/*
+? Напишіть метод calcTotalPrice(stoneName), який приймає назву каменю та розраховує
+? і повертає загальну вартість каменів з таким ім'ям.
+*/
+
+// const chopShop = {
+//   stones: [
+//     { name: 'Emerald', price: 1300, quantity: 4 },
+//     { name: 'Diamond', price: 2700, quantity: 3 },
+//     { name: 'Sapphire', price: 1400, quantity: 7 },
+//     { name: 'Ruby', price: 800, quantity: 2 },
+//   ],
+
+//   calcTotalPrice(stoneName) {
+//     const stone = this.stones.find(el => el.name === stoneName);
+
+//     if (stone === undefined) {
+//       return 'Такого каменя не знайдено';
+//     }
+
+//     return stone.price * stone.quantity;
+//   },
+// };
+
+// console.log(chopShop.calcTotalPrice('Emerald')); // 5200
+// console.log(chopShop.calcTotalPrice('Diamond')); // 8100
+// console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
+// console.log(chopShop.calcTotalPrice('Ruby')); // 1600
+// console.log(chopShop.calcTotalPrice('Sdfd')); // Такого каменя не знайдено
+
+/*
+? Виконайте рефакторинг методів об'єкта phonebook щоб код запрацював.
+*/
+
+// const phonebook = {
+//   contacts: [],
+
+//   add(contact) {
+//     const newContact = {
+//       list: 'default',
+//       ...contact,
+//       id: this.generateId(),
+//       createdAt: this.getDate(),
+//     };
+
+//     this.contacts.push(newContact);
+
+//     return this.contacts;
+//   },
+
+//   generateId() {
+//     return '_' + Math.random().toString(36).substr(2, 9);
+//   },
+
+//   getDate() {
+//     return Date.now();
+//   },
+// };
+
+// console.log(
+//   phonebook.add({
+//     name: 'Mango',
+//     email: 'mango@mail.com',
+//     list: 'friends',
+//   })
+// );
+
+// console.log(
+//   phonebook.add({
+//     name: 'Poly',
+//     email: 'poly@hotmail.com',
+//   })
+// );
+
+/*
+? Створіть об'єкт calculator із трьома методами:
+?
+? read(a, b)- приймає два значення та зберігає їх як властивості об'єкта.
+? add() - повертає суму збережених значень.
+? mult() - перемножує збережені значення та повертає результат.
+*/
+
+// const calculator = {
+//   read(a, b) {
+//     this.a = a;
+//     this.b = b;
+//   },
+
+//   add() {
+//     return this.a + this.b;
+//   },
+
+//   mult() {
+//     return this.a * this.b;
+//   },
+// };
+
+// calculator.read(10, 20);
+// console.log(calculator.add());
+// console.log(calculator.mult());
