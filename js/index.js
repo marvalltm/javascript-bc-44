@@ -4,13 +4,53 @@
  *  Контекст виконання this
  */
 
+// const shop = {
+//   warehouse: [
+//     {
+//       name: 'SmartFone S1',
+//       price: 333,
+//       amount: 1,
+//     },
+//     {
+//       name: 'SmartFone S2',
+//       price: 333,
+//       amount: 1,
+//     },
+//     {
+//       name: 'SmartFone S3',
+//       price: 333,
+//       amount: 1,
+//     },
+//   ],
+
+//   addItemToWarehouse(object) {
+//     //check warehouse
+//     if (this.checkItemInWarehouse(object.name)) {
+//       const currentItem = this.warehouse.find(item => item.name === name);
+//       currentItem.amount += 1;
+//     } else {
+//       this.warehouse.push(object)
+//     }
+//   },
+
+//   checkItemInWarehouse(name) {
+//     return this.warehouse.find(item => item.name === name) && true;
+//   },
+// };
+
+// shop.addItemToWarehouse({
+//   name: 'SmartFone S1',
+//   price: 333,
+//   amount: 1,
+// });
+
+//TODO: Розглянемо як this поводиться у звичайних функціях (суворий, не суворий режим)
+
 /*
  * this існує тільки всередині функцій.
  * На this не впливає те де функція була //! ОГОЛОШЕНА.
  * На this впливає те де функція //! ВИКЛИКАЄТЬСЯ.
  */
-
-//TODO: Розглянемо як this поводиться у звичайних функціях (суворий, не суворий режим)
 
 // Function expression
 // const greet1 = function () {
@@ -20,7 +60,7 @@
 
 // greet1();
 
-// // Function declaration
+// // // Function declaration
 // function greet2() {
 //   console.log('This --->', this);
 //   console.log('Hello');
@@ -28,7 +68,7 @@
 
 // greet2();
 
-// // Arrow function
+// // // Arrow function
 // const greet3 = () => {
 //   console.log('This --->', this);
 //   console.log('Hello');
@@ -78,6 +118,10 @@
 //   console.log(`Hello ${this.name}`);
 // };
 
+// const setName = function (value) {
+//   this.name = value;
+// };
+
 // const user = {
 //   name: 'Luis',
 //   age: 30,
@@ -85,6 +129,7 @@
 
 // user.showUserName = showName;
 // user.showUserThis = showThis;
+// user.setName = setName;
 
 // // console.log(user);
 
@@ -99,7 +144,7 @@
 // anotherUser.showUserName = showName;
 // anotherUser.showUserThis = showThis;
 
-// // console.log(anotherUser);
+// // // console.log(anotherUser);
 
 // anotherUser.showUserThis();
 // anotherUser.showUserName();
@@ -112,7 +157,6 @@
 //   showUserThis() {
 //     console.log('This --->', this);
 //   },
-
 //   showUserName() {
 //     console.log(this.name);
 //   },
@@ -124,8 +168,9 @@
 // const showThis = user.showUserThis;
 // const showName = user.showUserName;
 // const showName2 = user.showUserName2;
-// // showThis();
-// // showName();
+// // console.log(showThis);
+// showThis();
+// showName();
 // showName2();
 
 //TODO: This в callback функціях
@@ -159,7 +204,13 @@
 //   age: 30,
 
 //   changeUserAge(newAge) {
-//     // ТАК ПИСАТИ Н ТРЕБА - ПРИКЛАД ТОГО ЯК НЕ ТРАБА.
+//     console.log('changeUserAge: ', this);
+//     // ТАК ПИСАТИ НЕ ТРЕБА - ПРИКЛАД ТОГО ЯК НЕ ТРАБА.
+//     // const changeAge = function () {
+//     //   console.log(`changeAge: `, this);
+//     //   this.age = newAge;
+//     // };
+
 //     const changeAge = () => {
 //       console.log(`this ---->`, this);
 //       this.age = newAge;
@@ -168,6 +219,8 @@
 //     changeAge();
 //   },
 // };
+
+// user.changeUserAge(31);
 
 // const user2 = {
 //   name: 'Jhon',
@@ -202,7 +255,7 @@
 */
 
 // const makeUser = function () {
-//   console.log(this);
+//   //   console.log(this);
 //   return {
 //     name: 'Джон',
 //     ref: this,
@@ -219,7 +272,7 @@
 */
 
 // function makeUser() {
-//   console.log(this);
+//   //   console.log(this);
 //   return {
 //     name: 'Джон',
 //     ref() {
@@ -228,16 +281,16 @@
 //   };
 // }
 
-// // let user = makeUser();
-// let user = {
-//   name: 'Джон',
-//   ref() {
-//     return this;
-//   },
-// };
+// let user = makeUser();
+// // let user = {
+// //   name: 'Джон',
+// //   ref() {
+// //     return this;
+// //   },
+// // };
 
 // console.log(user.ref()); // user
-// // console.log(user.ref().name);
+// console.log(user.ref().name);
 
 /*
 ? Це ladder (сходи) – об'єкт, який дозволяє підніматися вгору та спускатися:
@@ -262,6 +315,7 @@
 //   },
 // };
 
+// ladder.up().up().down().showStep();
 // Тепер, якщо нам потрібно зробити кілька послідовних викликів, ми можемо зробити це так:
 
 // ladder.up();
@@ -300,6 +354,9 @@
 // // some(obj);
 // console.log(some);
 
+// function some() {}
+// console.dir(some.name);
+
 /*
  * ======================================================================================================
  * call та apply
@@ -313,17 +370,62 @@
 // };
 
 // const showFullName = function () {
-//   console.log(`${this.firstName} ${this.lastName}`);
+//   console.log(`${this.firstName} ${this.lastName}, hes name: ${this.age}`);
 // };
 
-// // showFullName();
+// showFullName();
 // const user = {
 //   firstName: 'Ernest',
 //   lastName: 'Vasquez',
 //   age: 30,
 // };
 
-// showFullName.call(user, 'Hello', 10);
+// const user = [
+//   {
+//     firstName: 'Ernest',
+//     lastName: 'Vasquez',
+//     age: 30,
+//   },
+//   {
+//     firstName: 'dsada',
+//     lastName: 'Vasquez',
+//     age: 30,
+//   },
+//   {
+//     firstName: 'asdasda',
+//     lastName: 'Vasquez',
+//     age: 30,
+//   },
+//   {
+//     firstName: 'asdasd',
+//     lastName: 'Vasquez',
+//     age: 30,
+//   },
+// ];
+
+// user.forEach((item, index) => {
+//   console.log(item);
+//   if (index % 2 !== 0) {
+//     showFullName.call(item);
+//   }
+// });
+
+/**
+ *  user = {
+        firstName: 'asdasd',
+        lastName: 'Vasquez',
+        age: 30,
+    },
+    showFullName.call(item);
+    user.showFullName = showFullName()
+    user.showFullName()
+    delete user.showFullName
+ */
+
+// showFullName('Hello', 10);
+// user < ----backend
+// data < ----backend
+// showFullName.call(user, data);
 // showFullName.apply(user, ['Hello', 10]);
 
 //? Викличте функцію showFullName у контексті об'єкта anotherUser
@@ -395,7 +497,7 @@
 */
 
 // const f = function () {
-//   console.log(this.name);
+//   console.log(this);
 // };
 
 // const user = {
@@ -441,26 +543,11 @@
 //   },
 // };
 
-// checkPassword(user.loginOk.bind(user), user.loginFail.bind(user));
+// checkPassword(user.loginOk.bind(user), user.loginFail);
 
 /**
  * Замикання. Bind своїми руками.
  */
-
-// function bind(fn, object) {
-//   const bindedValues = object;
-//   return function (...args) {
-//     return fn.apply(bindedValues, ...args);
-//   };
-// }
-// const bindedFn = bind(
-//   function () {
-//     console.log(this.name);
-//   },
-//   { name: 'John' }
-// );
-// bindedFn();
-
 // function multiplyCreator(numberStatic) {
 //   //виклик під час створення замкання.
 //   //   const staticValue = numberStatic;
@@ -470,222 +557,20 @@
 //   };
 // }
 
-// const myltiplyOnTen = multiplyCreator(10); //виклик під час створення замкання.
-// console.log(myltiplyOnTen(123)); // виклик під час використання замкнутої змінної.
+// const mutlToTen = multiplyCreator(10);
+// console.log(mutlToTen(123));
 
-// ===================================================================================
-// ===================================================================================
-// ===================================================================================
-/**
- * BAC ARCH 1
- */
-
-// const module1 = {
-//   name: 'module1',
-//   initModule() {
-//     return this;
-//   },
-//   showName() {
-//     return this.name;
-//   },
-// };
-
-// const module2 = {
-//   name: 'module2',
-//   initModule() {
-//     return this;
-//   },
-//   showName() {
-//     return this.name;
-//   },
-// };
-
-// const module3 = {
-//   name: 'module3',
-//   initModule() {
-//     return this;
-//   },
-//   showName() {
-//     return this.name;
-//   },
-// };
-
-// const modules = [module1, module2, module3];
-
-// const app = {
-//   initModules(modules) {
-//     modules.forEach(module => {
-//       this[module.name] = module.initModule();
-//     });
-//   },
-// };
-
-// app.initModules(modules);
-// console.log(app);
-// console.log(app.module1.showName());
-// console.log(app.module2.showName());
-// console.log(app.module3.showName());
-
-/**
- * BAC ARCH 2
- */
-
-// const module1 = function () {
-//   let that;
-//   return {
-//     name: 'module1',
-//     initModule() {
-//       that = this;
-//       return that;
-//     },
-//     showName: () => {
-//       return that.name;
-//     },
+// function bind(fn, object) {
+//   const bindedValues = object;
+//   return function (...args) {
+//     return fn.call(bindedValues, ...args);
 //   };
-// };
-
-// const module2 = function () {
-//   let that;
-//   return {
-//     name: 'module2',
-//     initModule() {
-//       that = this;
-//       return that;
-//     },
-//     showName: () => {
-//       return that.name;
-//     },
-
-//     saveName: newName => {
-//       that.name = newName;
-//     },
-//   };
-// };
-
-// const modules = [module1, module2];
-
-// const app = {
-//   initModules(modules) {
-//     modules.forEach(module => {
-//       this[module.name] = module().initModule();
-//     });
-//   },
-// };
-// app.initModules(modules);
-// console.log(app);
-// console.log(app.module1.showName());
-// console.log(app.module2.saveName());
-
-/**
- * Function.name
- */
-
-// function someFunction() {
-//   return true;
 // }
-// console.log(typeof someFunction);
-// console.log(someFunction.name);
-// console.dir(someFunction)
 
-//========================== EXAMPLES ==================================
-
-/*
-? Напишіть метод calcTotalPrice(stoneName), який приймає назву каменю та розраховує
-? і повертає загальну вартість каменів з таким ім'ям.
-*/
-
-// const chopShop = {
-//   stones: [
-//     { name: 'Emerald', price: 1300, quantity: 4 },
-//     { name: 'Diamond', price: 2700, quantity: 3 },
-//     { name: 'Sapphire', price: 1400, quantity: 7 },
-//     { name: 'Ruby', price: 800, quantity: 2 },
-//   ],
-
-//   calcTotalPrice(stoneName) {
-//     const stone = this.stones.find(el => el.name === stoneName);
-
-//     if (stone === undefined) {
-//       return 'Такого каменя не знайдено';
-//     }
-
-//     return stone.price * stone.quantity;
+// const bindedFn = bind(
+//   function () {
+//     console.log(this.name);
 //   },
-// };
-
-// console.log(chopShop.calcTotalPrice('Emerald')); // 5200
-// console.log(chopShop.calcTotalPrice('Diamond')); // 8100
-// console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
-// console.log(chopShop.calcTotalPrice('Ruby')); // 1600
-// console.log(chopShop.calcTotalPrice('Sdfd')); // Такого каменя не знайдено
-
-/*
-? Виконайте рефакторинг методів об'єкта phonebook щоб код запрацював.
-*/
-
-// const phonebook = {
-//   contacts: [],
-
-//   add(contact) {
-//     const newContact = {
-//       list: 'default',
-//       ...contact,
-//       id: this.generateId(),
-//       createdAt: this.getDate(),
-//     };
-
-//     this.contacts.push(newContact);
-
-//     return this.contacts;
-//   },
-
-//   generateId() {
-//     return '_' + Math.random().toString(36).substr(2, 9);
-//   },
-
-//   getDate() {
-//     return Date.now();
-//   },
-// };
-
-// console.log(
-//   phonebook.add({
-//     name: 'Mango',
-//     email: 'mango@mail.com',
-//     list: 'friends',
-//   })
+//   { name: 'John' }
 // );
-
-// console.log(
-//   phonebook.add({
-//     name: 'Poly',
-//     email: 'poly@hotmail.com',
-//   })
-// );
-
-/*
-? Створіть об'єкт calculator із трьома методами:
-?
-? read(a, b)- приймає два значення та зберігає їх як властивості об'єкта.
-? add() - повертає суму збережених значень.
-? mult() - перемножує збережені значення та повертає результат.
-*/
-
-// const calculator = {
-//   read(a, b) {
-//     this.a = a;
-//     this.b = b;
-//   },
-
-//   add() {
-//     return this.a + this.b;
-//   },
-
-//   mult() {
-//     return this.a * this.b;
-//   },
-// };
-
-// calculator.read(10, 20);
-// console.log(calculator.add());
-// console.log(calculator.mult());
+// bindedFn();
