@@ -1,576 +1,342 @@
 'use strict';
 
 /*
- *  Контекст виконання this
+ * Ланцюжки прототипів.
+ * Object.create().
+ * obj.hasOwnProperty()
  */
 
-// const shop = {
-//   warehouse: [
-//     {
-//       name: 'SmartFone S1',
-//       price: 333,
-//       amount: 1,
-//     },
-//     {
-//       name: 'SmartFone S2',
-//       price: 333,
-//       amount: 1,
-//     },
-//     {
-//       name: 'SmartFone S3',
-//       price: 333,
-//       amount: 1,
-//     },
-//   ],
-
-//   addItemToWarehouse(object) {
-//     //check warehouse
-//     if (this.checkItemInWarehouse(object.name)) {
-//       const currentItem = this.warehouse.find(item => item.name === name);
-//       currentItem.amount += 1;
-//     } else {
-//       this.warehouse.push(object)
-//     }
-//   },
-
-//   checkItemInWarehouse(name) {
-//     return this.warehouse.find(item => item.name === name) && true;
+// const human = {
+//   hand: 2,
+//   sayHello() {
+//     console.log('hello');
 //   },
 // };
 
-// shop.addItemToWarehouse({
-//   name: 'SmartFone S1',
-//   price: 333,
-//   amount: 1,
-// });
-
-//TODO: Розглянемо як this поводиться у звичайних функціях (суворий, не суворий режим)
-
-/*
- * this існує тільки всередині функцій.
- * На this не впливає те де функція була //! ОГОЛОШЕНА.
- * На this впливає те де функція //! ВИКЛИКАЄТЬСЯ.
- */
-
-// Function expression
-// const greet1 = function () {
-//   console.log('This --->', this);
-//   console.log('Hello');
+// const worker = Object.create(human, {});
+// worker.salary = 1000;
+// worker.getSalary = function () {
+//   return this.salary;
 // };
 
-// greet1();
+// console.log(worker.hasOwnProperty('salary')); // перевірка власних властивостей.
 
-// // // Function declaration
-// function greet2() {
-//   console.log('This --->', this);
-//   console.log('Hello');
+//перебір властивостей об'екта
+
+// for (const key in worker) {
+//   console.log(key, ' ____ ', worker.hasOwnProperty(key));
 // }
 
-// greet2();
+// https://learn.javascript.ru/article/native-prototypes/native-prototypes-classes.svg
 
-// // // Arrow function
-// const greet3 = () => {
-//   console.log('This --->', this);
-//   console.log('Hello');
+//* Власні та не власні властивості об'єкта
+
+//? Функція конструктор
+// const Worker = function (option) {
+//   this.salary = option.salary;
+//   this.getSalary = option.getSalary;
+//   return this;
 // };
 
-// greet3();
+// const worker = new Worker({
+//   salary: 1000,
+//   getSalary() {
+//     console.log(this.salary);
+//   },
+// });
 
-//TODO: Розглянемо як this поводиться в методах
-// const user = {
-//   name: 'Luis',
+// Worker.prototype.getSalary = function () {
+//   console.log(10);
+// };
+
+// const worker2 = new Worker({
+//   salary: 1000,
+//   getSalary() {
+//     console.log(this.salary);
+//   },
+// });
+
+// worker2.getSalary();
+
+// const Person = function ({ firstName, lastName, age, hairColor, eyesColor } = {}) {
+//   // this = {};
+//   this.firstName = firstName;
+//   this.lastName = lastName;
+//   this.age = age;
+//   this.legs = 2;
+//   this.hands = 2;
+//   this.eyes = 2;
+//   this.hairColor = hairColor;
+//   this.eyesColor = eyesColor;
+//   return this;
+// };
+
+// Person.prototype.changeHairColor = function (newHairColor) {
+//   this.hairColor = newHairColor;
+// };
+
+// Person.prototype.changeFirstName = function (newName) {
+//   this.firstName = newName;
+// };
+
+// const person = new Person({
+//   firstName: 'Oleksii',
+//   lastName: 'Repin',
 //   age: 30,
+//   hairColor: 'black',
+//   eyesColor: 'brown',
+// });
 
-//   showThis() {
-//     console.log('This --->', this);
-//   },
+// const person2 = new Person({
+//   firstName: 'Andriy',
+//   lastName: 'Smith',
+//   age: 20,
+//   hairColor: 'black',
+//   eyesColor: 'brown',
+// });
 
-//   showName() {
-//     console.log(this.name);
-//   },
-// };
+// console.log(person);
+// console.log(person2);
 
-// user.showThis();
-// user.showName();
+// person.changeHairColor('brown');
+// person.changeFirstName('Susie');
 
-// const anotherUser = {
-//   name: 'Oleksii',
-//   age: 50,
+// const person2 = new Person({
+//   firstName: 'Emily',
+//   lastName: 'Henderson',
+//   age: 20,
+//   hairColor: 'pink',
+//   eyesColor: 'blue',
+// });
 
-//   showThis() {
-//     console.log('This --->', this);
-//   },
+// person2.changeFirstName('Teresa');
 
-//   showName() {
-//     console.log(this.name);
-//   },
-// };
+// console.log(person);
+// console.log(person2);
 
-// anotherUser.showThis();
-// anotherUser.showName();
-
-//TODO: Присвоєння функції як методу об'єкта
-// const showThis = function () {
-//   console.log('This --->', this);
-// };
-
-// const showName = function () {
-//   console.log(`Hello ${this.name}`);
-// };
-
-// const setName = function (value) {
-//   this.name = value;
-// };
-
-// const user = {
-//   name: 'Luis',
-//   age: 30,
-// };
-
-// user.showUserName = showName;
-// user.showUserThis = showThis;
-// user.setName = setName;
-
-// // console.log(user);
-
-// user.showUserThis();
-// user.showUserName();
-
-// const anotherUser = {
-//   name: 'Oleksii',
-//   age: 40,
-// };
-
-// anotherUser.showUserName = showName;
-// anotherUser.showUserThis = showThis;
-
-// // // console.log(anotherUser);
-
-// anotherUser.showUserThis();
-// anotherUser.showUserName();
-
-//TODO: Виклик методу об'єкта без контексту
-// const user = {
-//   name: 'Luis',
-//   age: 30,
-
-//   showUserThis() {
-//     console.log('This --->', this);
-//   },
-//   showUserName() {
-//     console.log(this.name);
-//   },
-//   showUserName2() {
-//     console.log('asjkdfhajkshfjk');
-//   },
-// };
-
-// const showThis = user.showUserThis;
-// const showName = user.showUserName;
-// const showName2 = user.showUserName2;
-// // console.log(showThis);
-// showThis();
-// showName();
-// showName2();
-
-//TODO: This в callback функціях
-
-// const user = {
-//   name: 'Luis',
-//   age: 30,
-
-//   showUserThis() {
-//     console.log('This --->', this);
-//   },
-
-//   showUserName() {
-//     console.log(this.name);
-//   },
-// };
-
-// const someFunction = function (callback) {
-//   // let callback = user.showUserThis;
-//   callback();
-// };
-
-// someFunction(user.showUserThis);
-
-//TODO: This у стрілочних функціях.
-// Стрілочні функції не мають свого this,
-// this в стрілках завжди посилається на батьківський this.
-
-// const user = {
-//   name: 'Luis',
-//   age: 30,
-
-//   changeUserAge(newAge) {
-//     console.log('changeUserAge: ', this);
-//     // ТАК ПИСАТИ НЕ ТРЕБА - ПРИКЛАД ТОГО ЯК НЕ ТРАБА.
-//     // const changeAge = function () {
-//     //   console.log(`changeAge: `, this);
-//     //   this.age = newAge;
-//     // };
-
-//     const changeAge = () => {
-//       console.log(`this ---->`, this);
-//       this.age = newAge;
-//     };
-
-//     changeAge();
-//   },
-// };
-
-// user.changeUserAge(31);
-
-// const user2 = {
-//   name: 'Jhon',
-//   age: 50,
-//   // ТАК ПИСАТИ Н ТРЕБА - ПРИКЛАД ТОГО ЯК НЕ ТРАБА.
-//   changeUserAge: user.changeUserAge,
-// };
-
-// user2.changeUserAge(40);
-// console.log(user2);
+// ===========================================================================
+// ===========================================================================
+// ===========================================================================
 
 /*
-? Яким буде результат виконання цього коду?
-*/
+ * Класи: оголошення, конструктор, методи (class, constructor)
+ * Приватні властивості та методи // умовно приватні властивості.
+ * Статичні властивості та методи
+ * Геттери та сеттери
+ * Створити класс User.
+ */
 
-// let user = {
-//   name: 'Джон',
+// class Person {
+//   #firstName;
+//   #lastName;
+//   constructor(options) {
+//     this.#firstName = options.firstName;
+//     this.#lastName = options.lastName;
+//     this.age = options.age;
+//     this.salary = options.salary;
+//   }
 
-//   go() {
-//     console.log(this);
-//     console.log(this.name);
-//   },
-// };
+//   //   showName() {
+//   //     console.log(this.#name);
+//   //   }
 
-// const goFn = user.go;
-// goFn();
-// user.go();
+//   get name() {
+//     return `${this.#firstName} ${this.#lastName}`;
+//   }
+//   set name(value) {
+//     if (typeof value === 'string') {
+//       const parts = value.split(' ');
+//       if (parts.length === 2) {
+//         this.#setFirstName(parts[0]);
+//         this.#lastName = parts[1];
+//       }
+//     }
+//   }
+//   // приватний метод,доступній тільки для інших методій в середині єкземпляру класса.
+//   #setFirstName(value) {
+//     this.#firstName = value;
+//   }
+// }
+
+// const person = new Person({ lastName: 'Smith', firstName: 'John', age: 25, salary: 1000 });
+
+// person.name = 'James Some';
+// // console.log(person.#name);
+
+/**
+ * Статичні методи і властивості
+ */
+
+// class Config {
+//   static address = 'Kiev, some st, 33';
+//   static getDistanse(point) {
+//     return point * 1000;
+//   }
+//   getSomeDistanse() {
+//     return point * 5000;
+//   }
+// }
+
+// console.log(Config.address);
+// console.log(Config.getDistanse(12));
+
+// const config = new Config();
+// console.log(config);
+// config.getDistanse(12);
+
+//Math.pow()
+//Math.sqrt()
+//Math.sin()
+
+//Object.keys(object);
+//Object.value(object);
+//Object.defineProperties()
 
 /*
-? Тут функція makeUser повертає об'єкт.
-? Яким буде результат при зверненні до об'єкта ref? Чому?
-*/
+ * Наслідування з extends та super. Створити класс Сlient та Employeer наслідуючі класс User.
+ * Створити класс Developer та Manager наслідуючі класс Employeer.
+ */
 
-// const makeUser = function () {
-//   //   console.log(this);
-//   return {
-//     name: 'Джон',
-//     ref: this,
-//   };
-// };
+// class User {
+//   constructor(props) {
+//     this.login = props.login;
+//     this.password = props.password;
+//     this.type = 'user';
+//   }
 
-// const user = makeUser();
+//   sayWhoIs() {
+//     console.log(`I am "${this.type}"`);
+//   }
+// }
+
+// const user = new User({
+//   login: 'johnsmith',
+//   password: '11111111',
+// });
 
 // console.log(user);
-// console.log(user.ref.name);
+// user.sayWhoIs();
 
-/*
-? Яким буде результат console.log
-*/
+// class Client extends User {
+//   constructor(props) {
+//     super(props); // доступный в середині конструктору.
+//     this.discont = props.discont;
+//     this.type = 'clinent';
+//   }
 
-// function makeUser() {
-//   //   console.log(this);
-//   return {
-//     name: 'Джон',
-//     ref() {
-//       return this;
-//     },
-//   };
+//   buyProduct() {
+//     console.log('buyProduct');
+//   }
+//   getCard() {
+//     console.log('getCard');
+//   }
+//   pay() {
+//     console.log('pay');
+//   }
 // }
 
-// let user = makeUser();
-// // let user = {
-// //   name: 'Джон',
-// //   ref() {
-// //     return this;
-// //   },
-// // };
-
-// console.log(user.ref()); // user
-// console.log(user.ref().name);
-
-/*
-? Це ladder (сходи) – об'єкт, який дозволяє підніматися вгору та спускатися:
-*/
-
-// const ladder = {
-//   step: 0,
-
-//   up() {
-//     this.step += 10;
-//     return this;
-//   },
-
-//   down() {
-//     this.step -= 5;
-//     return this;
-//   },
-
-//   showStep() {
-//     console.log(this.step);
-//     return this;
-//   },
-// };
-
-// ladder.up().up().down().showStep();
-// Тепер, якщо нам потрібно зробити кілька послідовних викликів, ми можемо зробити це так:
-
-// ladder.up();
-// ladder.up();
-// ladder.down();
-// ladder.showStep();
-
-// Змініть код методів up, down та showStep таким чином, щоб їх виклик можна було зробити по ланцюжку, наприклад:
-
-// ladder.up().up().down().showStep(); // ladder.spet + 10
-// ladder.up().down().showStep(); // ladder.spet + 10
-// ladder.down().showStep(); // ladder.spet - 5
-// ladder.showStep(); // ladder === 15
-/*
- *  Методи функцій call та apply
- */
-
-//* Функції це об'єкти зі своїми властивостями та методами
-
-// console.log(this);
-// obj.metod()
-// obj -> metod = func
-// func <- obj.metod
-
-// const obj = {
-//   name: 'SomeName',
-//   ref() {
-//     return this;
-//   },
-// };
-
-// const some = function () {
-//   console.log(obj.ref().name);
-// };
-
-// // some(obj);
-// console.log(some);
-
-// function some() {}
-// console.dir(some.name);
-
-/*
- * ======================================================================================================
- * call та apply
- * ======================================================================================================
- */
-
-//? Викличте функцію showFullName у контексті об'єкта user
-
-// const showFullName = function (message, number) {
-//   console.log(`${message} ${this.firstName} ${this.lastName} ${number}`);
-// };
-
-// const showFullName = function () {
-//   console.log(`${this.firstName} ${this.lastName}, hes name: ${this.age}`);
-// };
-
-// showFullName();
-// const user = {
-//   firstName: 'Ernest',
-//   lastName: 'Vasquez',
-//   age: 30,
-// };
-
-// const user = [
-//   {
-//     firstName: 'Ernest',
-//     lastName: 'Vasquez',
-//     age: 30,
-//   },
-//   {
-//     firstName: 'dsada',
-//     lastName: 'Vasquez',
-//     age: 30,
-//   },
-//   {
-//     firstName: 'asdasda',
-//     lastName: 'Vasquez',
-//     age: 30,
-//   },
-//   {
-//     firstName: 'asdasd',
-//     lastName: 'Vasquez',
-//     age: 30,
-//   },
-// ];
-
-// user.forEach((item, index) => {
-//   console.log(item);
-//   if (index % 2 !== 0) {
-//     showFullName.call(item);
-//   }
+// const client = new Client({
+//   login: 'somePeople',
+//   password: '112211',
+//   discont: '20%',
 // });
 
-/**
- *  user = {
-        firstName: 'asdasd',
-        lastName: 'Vasquez',
-        age: 30,
-    },
-    showFullName.call(item);
-    user.showFullName = showFullName()
-    user.showFullName()
-    delete user.showFullName
- */
+// console.log(client);
+// client.sayWhoIs();
 
-// showFullName('Hello', 10);
-// user < ----backend
-// data < ----backend
-// showFullName.call(user, data);
-// showFullName.apply(user, ['Hello', 10]);
+// class Employeer extends User {
+//   #salary;
+//   constructor(props) {
+//     super(props);
 
-//? Викличте функцію showFullName у контексті об'єкта anotherUser
-// const anotherUser = {
-//   firstName: 'Lottie',
-//   lastName: 'Burgess',
-//   age: 40,
-// };
-
-// showFullName.call(anotherUser, 'Hi', 20);
-// showFullName.apply(anotherUser, ['Hi', 20]);
-
-//* Позичання методу
-
-// const createCurrentDate = function () {
-//   //   console.log(arguments);
-//   //   const newArr = Array.from(arguments);
-//   //   return newArr.join('.');
-//   //   return [].join.call(arguments, '.');
-// };
-
-// console.log(createCurrentDate(22, 12, 21));
-
-// console.log.call(anotherUser, 'asdasd');
-
-/*
- * ======================================================================================================
- * bind
- * ======================================================================================================
- */
-
-// const showFullName = function () {
-//   console.log(`${this.firstName} ${this.lastName}`);
-// };
-
-// const user = {
-//   firstName: 'Ernest',
-//   lastName: 'Vasquez',
-//   age: 30,
-// };
-
-// const showUserFullName = showFullName.bind(user);
-// showUserFullName();
-
-//* Метод об'єкта у ролі колбека
-
-// const user = {
-//   name: 'Luis',
-//   age: 30,
-
-//   showThis() {
-//     console.log(`this ---->`, this);
-//   },
-
-//   showName() {
-//     console.log(`this name is: ${this.name}`);
-//   },
-// };
-
-// const someFunction = function (callback) {
-//   // let callback = user.showName;
-//   callback();
-// };
-
-// someFunction(user.showThis.bind(user));
-
-/*
-? Що виведе код?
-*/
-
-// const f = function () {
-//   console.log(this);
-// };
-
-// const user = {
-//   name: 'Вася',
-// };
-
-// const anotherUser = {
-//   name: 'Петя',
-// };
-
-// const copyFunc = f.bind(user).bind(anotherUser);
-// copyFunc();
-// console.dir(copyFunc);
-
-/*
- * Виклик checkPassword() у наведеному нижче коді повинен перевірити пароль та викликати
- * user.loginOk/loginFail залежно від відповіді.
- * Однак його виклик призводить до помилки. Чому?
- */
-
-// const checkPassword = function (ok, fail) {
-//   // let ok = user.loginOk;
-//   // let fail = user.loginFail;
-
-//   const password = 'rockstar';
-
-//   if (password === 'rockstar') {
-//     ok();
-//   } else {
-//     fail();
+//     this.#salary = props.salary;
+//     this.type = 'employeer';
 //   }
-// };
-
-// const user = {
-//   name: 'Вася',
-
-//   loginOk() {
-//     console.log(`${this.name} logged in`);
-//   },
-
-//   loginFail() {
-//     console.log(`${this.name} failed to log in`);
-//   },
-// };
-
-// checkPassword(user.loginOk.bind(user), user.loginFail);
-
-/**
- * Замикання. Bind своїми руками.
- */
-// function multiplyCreator(numberStatic) {
-//   //виклик під час створення замкання.
-//   //   const staticValue = numberStatic;
-//   return function (number) {
-//     //виклик під час використання замкнутої змінної.
-//     return number * numberStatic;
-//   };
+//   getAccessToAdmin() {
+//     console.log('getAccessToAdmin');
+//   }
+//   getSalary() {
+//     return this.#salary;
+//   }
 // }
 
-// const mutlToTen = multiplyCreator(10);
-// console.log(mutlToTen(123));
+// const employeer = new Employeer({
+//   login: 'Eric0001',
+//   password: '112211',
+//   salary: 1000,
+// });
 
-// function bind(fn, object) {
-//   const bindedValues = object;
-//   return function (...args) {
-//     return fn.call(bindedValues, ...args);
-//   };
+// console.log(employeer);
+// employeer.sayWhoIs();
+
+// class Manager extends Employeer {
+//   constructor(props) {
+//     super(props);
+
+//     this.type = 'manager';
+//   }
+
+//   getAllSalaryList() {
+//     console.log('getAllSalaryList');
+//   }
 // }
 
-// const bindedFn = bind(
-//   function () {
-//     console.log(this.name);
-//   },
-//   { name: 'John' }
-// );
-// bindedFn();
+// const manager = new Manager({
+//   login: 'Steav888',
+//   password: '11234511',
+//   salary: 1200,
+// });
+
+// manager.sayWhoIs();
+
+// class Developer extends Employeer {
+//   constructor(props) {
+//     super(props);
+
+//     this.type = 'developer';
+//   }
+
+//   getAccessToTickList() {
+//     console.log('getAccessToTickList');
+//   }
+
+//   sayWhoIs() {
+//     console.log('I am 100% Dev');
+//   }
+// }
+
+// const developer = new Developer({
+//   login: 'Jonson',
+//   password: '112342221',
+//   salary: 2000,
+// });
+
+// developer.sayWhoIs();
+// console.log(developer.getSalary());
+
+// /**
+//  *  ===== PROTOTYPE ======
+//  */
+
+// User.prototype.sayWhoIs = function (value) {
+//   console.log(value);
+// };
+
+// // const user2 = new User({
+// //   login: 'ASdasd',
+// //   password: 'Asdasd',
+// //   type: 'sdfdsf',
+// // });
+
+// // user2.sayWhoIs('kjashfansfs text');
+// // manager.sayWhoIs('some text');
+
+// Object.prototype.hasOwnProperty = function (value) {
+//   console.log(value);
+// };
+
+// const obj = {
+//   gg: 'gg',
+// };
+
+// obj.hasOwnProperty('gg');
