@@ -1,245 +1,208 @@
 'use strict';
-//* Об'єкти window і document
-// console.log(window);
-// console.dir(document);
-// console.log(location);
-// console.log(navigator);
 
-//* Cтарі методи пошуку елементів (getElementBy...)
+// const root = document.querySelector('.root');
 
-// const titleElement = document.getElementById('title');
-// const listItemElement = document.getElementsByClassName('base__image');
+// const el1 = document.createElement('div');
+// const el2 = document.createElement('div');
+// const el3 = document.createElement('div');
 
-// console.dir(titleElement);
-// console.dir(listItemElement);
-// * Сучасні методи пошуку елементів (querySelector, querySelectorAll)
-
-// const ref = {
-//   mainTitleElement: document.querySelector('#title'),
-//   listItemElements: document.querySelectorAll('.list__item'),
-// };
-
-// const mainTitleElement = document.querySelector('#title');
-// const listItemElements = document.querySelectorAll('.list__item');
-
-// console.dir(mainTitleElement);
-// console.dir(listItemElements);
-
-//* Навігації по DOM дереву
-// elem.parentNode - вибере батьківський elem.
-// elem.childNodes - псевдомасив, зберігає всі дочірні елементи, включно з текстовими.
-// elem.children - псевдомасив, зберігає тільки дочірні вузли-елементи, тобто ті, що відповідають тегам.
-// elem.firstChild - вибере перший дочірній елемент всередині elem, включно з текстовими вузлами.
-// elem.firstElementChild - вибере перший дочірній вузол-елемент всередині elem.
-// elem.lastChild - вибере останній дочірній елемент всередині elem, включно з текстовими вузлами.
-// elem.lastElementChild - вибере останній дочірній вузол-елемент всередині elem.
-// elem.previousSibling - вибере елемент «зліва» від elem (його попереднього сусіда).
-// elem.previousElementSibling - вибере вузол-елемент «зліва» від elem (його попереднього сусіда).
-// elem.nextSibling - вибере елемент «праворуч» від elem (його наступного сусіда)
-// elem.nextElementSibling - вибере вузол-елемент «праворуч» від elem (його наступного сусіда).
-
-// const listElement = document.querySelector('.list');
-// console.dir(listElement.nextElementSibling);
+// el1.appendChild(el3);
+// root.appendChild(el1, el2);
 
 /**
- * Атрибути як властивості.
+ *  ================ Example 1 ==================
+ * Створення видалння слухачів подій.
+ * Створити референс до наших кнопок. На одну з повісити зміну картинки.
+ * До іншої видалення слухача.
+ *
+ * `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/200/300`
+ *
+ * Розширити функціол, вробити кнопку вимкненою, якщо на ній не має слухача.
+ * На sub повісити функціонал який буде дотавати слухачі чи видаляти з main button
  */
 
-// const imageElement = document.querySelector('#baseImage');
-// console.dir(imageElement);
-// imageElement.src = 'https://picsum.photos/id/6/200/300';
-// imageElement.title = 'notebook';
-// imageElement.alt = 'notebook';
-// imageElement.width = 300;
+// const mainAction = document.querySelector('.js-main-action');
+// const subAction = document.querySelector('.js-sub-action');
+// const image = document.querySelector('.image');
 
-// https://picsum.photos/200/300
-// const actionButtonElement = document.querySelector('.action');
-// actionButtonElement.addEventListener('click', () => {
-//   imageElement.src = `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/200/300`;
-//   imageElement.alt = 'random image';
+// const handler = event => {
+//   image.src = `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/200/300`;
+// };
+
+// const deleteLisenerHandler = () => {
+//   if (!mainAction.disabled) {
+//     mainAction.removeEventListener('click', handler);
+//     mainAction.classList.add('disabled');
+//     mainAction.disabled = true;
+//   } else {
+//     mainAction.addEventListener('click', handler);
+//     mainAction.classList.remove('disabled');
+//     mainAction.disabled = false;
+//   }
+// };
+
+// mainAction.addEventListener('click', handler);
+// subAction.addEventListener('click', deleteLisenerHandler);
+
+/**
+ * ================ Example 2 ==================
+ * Розглянути обьект Event. Як отримати доступ. Що за властивості доступні.
+ */
+
+// // callback функції для слухачів. Іменування:
+// // handle[Назва дії]
+// // [Назва дії]handler
+// // on[Назва дії]
+// // const handleMainAction = ( ) => {}
+
+// document.addEventListener('scroll', event => {
+//   console.log(event);
 // });
 
-/*
- * Доступ до атрибутів
+// const clickHandler = event => {
+//   console.log(event);
+// };
+
+// document.addEventListener('click', clickHandler);
+/**
+ *  ================ Example 3 ==================
+ * Створення слухачів для подій:
+ * click, change, input, submit, focus, blur
  *
- * elem.hasAttribute(name)
- * elem.getAttribute(name)
- * elem.setAttribute(name, value)
- * elem.removeAttribute(name)
- * elem.attributes
+ * Необхідно використовуючи preventDefault,
+ * stopPropogation прибрати дефолтну поведінку форми.
+ *
+ * Написати валідатор для форми.
  */
 
-// const imageElement = document.querySelector('#baseImage');
-// console.log(imageElement.removeAttribute('class'));
-// console.log(imageElement.hasAttribute('src'));
-// console.log(imageElement.getAttribute('class'));
-//imageElement.setAttribute('src', `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/200/300`);
+// const inputName = document.querySelector('#name');
+// const select = document.querySelector('#select');
+// const acionButton = document.querySelector('.js-form-action');
+// const form = document.querySelector('.form');
 
-/**
- * Data Atributes
- */
+// inputName.addEventListener('focus', event => {
+//   console.log(event.type);
+// });
+// inputName.addEventListener('blur', event => {
+//   console.log(event);
+// });
 
-// const imageElement = document.querySelector('#baseImage');
-// imageElement.dataset.index = 'IMAGE';
-// console.dir(imageElement);
+// select.addEventListener('input', event => {
+//   console.log(event.type);
+// });
 
-/**
- *  Об'єкт style, cssText
- */
-// const titleElement = document.querySelector('#title');
-// console.dir(titleElement.style);
-// titleElement.style.color = '#777777';
-// titleElement.style.fontSize = '50px';
-// titleElement.style.backgroundColor = '#caffdd';
-// titleElement.style.padding = '20px';
+// select.addEventListener('change', event => {
+//   console.log(event);
+// });
 
-// titleElement.style.cssText = `
-//     color: #777777;
-//     font-size: 30px;
-//     background-color: #caffdd;
-//     padding: 50px;
-//   `;
-// titleElement.style = `
-//     color: #777777;
-//     font-size: 30px;
-//     background-color: #caffdd;
-//     padding: 20px;
-// `;
+// form.addEventListener('submit', event => {
+//   console.log(event);
+//   event.preventDefault();
+// });
 
-// console.log(titleElement);
+// const inputName = document.querySelector('#name');
+// const inputEmail = document.querySelector('#email');
+// const select = document.querySelector('#select');
+// const form = document.querySelector('.form');
 
-//* Методи об'єкту classList (add, remove, toggle, contains)
-
-// const rootElement = document.querySelector('.root');
-// console.log(rootElement.classList);
-// // rootElement.classList.add('red');
-// // rootElement.classList.remove('red');
-// // console.log(rootElement.classList.contains('red'));
-// // console.log(rootElement.className);
-// rootElement.classList.toggle('green');
-
-// const modalElement = document.querySelector('.modal');
-// const openModalButton = document.querySelector('.openModal');
-// const closeModalButton = document.querySelector('.closeModal');
-
-// const callback = () => {
-//   modalElement.classList.toggle('hidden');
+// const validation = function () {
+//   console.log('inputName: ', inputName);
+//   let statusName = inputValidation(inputName);
+//   let statusEmail = inputValidation(inputEmail);
+//   let statusSelect = selectValidation(select);
+//   if (statusName && statusEmail && statusSelect) {
+//     return true;
+//   } else {
+//     return false;
+//   }
 // };
 
-// openModalButton.addEventListener('click', callback);
-// closeModalButton.addEventListener('click', callback);
-
-/**
- * Card of Gallery
- */
-
-/*
-<li class="gallery-item">
-  <a href="#">
-    <img src="https://picsum.photos/id/237/200/300" alt="Labrador">
-    <p>Some Description</p>
-  </a>
-</li>
-*/
-
-// const galleryRoot = document.querySelector('#rootList');
-
-// const makeGalleryItem = function () {
-//   const li = document.createElement('li');
-//   li.classList.add('gallery-item');
-
-//   const a = document.createElement('a');
-//   a.href = '#';
-//   li.append(a);
-
-//   const img = document.createElement('img');
-//   img.src = 'https://picsum.photos/id/237/200/300';
-//   img.alt = 'Labrador';
-
-//   const p = document.createElement('p');
-//   p.textContent = 'Some Description';
-//   a.append(img, p);
-
-//   return li;
+// const inputValidation = target => {
+//   if (target.value && target.value.length >= 3) {
+//     target.parentNode.classList.remove('unvalid');
+//     target.parentNode.classList.add('valid');
+//     return true;
+//   } else {
+//     target.parentNode.classList.remove('valid');
+//     target.parentNode.classList.add('unvalid');
+//     return false;
+//   }
 // };
 
-// galleryRoot.append(makeGalleryItem());
-
-/**
- * Створити галерею на основі масиву pictures
- */
-
-/*
-  <li class="gallery-item">
-    <a href="#">
-      <img src="https://picsum.photos/id/237/200/300" alt="Labrador" width="" height="">
-      <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non laudantium nostrum, aliquid impedit sit repellendus neque minima
-            repudiandae nulla sed dolorem dolore corporis consectetur quam magni
-            vel numquam. Ipsam, ut?
-      </p>
-    </a>
-  </li>
-  */
-
-// Створити карточку на основі document.createElement
-// Перебір масиву pictures через map
-// Вставка колекції карток на сторінку за допомогою append(...args);
-
-//pictures
-// const galleryRoot = document.querySelector('#rootList');
-// const makeGalleryItem = function ({ classList, width, alt, description, height, url }) {
-//   const li = document.createElement('li');
-//   li.classList.add(classList);
-
-//   const a = document.createElement('a');
-//   a.href = '#';
-//   li.append(a);
-
-//   const img = document.createElement('img');
-//   img.src = url;
-//   img.alt = alt;
-//   img.width = width;
-//   img.height = height;
-
-//   const p = document.createElement('p');
-//   p.textContent = description;
-
-//   a.append(img, p);
-//   return li;
+// const selectValidation = target => {
+//   if (Number(target.value) > 0) {
+//     target.parentNode.classList.remove('unvalid');
+//     target.parentNode.classList.add('valid');
+//     return true;
+//   } else {
+//     target.parentNode.classList.remove('valid');
+//     target.parentNode.classList.add('unvalid');
+//     return false;
+//   }
 // };
 
-// const elements = pictures.map((el, index, array) => makeGalleryItem(el));
-// const elements = pictures.map(makeGalleryItem);
-// galleryRoot.append(...pictures.map(makeGalleryItem));
+// inputName.addEventListener('input', event => inputValidation(event.target));
+// inputEmail.addEventListener('input', event => inputValidation(event.target));
+// select.addEventListener('change', event => selectValidation(event.target));
+// form.addEventListener('submit', event => {
+//   event.preventDefault();
+//   console.log(validation());
+// });
 
-// Створити карточку на основі шаблонної строки
-// Вставка колекції карток на сторінку за допомогою innerHTML;
-// Вставка колекції карток на сторінку за допомогою insertAdjacentHTML('afterbegin', [array].join(''));
+/**
+ *  ================ Example 4 ==================
+ * Створення слухачів для подій:
+ * keydown, keyup, keypress нажимання клавіатури.
+ *
+ * Написати модальне вікно, яке буде закриватись по кліку на оверлей
+ * на кнопку закрити, або клавіша "ESC".
+ */
 
-// console.log(pictures);
+// const body = document.querySelector('body');
 
-const galleryRoot = document.querySelector('#rootList');
+// document.addEventListener('keypress', e => {
+//   console.log(e);
+//   //   if (e.code === 'Tab') {
+//   //     alert('some body was told me');
+//   //   }
+// });
 
-const makeGalleryItem = function (picture) {
-  return `
-  <li class="${picture.classList}">
-    <a href="#">
-      <img
-        src="${picture.url}"
-        alt="${picture.alt}"
-        width="${picture.width}"
-        height="${picture.height}"
-      >
-      <p>${picture.description}</p>
-    </a>
-  </li>
-  `;
-};
-// console.log(galleryRoot.innerHTML);
-const elements = pictures.map((el, index, array) => makeGalleryItem(el));
+// const modal = document.querySelector('.modal');
+// const mainAction = document.querySelector('.js-main-action');
+// const modalOverflow = document.querySelector('.overflow');
+// const closeAction = document.querySelector('.js-close-modal');
+// const body = document.querySelector('body');
 
-//innerHTML перезатре галерею.
-// galleryRoot.innerHTML = elements;
+// mainAction.addEventListener('click', () => {
+//   modal.classList.remove('hidden');
+//   openModal();
+// });
 
-galleryRoot.insertAdjacentHTML('beforeend', elements.join(''));
+// const closeModalClickHandler = event => {
+//   if (event.target === event.currentTarget) {
+//     modal.classList.add('hidden');
+//     closeModal();
+//   }
+// };
+
+// const closeModalEscapeHandler = event => {
+//   if (event.code === 'Escape') {
+//     modal.classList.add('hidden');
+//     closeModal();
+//   }
+// };
+
+// const openModal = function () {
+//   closeAction.addEventListener('click', closeModalClickHandler);
+//   body.addEventListener('keydown', closeModalEscapeHandler);
+//   modalOverflow.addEventListener('click', closeModalClickHandler);
+// };
+
+// const closeModal = function () {
+//   closeAction.removeEventListener('click', closeModalClickHandler);
+//   modalOverflow.removeEventListener('click', closeModalClickHandler);
+//   body.removeEventListener('keydown', closeModalEscapeHandler);
+// };
+
+const ddd = document.querySelector('#ddd');
+ddd.addEventListener('input', event => console.dir(event.target.checked));
