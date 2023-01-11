@@ -8,57 +8,27 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="root">
-      <h1 class="title" id="title">DOM. Работа с DOM</h1>
-      <!-- <div class="wrapper">
-        <img
-          id="baseImage"
-          class="base__image"
-          title="random image"
-          src="https://picsum.photos/200/300"
-          alt="image"
-          data-index="1"
-        />
-        <ul class="list" id="list">
-          <li class="list__item">Some Text Content</li>
-          <li class="list__item">Some Text Content</li>
-          <li class="list__item">Some Text Content</li>
-          <li class="list__item">Some Text Content</li>
-          <li class="list__item">Some Text Content</li>
-          <li class="list__item">Some Text Content</li>
-        </ul>
-        <div class="controls">
-          <button class="action">Some Action</button>
-          <button class="action openModal">Open Modal</button>
-        </div>
-      </div> -->
-      <ul class="root__list" id="rootList">
-        <li class="gallery-item">
-          <a href="#">
-            <img src="https://picsum.photos/id/10/300/200" alt="Labrador" width="" height="" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non laudantium nostrum, aliquid impedit sit
-              repellendus neque minima
-            </p>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="modal hidden">
-      <div class="overflow">
-        <div class="content">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non laudantium nostrum, aliquid impedit sit
-            repellendus neque minima repudiandae nulla sed dolorem dolore corporis consectetur quam magni vel numquam.
-            Ipsam, ut?
-          </p>
-          <button class="action closeModal">close</button>
-        </div>
+    <section class="section">
+      <span class="text">section</span>
+      <div class="div">
+        <span class="text">div</span>
+        <p class="description">
+          <span class="text">description</span>
+          <button class="action">Action</button>
+        </p>
       </div>
-    </div>
-    <script src="./js/items.js"></script>
+    </section>
+    <form action="" class="form">
+      <label for="email" class="label"><input type="text" class="input" id="email" placeholder="Email" /></label
+      ><button type="submit" class="action">Send</button>
+    </form>
+    <div class="calendar" data-index="calendar"></div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"
+      integrity="sha512-O2Y8hD83PQtRf8vcr0N+yxwRtErIVaHJ4NOpojzq2yvUmhiJbQIT9OAYu27t+mVk814t+ongBVGx+YGylICVkQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="./js/index.js"></script>
-    <!-- <script src="./js/game.js"></script> -->
   </body>
 </html>
