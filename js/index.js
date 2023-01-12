@@ -4,37 +4,36 @@
  * Поширення подій. Спливання подій. stopPropogation
  * Event.target ( на якому відбулась подія )
  * Event.currentTarget ( на якому знаходиться лістенер )
- * параметри AddEventListeners(event, callback, options, capture)
+ * параметри AddEventListeners(event, callback, options)
  */
 
 // const section = document.querySelector('.section');
-// // const div = document.querySelector('.div');
-// // const p = document.querySelector('.description');
+// const div = document.querySelector('.div');
+// const p = document.querySelector('.description');
 // const button = document.querySelector('.action');
 
+// // console.log(window);
 // const eventHandler = function (event) {
 //   event.stopPropagation();
-//   // console.dir(event.currentTarget);
-//   // console.dir(event.target);
-//   console.log(event.currentTarget.nodeName);
+//   // event.stopImmediatePropagation();
+//   // if (event.target.nodeName === 'BUTTON') {
+//   //   event.asome = 'sdmfhsdjkfhsdjkfhsdjkfhjksdhfjksdhjkdshjkf';
+//   // }
+//   console.group('Event: ', event);
+//   console.log('CurrentTarget: ', event.currentTarget);
+//   console.log('Target: ', event.target);
+//   console.groupEnd();
+//   // console.log(event.currentTarget.nodeName);
 // };
 
-// const eventHandler = function (event) {
-//   if (event.target.nodeName !== 'BUTTON') {
-//     console.log('We take section');
-//   }
-// };
+// // const eventHandler = function (event) {
+// //   (event.target === event.currentTarget || event.target === button) && console.log(event);
+// // };
 
-// const eventHandler1 = function (event) {
-//   if (event.target === event.currentTarget) {
-//     console.log('We take button');
-//   }
-// };
-
-// section.addEventListener('click', eventHandler1);
-// // div.addEventListener('click', eventHandler);
-// // p.addEventListener('click', eventHandler);
-// button.addEventListener('click', eventHandler1);
+// section.addEventListener('click', eventHandler);
+// div.addEventListener('click', eventHandler);
+// p.addEventListener('click', eventHandler);
+// button.addEventListener('click', eventHandler);
 
 /*
  * параметри addEventListener(event, callback, options)
@@ -48,15 +47,11 @@
 //   console.log(event);
 // };
 
-// form.addEventListener(
-//   'submit',
-//   eventHandler,
-//   {
-//     // capture: true,
-//     // once: true,
-//     passive: true,
-//   },
-// );
+// form.addEventListener('submit', eventHandler, {
+//   // capture: true,
+//   // once: true,
+//   passive: true,
+// });
 
 // const section = document.querySelector('.section');
 // const div = document.querySelector('.div');
@@ -68,24 +63,24 @@
 // };
 
 // section.addEventListener('click', eventHandler, {
-//   capture: true,
+//   // capture: true,
 //   // once: true,
-//   //   passive: true,
+//   // passive: true,
 // });
 // div.addEventListener('click', eventHandler, {
-//   capture: true,
+//   // capture: true,
 //   // once: true,
-//   //   passive: true,
+//   // passive: true,
 // });
 // p.addEventListener('click', eventHandler, {
-//   capture: true,
+//   // capture: true,
 //   // once: true,
-//   //   passive: true,
+//   // passive: true,
 // });
 // button.addEventListener('click', eventHandler, {
-//   capture: true,
+//   // capture: true,
 //   // once: true,
-//   //   passive: true,
+//   // passive: true,
 // });
 
 /**
@@ -96,16 +91,30 @@
  * Якщо ми будему клікати на день тиждня, то будуть виділятись всі дні цього тижня.
  */
 
-const calendar = document.querySelector('.calendar');
+// console.log(moment());
 
 const makeCalendarObjects = function () {
-  const startOfMonth = moment().startOf('month');
-  const daysOfMonth = moment().daysInMonth();
-  const daysCount = daysOfMonth / 7 > 4 ? 35 : 28;
+  const startOfMonth = moment().startOf('month'); // дата початку місяця
+  const daysOfMonth = moment().daysInMonth(); //кількысть днів в місяці
+  let daysCount; // кількість ячеєк для календаря.
+  if (daysOfMonth / 7 > 4) {
+    if (startOfMonth.days() === 0 || startOfMonth.days() === 6) {
+      daysCount = 42;
+    } else {
+      daysCount = 35;
+    }
+  } else {
+    if (startOfMonth.days() === 1) {
+      daysCount = 28;
+    } else {
+      daysCount = 35;
+    }
+  }
   const weeks = [];
   let week = [];
   for (let i = 1; i <= daysCount; i += 1) {
-    if (startOfMonth.days() > i) {
+    const day = startOfMonth.days() === 0 ? 7 : startOfMonth.days();
+    if (day > i) {
       week.push({ index: i, day: null });
     } else {
       week.push({
@@ -119,6 +128,7 @@ const makeCalendarObjects = function () {
       week = [];
     }
   }
+  console.log(weeks);
   return weeks;
 };
 
@@ -159,10 +169,17 @@ const makeCalendarMarkUp = function (calendarObjects) {
     `;
 };
 
-const root = document.querySelector('.calendar');
+const root = document.querySelector('.calendar'); // DIV.calendar
+
+// const objects = makeCalendarObjects();
+// const markup = makeCalendarMarkUp(objects);
+// root.insertAdjacentHTML('afterbegin', markup);
+
 root.insertAdjacentHTML('afterbegin', makeCalendarMarkUp(makeCalendarObjects()));
+
 const handler = event => {
   const tds = document.querySelectorAll('[data-day]');
+  console.log(tds);
   if (event.target.dataset.main) {
     tds.forEach(item => {
       if (item.dataset.week === event.target.dataset.week) {
@@ -182,14 +199,6 @@ const handler = event => {
       }
     });
   }
-  const customEvent = new Event('enter', {
-    type: 'enter',
-  });
-  calendar.dispatchEvent(customEvent);
 };
 
 root.addEventListener('click', handler);
-
-calendar.addEventListener('enter', e => {
-  console.log(e.type);
-});
