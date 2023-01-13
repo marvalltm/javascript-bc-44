@@ -1,6 +1,6 @@
 const initData = {
   title: 'Some Title',
-  description: ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quos.
+  description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quos.
   Possimus laudantium iure quisquam ipsam nesciunt veniam alias magni,
   inventore corporis, voluptatibus est eum temporibus rem cupiditate
   adipisci quam quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, quos.

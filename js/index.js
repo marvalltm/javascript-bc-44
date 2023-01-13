@@ -23,16 +23,45 @@
  *
  */
 // const root = document.querySelector('.root');
+// const makeMarkup = function (root) {
+//   const content = [];
+//   for (let i = 0; i < 10; i += 1) {
+//     const markup = `<section class="section" style="background-color: #${Math.floor(Math.random() * 16777215).toString(
+//       16
+//     )}; height: 500px">
+//       <h2>${initData.title}<h2>
+//     </section>`;
 
+//     content.push(markup);
+//   }
+
+//   root.insertAdjacentHTML('afterbegin', content.join(''));
+// };
+// makeMarkup(root);
+
+// const scrollHandler = function (event) {
+//   console.log('HELLO');
+// };
+
+// root.addEventListener('scroll', scrollHandler);
 /**
  *  ================ Example 2 ==================
  * Під'єднання lodash cdn
- * Обернути наш викли scrollHandler до _.trottle
+ * Обернути наш викли scrollHandler до _.throttle
  *
- * Додати removeEventListener('scroll', _.trottle).
+ * Додати removeEventListener('scroll', _.throttle).
  * Проблема з тим, що trottle поверне нам нову функцію.
  * І для того щоб його видалити необхідно спочатку trottle записати до якоїсь змінної
  */
+
+// const scrollHandler = function (event) {
+//   console.log('HELLO');
+// };
+// // вираз _.throttle(scrollHandler, 1000); повертаэ нофу функцію
+// const throttlet = _.throttle(scrollHandler, 1000); //
+
+// root.addEventListener('scroll', throttlet);
+// root.removeEventListener('scroll', throttlet);
 
 /**
  *  ================ Example 3 ==================
@@ -44,119 +73,108 @@
 // const outputError = document.querySelector('.js-output-error');
 // const countryCardEl = document.querySelector('.js-country-card');
 
-// const createCountryCard = ({ name, capital, population, area } = {}) => {
-//   return `<li class="country-card__item"><strong>Країна:</strong> ${name}</li>
-//      <li class="country-card__item"><strong>Столиця:</strong> ${capital}</li>
-//      <li class="country-card__item"><strong>Населення:</strong> ${population}</li>
-//      <li class="country-card__item"><strong>Площа:</strong> ${area}км<sup>2</sup></li>`;
-// };
+// function showCountry(countryObject) {
+//   return `
+//     <li class="country-card__item"><span style="margin-right: 20px">Name: </span>${countryObject.name}</li>
+//     <li class="country-card__item"><span style="margin-right: 20px">Capital: </span>${countryObject.capital}</li>
+//     <li class="country-card__item"><span style="margin-right: 20px">Population: </span>${countryObject.population}</li>
+//     <li class="country-card__item"><span style="margin-right: 20px">Area: </span>${countryObject.area}</li>
+//   `;
+// }
 
-// const onSearchElInput = event => {
-//   const searchQuery = event.target.value.trim();
-//   console.log(searchQuery);
-//   if (!searchQuery) {
-//     outputError.innerHTML = '';
+// function inputHandler(event) {
+//   const query = event.target.value.trim();
+//   const foundContry = countries.find(item => item.name.toLocaleLowerCase() === query.toLocaleLowerCase());
+//   if (foundContry) {
+//     countryCardEl.innerHTML = showCountry(foundContry);
+//     outputError.textContent = '';
+//   } else {
+//     outputError.textContent = 'Така країна не знайдена';
 //     countryCardEl.innerHTML = '';
-//     return;
 //   }
-//   const country = countries.find(el => {
-//     return el.name.toLowerCase() === searchQuery.toLowerCase();
-//   });
-//   if (!country) {
-//     outputError.textContent = 'Такої країни не знайдено';
-//     countryCardEl.innerHTML = '';
-//     return;
-//   }
-//   countryCardEl.innerHTML = createCountryCard(country);
-//   outputError.innerHTML = '';
-//   console.log(country);
-// };
+// }
 
-// searchInputEl.addEventListener('input', _.debounce(onSearchElInput, 2000));
+// searchInputEl.addEventListener('input', _.debounce(inputHandler, 3000));
 
 /**
  *  ================ Example 3 ==================
  * Image lazyloading
  */
 
-// const gallery = document.querySelector('.gallery');
-// const banner = document.querySelector('.banner__img');
+const gallery = document.querySelector('.gallery');
+const banner = document.querySelector('.banner__img');
 
-// const makeMarkUp = function () {
-//   return images
-//     .map(item => {
-//       return `
-//     <li class="gallery__item">
-//       <a href="#" class="gallery__link">
+// const makeMarkup = function () {
+//   const markup = images.map(item => {
+//     return `
+//      <li class="gallery__item">
+//        <a href="#" class="gallery__link">
 //         <img
 //           src="${item.url}"
 //           data-banner-url="${item.urlLarge}"
-//           alt="some image"
-//         />
-//       </a>
-//     </li>
+//           alt="random image"
+//         >
+//        </a>
+//      </li>
 //     `;
-//     })
-//     .join('');
+//   });
+//   return markup.join('');
 // };
+banner.src = images[0].urlLarge;
+// gallery.insertAdjacentHTML('afterbegin', makeMarkup());
 
 // Зробити заміну оснровного фото по кліку на картинку галереї
 // Додати lezyloading img використовуючи тег loading="lazy"
 
-// const makeMarkUp = function () {
-//   return images
-//     .map(item => {
-//       return `
-//     <li class="gallery__item">
-//       <a href="#" class="gallery__link">
+// const makeMarkup = function () {
+//   const markup = images.map(item => {
+//     return `
+//      <li class="gallery__item">
+//        <a href="#" class="gallery__link">
 //         <img
 //           src="${item.url}"
 //           data-banner-url="${item.urlLarge}"
-//           alt="some image"
+//           alt="random image"
 //           loading="lazy"
 //           height="300"
 //           width="200"
-//         />
-//       </a>
-//     </li>
+//         >
+//        </a>
+//      </li>
 //     `;
-//     })
-//     .join('');
+//   });
+//   return markup.join('');
 // };
+
+// gallery.insertAdjacentHTML('afterbegin', makeMarkup());
 
 // Додати lezyloading img використовуючи тег lazysizes
 
-// const makeMarkUp = function () {
-//   return images
-//     .map(item => {
-//       return `
-//     <li class="gallery__item">
-//       <a href="#" class="gallery__link">
-//         <img
-//           data-src="${item.url}"
-//           data-banner-url="${item.urlLarge}"
-//           alt="some image"
-//           class="lazyload"
-//         />
-//       </a>
-//     </li>
-//     `;
-//     })
-//     .join('');
-// };
-
-// const initGallery = function () {
-//   banner.src = images[0].urlLarge;
-//   gallery.insertAdjacentHTML('afterbegin', makeMarkUp());
-// };
-// initGallery();
-
-// const imageCheckHandler = event => {
-//   event.preventDefault();
-//   banner.src = event.target.dataset.bannerUrl;
-// };
-
-// gallery.addEventListener('click', imageCheckHandler);
+const makeMarkup = function () {
+  const markup = images.map(item => {
+    return `
+     <li class="gallery__item">
+       <a href="#" class="gallery__link">
+        <img
+          data-src="${item.url}"
+          data-banner-url="${item.urlLarge}"
+          alt="random image"
+          class="lazyload"
+        >
+       </a>
+     </li>
+    `;
+  });
+  return markup.join('');
+};
+gallery.insertAdjacentHTML('afterbegin', makeMarkup());
+function changeBunnerImage(event) {
+  // event.preventDefault();
+  if (event.target.nodeName === 'IMG') {
+    banner.src = event.target.dataset.bannerUrl;
+  }
+}
+gallery.addEventListener('click', changeBunnerImage);
 
 /**
  * =====================================================================================================================================
