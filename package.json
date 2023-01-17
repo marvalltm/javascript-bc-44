@@ -1,0 +1,31 @@
+{
+  "name": "bootcamp-44",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node index.js",
+    "predev": "parcel",
+    "dev": "node index.js",
+    "postdev": "echo \" Post command\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marvalltm/javascript-bc-44.git"
+  },
+  "keywords": [
+    "parcel"
+  ],
+  "author": "marvall (YAroslav Bezugly)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marvalltm/javascript-bc-44/issues"
+  },
+  "homepage": "https://github.com/marvalltm/javascript-bc-44#readme",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "uuid": "^9.0.0"
+  }
+}
