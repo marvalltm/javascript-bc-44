@@ -1,6 +1,6 @@
 # javascript-bc-44
 
-### Модуль 8 **\_\_\_** Заняття 15
+### Модуль 8 **\_\_** Заняття 15
 
 - Термінал
   - [Шпаргалка 1](https://tproger.ru/translations/bash-cheatsheet/)
