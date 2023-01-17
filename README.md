@@ -1,51 +1,16 @@
 # javascript-bc-44
 
-### Модуль 8 **\_\_** Заняття 15
+### Модуль 8 **\_\_** Заняття 16
 
-- Термінал
-  - [Шпаргалка 1](https://tproger.ru/translations/bash-cheatsheet/)
-  - [Шпаргалка 2](https://habr.com/ru/company/ruvds/blog/445270/)
-  - Відкрити Window
-    - `control + ~`
-    - `view > teminal`
-    - `command + shift + p або control + shift + p`
-  - Головні, корисні команди:
-    - шлях до поточної директорії (pwd)
-    - список ресурсів у директорії (ls)
-    - перехід до іншої директорії (cd)
-    - очищення терміналу `clear` або `control + l`
-    - створення нового файлу (touch)
-    - створення нової директорії (mkdir)
-    - перейменування/переміщення (mv)
-    - видаленя (rm)
-    - дізнатись детальну інформацію про команду (man команда)
-    - CTRL + c - закрити процесс.
-    - CTRL + z - звернути процесс.
-- Головні команди git:
-  - clone
-  - branch
-  - checkout
-  - pull
-  - add
-  - commit
-  - push
-  - merge
-- Node.js і npm
-  - [nvm](https://github.com/coreybutler/nvm-windows#installation--upgrades)
-  - встановлення
-  - ініціалізація та package.json
-  - [npmjs.com](https://www.npmjs.com/)
-  - як працювати з пакетами
-    - встановлення
-    - видалення
-  - .gitignore
-  - npm-скрипти
-    - pre та post
-  - Танспіляція кода (перетворення babel коду, до більш старих версій)
 - [Збирач Parcel](https://parceljs.org/)
   - [Збірка Саші](https://github.com/goitacademy/parcel-project-template)
 - [ECMAScript модулі](https://exploringjs.com/es6/ch_modules.html)
+
   - <script src="____" type="module"></script>
   - <include> early https://www.w3schools.com/howto/howto_html_include.asp
   - Дефолтний (default) експорт та імпорт
   - Іменованний (named) експорт та імпорт
+
+- JSON. JSON.parse JSON.stringify
+- localStorage. getItem, setItem, removeItem, clear
+- localStorage, sessionStorage, cookies. indexDB.
