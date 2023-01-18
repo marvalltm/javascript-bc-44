@@ -2,13 +2,9 @@
   "name": "bootcamp-44",
   "version": "1.0.0",
   "description": "test project",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node index.js",
-    "predev": "parcel",
-    "dev": "node index.js",
-    "postdev": "echo \" Post command\""
+    "dev": "parcel src/*.html",
+    "build": "parcel build src/*.html"
   },
   "repository": {
     "type": "git",
@@ -23,9 +19,10 @@
     "url": "https://github.com/marvalltm/javascript-bc-44/issues"
   },
   "homepage": "https://github.com/marvalltm/javascript-bc-44#readme",
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "moment": "^2.29.4",
-    "uuid": "^9.0.0"
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.2",
+    "parcel": "^2.8.2",
+    "posthtml-doctype": "^1.1.1",
+    "posthtml-include": "^1.7.4"
   }
 }
