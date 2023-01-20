@@ -3,106 +3,88 @@
  * then, catch, finally
  */
 
-// let intervall;
 // const promise = new Promise((resolve, reject) => {
-//     intervall = setInterval(() => {
-//         console.log("intervall tick")
-//         const number = Math.floor(Math.random() * 10)
-//         if (number > 10) {
-//             resolve(number)
-//         }
-//     }, 1000);
-
-//     setTimeout(() => {
-//         reject("time lost")
-//     }, 10000)
-// })
-
-// promise.then((data) => {
-//    console.log(data)
-// }).catch((err) => {
-//    console.log(err)
-// }).finally(() => {
-//     console.log(promise)
-//     clearInterval(intervall)
-// })
-
-//? конструктор new Promise(callback(resolve, reject));
-// const promise = new Promise((resolve, reject) => {
-//   const randomNumber = Math.random();
-
-//   setTimeout(() => {
-//     if (randomNumber > 0.5) {
-//       resolve('Done');
-//     } else {
-//       reject('Error');
-//     }
-//   }, 1000);
+//   if (Math.random() > 0.5) {
+//     resolve([{ name: 'John' }]);
+//   } else {
+//     reject('Some Problem');
+//   }
 // });
 
+// console.log('before promise result');
 // console.log(promise);
+// console.log('after promise result');
 
-//? then(onSuccess, onError)
-
-//? ланцюжок промісів та catch(onError)
-
-//? finally()
 // promise
 //   .then(data => {
-//       console.log(data);
-//       return "then end data"
+//     //дія після позитивного результату виконання промісу. Коли спрацював resolve
+//     console.log(data);
 //   })
-//   .then(someData => {
-//     console.log("2 then: ",someData);
-//     return "then end data"
-//   })
-//   .then(someData => {
-//       console.log("3 then: ", someData);
-//       return "then end data"
-//   })
-//   .then(someData => {
-//     console.log("4 then: ", someData);
-//     return "then end data"
-//   })
-//   .then(someData => {
-//     console.log("5 then: ", someData);
-//     return "then end data"
-//   })
-//   .catch(err => {
-//     console.log(err);
+//   .catch(error => {
+//     //дія після негативного результату виконання промісу. Коли спрацював reject
+//     console.log(error);
 //   })
 //   .finally(() => {
-//     console.log('The end!');
+//     //дія після будь якого результату виконання промісу. Коли спрацював resolve чи reject
 //   });
-
-// const result = promise
-//   .then(data => {
-//       console.log(data);
-//       return "then end data"
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   })
-//   .finally(() => {
-//     console.log('The end!');
-//   });
-
-// result.then(data => console.log(data))
-
-//? TASK 01
-// Чи можна "перевиконати" проміс?
 
 // const promise = new Promise((resolve, reject) => {
-//   resolve(1);
+//   let interval = setInterval(() => {
+//     console.log('TICK');
+//     const num = Math.random();
+//     if (num > 0.69) {
+//       resolve(num);
+//     }
+//   }, 1000);
 
 //   setTimeout(() => {
-//     resolve(2);
-//   }, 1000);
+//     reject('Timeout');
+//     clearInterval(interval);
+//   }, 10000);
 // });
 
-// promise.then(result => {
-//   console.log(result);
+// promise
+//   .then(data => {
+//     //дія після позитивного результату виконання промісу. Коли спрацював resolve
+//     console.log(data);
+//   })
+//   .catch(error => {
+//     //дія після негативного результату виконання промісу. Коли спрацював reject
+//     console.log(error);
+//   })
+//   .finally(() => {
+//     //дія після будь якого результату виконання промісу. Коли спрацював resolve чи reject
+//     console.log(promise);
+//   });
+
+// console.log(promise);
+//? конструктор new Promise(callback(resolve, reject));
+//? then(onSuccess, onError)
+//? ланцюжок промісів та catch(onError)
+
+// const promise = new Promise((res, rej) => {
+//   setTimeout(() => {
+//     const num = Math.random();
+//     if (num > 0.5) {
+//       res(num);
+//     } else {
+//       rej();
+//     }
+//   }, 3000);
 // });
+
+// promise
+//   .then(data => {
+//     console.log('FIRST THEN: ', data);
+//     return data;
+//   })
+//   .then(data => {
+//     console.log('SECOND THEN: ', data);
+//     let newNumn = data + 1;
+//     return newNumn;
+//   })
+//   .then(data => console.log('THIRD THEN: ', data))
+//   .catch(err => console.log('ERROR'));
 
 //? TASK 02
 // Що буде у консолі
@@ -116,8 +98,16 @@
 //     console.log(data); // '1'
 //   })
 //   .then(data => {
+//     console.log(data); // '1'
+//   })
+//   .then(data => {
+//     console.log(data); // '1'
+//   })
+//   .then(data => {
+//     console.log(data); // '1'
+//   })
+//   .then(data => {
 //     console.log(data); // undefined
-
 //     return '2';
 //   })
 //   .then(data => {
@@ -131,30 +121,54 @@
 //   resolve('promise');
 // });
 
-// console.log("first console");
+// console.log(1); // 1
 
 // promise
 //   .then(data => {
 //     setTimeout(() => {
-//         console.log("Timeout log ", data)
-//     }, 1000)
+//       console.log(2); // 7
+//     }, 1000);
 //   })
 //   .then(data => {
 //     setTimeout(() => {
-//         console.log("Timeout log ", "some")
-//     }, 0)
+//       console.log(3); // 5
+//     }, 0);
 //   })
-//     .then(() => { console.log("then") })
+//   .then(() => {
+//     console.log(4); // 3
+//   });
 
 // setTimeout(() => {
-//  console.log("Timeout log")
-// }, 0)
+//   console.log(5); // 4
+// }, 0);
 
 // setTimeout(() => {
-//  console.log("Timeout log 2")
-// }, 1000)
+//   console.log(6); // 6
+// }, 1000);
 
-// console.log("last console");
+// console.log(7); // 2
+
+// ===========================================================
+
+// console.log(1);
+
+// setTimeout(() => {
+//   console.log(4);
+// }, 0);
+
+// setTimeout(() => {
+//   console.log(5);
+// });
+
+// const promise = new Promise((res, rej) => {
+//   res(3);
+// });
+
+// promise.then(data => {
+//   console.log(data);
+// });
+
+// console.log(2);
 
 // ==================================================
 // ==================================================
@@ -171,48 +185,50 @@
 
 // const loadScript = (url, onSuccess, onError) => {
 //   const script = document.createElement('script');
-
 //   script.src = url;
-
-//   document.body.append(script);
+//   document.querySelector('body').append(script);
 
 //   script.addEventListener('load', event => {
-//     onSuccess(`Скрипт ${script.src} завантажився успішно! ${Date.now()}`);
+//     onSuccess('LOADED: ' + url);
 //   });
 
 //   script.addEventListener('error', event => {
-//     onError(`Скрипт ${script.src} не завантажився`);
+//     onError('ERROR: ' + url);
 //   });
 // };
+
+// function onSuccess(event) {
+//   console.log(`script loaded: `, event);
+// }
+// function onError(event) {
+//   console.log(`script failed: `, event);
+// }
 
 // loadScript(
 //   'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
 //   message => {
 //     console.log(message);
-
 //     loadScript(
 //       'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js',
 //       message => {
 //         console.log(message);
-
 //         loadScript(
 //           'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js',
-
 //           message => {
 //             console.log(message);
 //           },
-//           err => {
-//             console.log(err);
+//           error => {
+//             console.log(error);
 //           }
 //         );
 //       },
-//       err => {
-//         console.log(err);
+//       error => {
+//         console.log(error);
 //       }
 //     );
 //   },
-//   err => {
-//     console.log(err);
+//   error => {
+//     console.log(error);
 //   }
 // );
 
@@ -222,36 +238,39 @@
 //? Пекельна піраміда колбеків
 //? Рішення через проміси
 
+// https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js
+// https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js
+// https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js
+
 // const loadScript = url => {
-//     return new Promise((resolve, reject) => {
+//   return new Promise((resolve, reject) => {
+//     const script = document.createElement('script');
+//     script.src = url;
+//     document.querySelector('body').append(script);
 
-//         const script = document.createElement('script');
-//         script.src = url;
-//         document.body.append(script);
-
-//         script.addEventListener('load', event => {
-//             resolve(`Скрипт ${script.src} завантажився успішно!`);
-//         });
-
-//         script.addEventListener('error', event => {
-//             reject(`Скрипт ${script.src} не завантажився`);
-//         });
+//     script.addEventListener('load', () => {
+//       resolve('LOADED: ' + url);
 //     });
+
+//     script.addEventListener('error', () => {
+//       reject('FAILED: ' + url);
+//     });
+//   });
 // };
 
 // loadScript('https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js')
-//     .then(message => {
-//         console.log(message)
-//         return loadScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js')
-//     })
-//     .then(message => {
-//         console.log(message)
-//         return loadScript('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js')
-//     })
-//     .then(message => {
-//         console.log(message)
-//     })
-//     .catch(error => console.log(error))
+//   .then(data => {
+//     console.log(data);
+//     return loadScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js');
+//   })
+//   .then(data => {
+//     console.log(data);
+//     return loadScript('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js');
+//   })
+//   .then(data => {
+//     console.log(data);
+//   })
+//   .catch(error => console.log(error));
 
 // ========================================================
 // ========================================================
@@ -259,141 +278,74 @@
 
 // https://api.github.com/users/marvall
 
-// function myAsyncFunction(url) {
-//   const promise = new Promise((resolve, reject) => {
-//     const xhr = new XMLHttpRequest();
-//     //https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+// function fetchUserFromGithub(url) {
+//   return new Promise((resolve, reject) => {
+//     const requestToGitHub = new XMLHttpRequest();
+//     requestToGitHub.open('GET', url);
+//     requestToGitHub.send();
 
-//     xhr.open('GET', url);
-//     xhr.send();
-//       xhr.addEventListener('load', () => {
-//       if (xhr.status !== 200) {
-//         reject(xhr.status);
+//     requestToGitHub.addEventListener('load', () => {
+//       if (requestToGitHub.status === 200) {
+//         resolve(requestToGitHub.responseText);
 //       } else {
-//         resolve(xhr.responseText);
+//         reject(requestToGitHub.status);
 //       }
 //     });
 //   });
-
-//   return promise;
 // }
 
-// myAsyncFunction('https://api.github.com/users/marvall')
-//   .then(data => {
-//     console.log(JSON.parse(data));
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
-
-//? Запит за користувачем на колбэках
-// const fetchUserByName = (name, onSuccess, onError) => {
-//   console.log('Робимо запит на сервер...');
-
-//   setTimeout(() => {
-//     const isDone = Math.random();
-
-//     if (isDone > 0.5) {
-//       const user = {
-//         firstName: name,
-//         lastName: 'Francis',
-//         age: 30,
-//       };
-
-//       onSuccess(user);
-//     } else {
-//       onError("Користувача з таким ім'ям не знайдено");
-//     }
-//   }, 2000);
-// };
-
-// const handleSuccessFetch = data => {
-//   console.log(data);
-// };
-
-// const handleErrorFetch = err => {
-//   console.log(err);
-// };
-
-// fetchUserByName('Ida', handleSuccessFetch, handleErrorFetch);
-
-// ? Запит за користувачем на промісах
-// const fetchUserByName = name => {
-//   const promise = new Promise((resolve, reject) => {
-//     console.log('Робимо запит на сервер...');
-
-//     setTimeout(() => {
-//       const isDone = Math.random();
-
-//       if (isDone > 0.5) {
-//         const user = {
-//           firstName: name,
-//           lastName: 'Francis',
-//           age: 30,
-//         };
-
-//         resolve(user);
-//       } else {
-//         reject("Користувача з таким ім'ям не знайдено");
-//       }
-//     }, 2000);
-//   });
-
-//   return promise;
-// };
-
-// const promise = fetchUserByName('Ida');
-
-// promise
-//   .then(data => {
-//     console.log(data);
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
+// fetchUserFromGithub('https://api.github.com/users/marvall')
+//   .then(data => console.log(JSON.parse(data)))
+//   .catch(err => console.log(err));
 
 // ======================= Promis.all() race() any() ============================
 
-// const p1 = new Promise((resolve, reject) => {
-//     setTimeout(resolve, 1000, {promise: "one", data: []});
-// });
+const p1 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000, { promise: 'one', data: [] });
+});
 
-// const p2 = new Promise((resolve, reject) => {
-//   setTimeout(resolve, 500, {promise: "two", data: []});
-// });
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({ promise: 'two', data: [] });
+  }, 500);
+});
 
-// const p3 = new Promise((resolve, reject) => {
-//   setTimeout(resolve, 3000, {promise: "three", data: []});
-// });
+const p3 = new Promise((resolve, reject) => {
+  // setTimeout(resolve, 3000, { promise: 'three', data: [] });
+  reject('reject p3');
+});
 
-// const p4 = new Promise((resolve, reject) => {
-//   setTimeout(resolve, 4000, {promise: "four", data: []});
-// });
+const p4 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 4000, { promise: 'four', data: [] });
+});
+
 // const p5 = new Promise((resolve, reject) => {
-// // Этот промис прервёт Promise.all
-//   reject("reject");
+//   // Этот промис прервёт Promise.all
+//   reject('reject p5');
 // });
 
 /**
  * PROMISE ALL
  */
 
-// Promise.all([p1, p2, p3, p4, p5]).then(value => {
-//     console.log(value);
-// })
+// Promise.all([p1, p2, p3, p4, p5])
+//   .then(data => {
+//     console.log(data);
+//   })
+//   .catch(error => console.log(error));
 
 /**
  * PROMISE ANY
  */
 
 // Promise.any([p1, p2, p3, p4, p5]).then(value => {
-//     console.log(value);
-// })
+//   console.log(value);
+// });
 
 /**
  * PROMISE RACE
  */
 
-// Promise.race([p5, p2]).then(value => {
-//     console.log(value);
-// })
+// Promise.race([p1, p2, p4]).then(value => {
+//   console.log(value);
+// });
