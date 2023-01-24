@@ -4,3 +4,4 @@
 
 - Пагінація
 - Handlebars
+- URL

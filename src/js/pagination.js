@@ -1,41 +1,21 @@
-// https://jsonplaceholder.typicode.com/
+import { jsonPlaceholderApi } from './jsonplaceholder-api';
+import makeCollection from '../templates/posts.hbs';
 
-import { JsonPlaceholderApi } from './jsonplaceholder-api';
-import createPostCards from '../templates/posts.hbs';
+const gallery = document.querySelector('.js-posts');
+const loadMore = document.querySelector('.js-load-more');
+const api = new jsonPlaceholderApi();
 
-// console.log("createPostCards", createPostCards)
-
-const postsGalleryEl = document.querySelector('.js-posts');
-const loadMoreBtnEl = document.querySelector('.js-load-more');
-
-const jsonPlaceholderApi = new JsonPlaceholderApi();
-console.log(jsonPlaceholderApi);
-const renderPosts = () => {
-  jsonPlaceholderApi
-    .fetchPosts()
-    .then(data => {
-      // console.log("DATA IN THEN: ", data)
-      postsGalleryEl.innerHTML = createPostCards(data);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+const renderCollection = function () {
+  api.fetchPosts().then(data => {
+    gallery.insertAdjacentHTML('beforeend', makeCollection(data));
+  });
 };
 
-renderPosts();
+renderCollection();
 
-const onLoadMoreBtnClick = event => {
-  jsonPlaceholderApi.page += 1;
-
-  console.log(jsonPlaceholderApi);
-  jsonPlaceholderApi
-    .fetchPosts()
-    .then(data => {
-      postsGalleryEl.insertAdjacentHTML('beforeend', createPostCards(data));
-    })
-    .catch(err => {
-      console.log(err);
-    });
+const getNewCollection = event => {
+  api.page += 1;
+  renderCollection();
 };
 
-loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
+loadMore.addEventListener('click', getNewCollection);

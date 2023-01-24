@@ -1,58 +1,43 @@
 // https://unsplash.com/
-
 import { UnsplashAPI } from './unsplash-api';
-import createGalleryCards from '../templates/gallery-card.hbs';
+import makeMarkup from '../templates/gallery-card.hbs';
 
-const searchFormEl = document.querySelector('.js-search-form');
-const galleryEl = document.querySelector('.js-gallery');
-const loadMoreBtnEl = document.querySelector('.js-load-more');
+const gallery = document.querySelector('.js-gallery');
+const form = document.querySelector('.js-search-form');
+const loadMoreButton = document.querySelector('.js-load-more');
+const api = new UnsplashAPI();
 
-const unsplashAPI = new UnsplashAPI();
+const getCollection = () => {
+  api.fetchPhotos().then(data => {
+    console.log(data);
+    gallery.insertAdjacentHTML('beforeend', makeMarkup(data.results));
+    if (data.total_pages > api.page) {
+      loadMoreButton.classList.remove('is-hidden');
+    } else {
+      loadMoreButton.classList.add('is-hidden');
+    }
+    const { bottom } = document.querySelector('.js-gallery').lastElementChild.getBoundingClientRect();
+    setTimeout(() => {
+      window.scrollBy({
+        top: bottom + 2000,
+        behavior: 'smooth',
+      });
+    }, 3000);
+  });
+};
 
-const onSearchFormSubmit = event => {
+const formSubmitHandler = event => {
   event.preventDefault();
-
-  unsplashAPI.query = event.currentTarget.elements['user-search-query'].value;
-  unsplashAPI.page = 1;
-
-  unsplashAPI
-    .fetchPhotosByQuery()
-    .then(data => {
-      // console.log(data);
-      // console.dir(event.target)
-
-      if (data.results.length === 0) {
-        galleryEl.innerHTML = '';
-        loadMoreBtnEl.classList.add('is-hidden');
-        event.target.reset();
-        return;
-      }
-
-      galleryEl.innerHTML = createGalleryCards(data.results);
-
-      loadMoreBtnEl.classList.remove('is-hidden');
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  gallery.innerHTML = '';
+  api.page = 1;
+  api.query = event.target.elements['user-search-query'].value;
+  getCollection();
 };
 
-const onLoadMoreBtnClick = event => {
-  unsplashAPI.page += 1;
-
-  unsplashAPI
-    .fetchPhotosByQuery()
-    .then(data => {
-      if (unsplashAPI.page === data.total_pages) {
-        loadMoreBtnEl.classList.add('is-hidden');
-      }
-
-      galleryEl.insertAdjacentHTML('beforeend', createGalleryCards(data.results));
-    })
-    .catch(err => {
-      console.log(err);
-    });
+const loadMoreHandler = event => {
+  api.page += 1;
+  getCollection();
 };
 
-searchFormEl.addEventListener('submit', onSearchFormSubmit);
-loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
+loadMoreButton.addEventListener('click', loadMoreHandler);
+form.addEventListener('submit', formSubmitHandler);
