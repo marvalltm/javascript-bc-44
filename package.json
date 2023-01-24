@@ -23,6 +23,8 @@
     "@parcel/transformer-sass": "^2.8.2",
     "buffer": "^5.7.1",
     "parcel": "^2.8.2",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "parcel-transformer-hbs": "^1.0.4",
     "posthtml-doctype": "^1.1.1",
     "posthtml-include": "^1.7.4"
   },
