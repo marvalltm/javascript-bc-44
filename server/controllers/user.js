@@ -10,7 +10,8 @@ const getUsers = (request, response, next) => {
 };
 
 const getUser = (request, response, next) => {
-  // SELECT * FROM users WHERE id = "id"
+  //console.log(request);
+  //{ params, body, headers, query }
   try {
     const id = Number(request.params.id);
     const user = users.find(item => id === item.id);
@@ -46,15 +47,15 @@ const addOrUpdateUser = (request, response, next) => {
     const id = Number(request.params.id);
     const { login, rules } = request.body;
     if (login && rules) {
-      if (id) {
-        const user = users.find(item => id === item.id);
+      const user = users.find(item => id === item.id);
+      if (user) {
         user.login = login;
         user.rules = rules;
         response.status(200).send({ status: 'updated', data: user });
       } else {
-        const user = { id: Math.floor(Math.random() * 1000000), login, rules };
-        users.push(user);
-        response.status(201).send({ status: 'created', data: user });
+        const newUser = { id: Math.floor(Math.random() * 1000000), login, rules };
+        users.push(newUser);
+        response.status(201).send({ status: 'created', data: newUser });
       }
     } else {
       throw new Error("Cann't find login or rules keys");

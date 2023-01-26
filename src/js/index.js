@@ -3,220 +3,260 @@ const root = document.querySelector('.list__methods');
 const BASE_URL = 'http://localhost:3000';
 let someID;
 
+// ======================================================
+// ======================================================
+// =================== FETCH ============================
+// ======================================================
+
 // const getAllUsers = function () {
 //   return fetch(`${BASE_URL}/users`)
 //     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('NOT OK');
-//       }
+//       // if (!response.ok) {
+//       //   throw new Error('Bad Request');
+//       // }
 //       return response.json();
 //     })
 //     .then(({ data }) => {
-//       console.log('ALL USERS: ', data);
+//       console.log(data);
 //       someID = data[2].id;
-//     });
+//     })
+//     .catch(err => console.log(err));
 // };
 
 // const getOneUser = function () {
-//   if (someID) {
-//     return fetch(`${BASE_URL}/user/${someID}`)
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error('NOT OK');
-//         }
-//         return response.json();
-//       })
-//       .then(({ data }) => console.log('one USER: ', data));
-//   } else {
-//     throw new Error('not set ID');
-//   }
+//   return fetch(`${BASE_URL}/user/${someID}`)
+//     .then(response => {
+//       return response.json();
+//     })
+//     .then(({ data }) => {
+//       console.log(data);
+//     })
+//     .catch(err => console.log(err));
 // };
 
-// const addUser = function () {
+// const addOneUser = function () {
 //   return fetch(`${BASE_URL}/user`, {
-//     method: 'POST', // or 'PUT'
+//     method: 'POST',
 //     headers: {
 //       'Content-Type': 'application/json',
 //     },
-//     body: JSON.stringify({ login: 'wwwww@admin.com', rules: 'www' }),
+//     body: JSON.stringify({
+//       login: 'some@domain.com',
+//       rules: 'manager',
+//     }),
 //   })
 //     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('NOT OK');
-//       }
 //       return response.json();
 //     })
-//     .then(({ data, status }) =>
-//       console.log('status: ', status, 'data: ', data)
-//     );
-// };
-
-// const updateUser = function () {
-//   if (someID) {
-//     return fetch(`${BASE_URL}/user/${someID}`, {
-//       method: 'PUT', // or 'PUT'
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ login: 'wdddwwww@admin.com', rules: 'ddd' }),
+//     .then(({ data }) => {
+//       console.log(data);
 //     })
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error('NOT OK');
-//         }
-//         return response.json();
-//       })
-//       .then(({ data, status }) =>
-//         console.log('status: ', status, 'data: ', data)
-//       );
-//   } else {
-//     throw new Error('not set ID');
-//   }
+//     .catch(err => console.log(err));
 // };
 
-// const patchUser = function () {
-//   if (someID) {
-//     return fetch(`${BASE_URL}/user/${someID}`, {
-//       method: 'PATCH', // or 'PUT'
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ login: '11111www@admin.com', rules: '111' }),
+// // const updateOneUser = function () {
+// //   return fetch(`${BASE_URL}/user/${someID}`, {
+// //     method: 'PUT',
+// //     headers: {
+// //       'Content-Type': 'application/json',
+// //     },
+// //     body: JSON.stringify({
+// //       login: 'wwwwwwwwwwww@domain.com',
+// //       rules: 'manager',
+// //     }),
+// //   })
+// //     .then(response => {
+// //       return response.json();
+// //     })
+// //     .then(({ data }) => {
+// //       console.log(data);
+// //     })
+// //     .catch(err => console.log(err));
+// // };
+
+// const updateOneUser = function () {
+//   return fetch(`${BASE_URL}/user`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       login: 'dddddww@domain.com',
+//       rules: 'manager',
+//     }),
+//   })
+//     .then(response => {
+//       return response.json();
 //     })
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error('NOT OK');
-//         }
-//         return response.json();
-//       })
-//       .then(({ data, status }) =>
-//         console.log('status: ', status, 'data: ', data)
-//       );
-//   } else {
-//     throw new Error('not set ID');
-//   }
+//     .then(({ data }) => {
+//       console.log(data);
+//     })
+//     .catch(err => console.log(err));
 // };
 
-// const deleteUser = function () {
+// const patchOneUser = function () {
+//   return fetch(`${BASE_URL}/user/${someID}`, {
+//     method: 'PATCH',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       login: '2222222@domain.com',
+//       rules: 'admin',
+//     }),
+//   })
+//     .then(response => {
+//       return response.json();
+//     })
+//     .then(({ data }) => {
+//       console.log(data);
+//     })
+//     .catch(err => console.log(err));
+// };
+
+// const deleteOneUser = function () {
 //   return fetch(`${BASE_URL}/user/${someID}`, {
 //     method: 'DELETE',
 //   })
 //     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('NOT OK');
-//       }
 //       return response.json();
 //     })
-//     .then(({ data, status }) =>
-//       console.log('status: ', status, 'data: ', data)
-//     )
+//     .then(({ data }) => {
+//       console.log(data);
+//     })
+//     .catch(err => console.log(err));
 // };
 
-// axios(`${BASE_URL}/users`).then(({ data }) => console.log(data));
+// ======================================================
+// ======================================================
+// =================== AXIOS ============================
+// ======================================================
 
 // axios({
-//   method: 'GET',
-//   url: `${BASE_URL}/users`,
-// }).then(({ data }) => console.log(data));
+// url: "http://....."
+// method: "post",
+// data: {}
+// headers: {
+//
+//}
+//});
 
-// axios.get(`${BASE_URL}/users`).then(({ data }) => console.log(data));
+// axios.get(url, data, option)
+// axios.post(url, data, option);
+// axios.put(url, data, option);
+// axios.delete(url, data, option);
 
-const userAPI = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: { 'Content-Type': 'application/json' },
+const httpAPI = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 const getAllUsers = function () {
-  return userAPI(`/users`).then(({ data }) => {
-    someID = data.data[2].id;
-    console.log(data.data);
-  });
+  return axios(`${BASE_URL}/users`)
+    .then(({ data }) => {
+      console.log(data.data);
+      someID = data.data[2].id;
+    })
+    .catch(err => console.log(err));
 };
 
 const getOneUser = function () {
-  if (someID) {
-    return userAPI(`/user/${someID}`).then(({ data }) =>
-      console.log(data.data)
-    );
-  } else {
-    throw new Error('not set ID');
-  }
-};
-
-const addUser = function () {
-  return userAPI
-    .post(`/user`, {
-      login: 'wwwww@admin.com',
-      rules: 'www',
+  return axios
+    .get(`${BASE_URL}/user/${someID}`)
+    .then(({ data }) => {
+      console.log(data.data);
     })
-    .then(({ data }) => console.log(data));
+    .catch(err => console.log(err));
 };
 
-const updateUser = function () {
-  if (someID) {
-    return userAPI
-      .put(`/user/${someID}`, {
-        login: 'wwwww@admin.com',
-        rules: 'www',
-      })
-      .then(({ data }) => console.log(data));
-  } else {
-    throw new Error('not set ID');
+const addOneUser = function () {
+  return axios({
+    url: `${BASE_URL}/user`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: {
+      login: '2222222@domain.com',
+      rules: 'admin',
+    },
+  })
+    .then(({ data }) => console.log(data))
+    .catch(err => console.log(err));
+};
+
+const updateOneUser = function () {
+  return axios
+    .put(
+      `${BASE_URL}/user/${someID}`,
+      {
+        login: '111112@domain.com',
+        rules: 'manager',
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    .then(({ data }) => {
+      console.log(data.data);
+    })
+    .catch(err => console.log(err));
+};
+
+const patchOneUser = function () {
+  return httpAPI
+    .patch(`/user/${someID}`, {
+      login: 'ffffff@domain.com',
+      rules: 'user',
+    })
+    .then(({ data }) => {
+      console.log(data.data);
+    })
+    .catch(err => console.log(err));
+};
+
+const deleteOneUser = function () {
+  return httpAPI
+    .delete(`/user/${someID}`)
+    .then(({ data }) => {
+      console.log(data.data);
+    })
+    .catch(err => console.log(err));
+};
+
+const onClick = event => {
+  if (event.target.nodeName === 'BUTTON') {
+    switch (event.target.classList[1]) {
+      case 'get__all': {
+        getAllUsers();
+        break;
+      }
+      case 'get': {
+        getOneUser();
+        break;
+      }
+      case 'post': {
+        addOneUser();
+        break;
+      }
+      case 'put': {
+        updateOneUser();
+        break;
+      }
+      case 'patch': {
+        patchOneUser();
+        break;
+      }
+      case 'delete': {
+        deleteOneUser();
+        break;
+      }
+    }
   }
 };
 
-const patchUser = function () {
-  if (someID) {
-    return userAPI
-      .patch(`/user/${someID}`, {
-        login: 'wwssswww@admin.com',
-        rules: 'wsssww',
-      })
-      .then(({ data }) => console.log(data));
-  } else {
-    throw new Error('not set ID');
-  }
-};
-
-const deleteUser = function () {
-  if (someID) {
-    return userAPI
-      .delete(`/user/${someID}`)
-      .then(({ data }) => console.log(data));
-  } else {
-    throw new Error('not set ID');
-  }
-};
-
-const handleClick = function (e) {
-  const className = e.target.classList[1];
-  switch (className) {
-    case 'get__all': {
-      getAllUsers().catch(error => console.log(error));
-      break;
-    }
-    case 'get': {
-      getOneUser().catch(error => console.log(error));
-      break;
-    }
-    case 'post': {
-      addUser().catch(error => console.log(error));
-      break;
-    }
-    case 'put': {
-      updateUser().catch(error => console.log(error));
-      break;
-    }
-    case 'patch': {
-      patchUser().catch(error => console.log(error));
-      break;
-    }
-    case 'delete': {
-      deleteUser().catch(error => console.log(error));
-      break;
-    }
-  }
-};
-
-// ========================= LISTENER ================================
-root.addEventListener('click', handleClick);
+root.addEventListener('click', onClick);
