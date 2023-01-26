@@ -1,7 +1,6 @@
 const users = require('../data/users');
 
-const getUsers = (request, response, next) => {
-  //SELECT * FROM users
+const getUsers = async (request, response, next) => {
   try {
     response.status(200).send({ data: users });
   } catch (error) {
@@ -9,9 +8,7 @@ const getUsers = (request, response, next) => {
   }
 };
 
-const getUser = (request, response, next) => {
-  //console.log(request);
-  //{ params, body, headers, query }
+const getUser = async (request, response, next) => {
   try {
     const id = Number(request.params.id);
     const user = users.find(item => id === item.id);
@@ -25,10 +22,8 @@ const getUser = (request, response, next) => {
   }
 };
 
-const addUser = (request, response, next) => {
-  //INSERTS user TO users
+const addUser = async (request, response, next) => {
   try {
-    console.log(request.body);
     const { login, rules } = request.body;
     if (login && rules) {
       const user = { id: Math.floor(Math.random() * 1000000), login, rules };
@@ -42,20 +37,20 @@ const addUser = (request, response, next) => {
   }
 };
 
-const addOrUpdateUser = (request, response, next) => {
+const addOrUpdateUser = async (request, response, next) => {
   try {
     const id = Number(request.params.id);
     const { login, rules } = request.body;
     if (login && rules) {
-      const user = users.find(item => id === item.id);
-      if (user) {
+      if (id) {
+        const user = users.find(item => id === item.id);
         user.login = login;
         user.rules = rules;
         response.status(200).send({ status: 'updated', data: user });
       } else {
-        const newUser = { id: Math.floor(Math.random() * 1000000), login, rules };
-        users.push(newUser);
-        response.status(201).send({ status: 'created', data: newUser });
+        const user = { id: Math.floor(Math.random() * 1000000), login, rules };
+        users.push(user);
+        response.status(201).send({ status: 'created', data: user });
       }
     } else {
       throw new Error("Cann't find login or rules keys");
@@ -65,7 +60,7 @@ const addOrUpdateUser = (request, response, next) => {
   }
 };
 
-const updateUser = (request, response, next) => {
+const updateUser = async (request, response, next) => {
   try {
     const id = Number(request.params.id);
     const { login, rules } = request.body;
@@ -82,10 +77,11 @@ const updateUser = (request, response, next) => {
   }
 };
 
-const deleteUser = (request, response, next) => {
+const deleteUser = async (request, response, next) => {
   try {
     const id = Number(request.params.id);
     const userIndex = users.findIndex(item => id === item.id);
+    console.log(id, userIndex);
     if (id && userIndex > -1) {
       const removed = users.splice(userIndex, 1);
       response.status(200).send({ status: 'deleted', data: removed });
