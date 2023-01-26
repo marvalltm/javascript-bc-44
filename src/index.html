@@ -3,19 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./css/gallery.scss" />
     <link rel="stylesheet" href="./css/main.scss" />
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <ol class="navigation">
-        <li class="navigation__item">
-          <a href="./pagination.html" class="navigation__link">Pagination</a>
-        </li>
-        <li class="navigation__item">
-          <a href="./gallery.html" class="navigation__link">Gallery</a>
-        </li>
-      </ol>
-    </div>
+    <section class="gallery-section">
+      <div class="container">
+        <ul class="gallery js-gallery list"></ul>
+      </div>
+    </section>
+    <script type="module" src="./js/index.js"></script>
   </body>
 </html>
