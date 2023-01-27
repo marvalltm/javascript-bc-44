@@ -10,10 +10,10 @@ const {
 
 const router = express.Router();
 
-router.get('/all', getUsers);
+router.get('/all', getUsers); //http://localhost:3000/user/all
 router.post('/', addUser);
 router.get('/:id', getUser);
-router.put('/:id', addOrUpdateUser);
+router.put('/:id', addOrUpdateUser); //http://localhost:3000/user/:id
 router.patch('/:id', updateUser);
 router.delete('/:id', deleteUser);
 

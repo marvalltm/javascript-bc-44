@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"cVgJb":[function(require,module,exports) {
+})({"9Ab0P":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
-var HMR_PORT = null;
+var HMR_PORT = 1234;
 var HMR_SECURE = false;
-var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "ba60c367739bf03c";
+var HMR_ENV_HASH = "05e4bc001b2748be";
+module.bundle.HMR_BUNDLE_ID = "c09ec2811a7d1395";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -531,17 +531,95 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"ebWYT":[function(require,module,exports) {
+},{}],"lwGEh":[function(require,module,exports) {
 /**
  * Async Await. Написпти звернення за усіма юзерами виеористовуючи:
  * 1. Async Await + fetch
  * 2. Async Await + axios
  * Базовий URL: http://localhost:3000/user/all
- */ /**
+ */ // async function someFunction() {}
+// const someFunction = async function () {};
+// const someFunction = async () => {};
+//const baseURL = 'http://localhost:3000/user/all';
+/**
  * 1. Async Await + fetch
- */ /**
+ */ // const someFunction = async function () {
+//   try {
+//     const response = await fetch(baseURL);
+//     if (response.ok) {
+//       const data = await response.json();
+//       if (data) console.log('response1: ', data);
+//     } else {
+//       throw new Error('Some Problem 1');
+//     }
+//     const response2 = await fetch(baseURL + 'l');
+//     if (response2.ok) {
+//       const data = await response.json();
+//       if (data) console.log('response2: ', data);
+//     } else {
+//       throw new Error('Some Problem 2');
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
+// someFunction();
+/**
+ * RETURN from Async
+ */ // const someFunction = async function () {
+//   const response = await fetch(baseURL);
+//   if (response.ok) {
+//     return await response.json();
+//   } else {
+//     throw new Error('Some Problem 1');
+//   }
+// };
+// const someFunc2 = async function () {
+//   const result = await someFunction();
+//   const result2 = await someFunction();
+//   if (result2 && result) console.log(result, result2);
+// };
+// someFunc2();
+// const getCountries = async function () {
+//   try {
+//     const response = await fetch();
+//     if (!response.ok) {
+//       throw new Error('Bad request');
+//     }
+//     const data = await response.json();
+//     if (data.length > 10) {
+//       someFunc1();
+//     }
+//   } catch (e) {
+//     Notiflix.failure('Bad request');
+//   }
+// };
+/**
  * 2. Async Await + axios
- */ /*
+ */ // import axios from 'axios';
+// const baseURL = 'http://localhost:3000/user/alll';
+// const httpApi = axios.create({
+//   baseURL,
+//   method: 'get',
+// });
+// const fetchAllUsers = async function () {
+//   try {
+//     const { data } = await httpApi();
+//     return data;
+//   } catch (e) {
+//     console.log(e.message);
+//   }
+// };
+// const handleClick = async event => {
+//   const result = await fetchAllUsers();
+//   // Обробка чи рендер данних
+//   if (result) {
+//     console.log('result: ', result);
+//   }
+// };
+// const button = document.querySelector('.action_request');
+// button.addEventListener('click', handleClick);
+/*
  * ========================= ===== ====================================
  * ========================= TASKS ====================================
  * ========================= ===== ====================================
@@ -549,6 +627,6 @@ function hmrAcceptRun(bundle, id) {
  *  Написати авторізацію користувачів до локального сервера.
  *  Після авторизації Юзер маєможливість доступу до інших сервісів.
  */ 
-},{}]},["cVgJb","ebWYT"], "ebWYT", "parcelRequiredfdf")
+},{}]},["9Ab0P","lwGEh"], "lwGEh", "parcelRequiredfdf")
 
-//# sourceMappingURL=index.739bf03c.js.map
+//# sourceMappingURL=index.1a7d1395.js.map
